@@ -28,6 +28,10 @@
   "source": "./src/index.ts",
   "types": "./dist/index.d.ts",
   "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ],
   "scripts": {
     "build": "pkg build --strict",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
@@ -38,10 +42,6 @@
   "browserslist": [
     "> 0.2% and supports es6-module and supports es6-module-dynamic-import and not dead and not IE 11",
     "maintained node versions"
-  ],
-  "files": [
-    "dist",
-    "CHANGELOG.md"
   ],
   "dependencies": {
     "groq-js": "^1.1.3"
