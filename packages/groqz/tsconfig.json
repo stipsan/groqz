@@ -1,5 +1,6 @@
 {
-  "extends": "@acme/tsconfig/react-library.json",
-  "include": ["."],
+  "extends": "@groqz/tsconfig/base.json",
+  "include": ["src"],
+  "compilerOptions": {"rootDir": ".","outDir": "dist"},
   "exclude": ["dist", "build", "node_modules"]
 }
