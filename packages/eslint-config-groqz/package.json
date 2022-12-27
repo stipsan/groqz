@@ -1,8 +1,8 @@
 {
   "name": "eslint-config-groqz",
   "version": "0.0.0",
-  "main": "index.json",
   "license": "MIT",
+  "main": "index.json",
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.47.1",
     "@typescript-eslint/parser": "^5.47.1",
