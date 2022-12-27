@@ -39,6 +39,10 @@
     "> 0.2% and supports es6-module and supports es6-module-dynamic-import and not dead and not IE 11",
     "maintained node versions"
   ],
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ],
   "dependencies": {
     "groq-js": "^1.1.3"
   },

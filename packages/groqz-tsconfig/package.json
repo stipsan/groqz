@@ -1,7 +1,20 @@
 {
   "name": "@groqz/tsconfig",
   "version": "0.0.1",
+  "bugs": {
+    "url": "https://github.com/stipsan/groqz/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/stipsan/groqz.git",
+    "directory": "packages/groqz-tscofnig"
+  },
   "license": "MIT",
+  "author": "Cody Olsen <stipsan@gmail.com>",
+  "files": [
+    "base.json",
+    "CHANGELOG.md"
+  ],
   "publishConfig": {
     "access": "public"
   }

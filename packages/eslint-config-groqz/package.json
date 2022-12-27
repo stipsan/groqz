@@ -1,8 +1,21 @@
 {
   "name": "eslint-config-groqz",
   "version": "0.0.1",
+  "bugs": {
+    "url": "https://github.com/stipsan/groqz/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/stipsan/groqz.git",
+    "directory": "packages/eslint-config-groqz"
+  },
   "license": "MIT",
+  "author": "Cody Olsen <stipsan@gmail.com>",
   "main": "index.json",
+  "files": [
+    "index.json",
+    "CHANGELOG.md"
+  ],
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.47.1",
     "@typescript-eslint/parser": "^5.47.1",
