@@ -2,14 +2,14 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --no-cache --parallel --continue",
-    "lint": "turbo run lint",
-    "test": "turbo run test",
-    "clean": "turbo run clean && rm -rf node_modules",
-    "format": "npx prettier --ignore-path .gitignore --cache --write .",
     "changeset": "changeset",
-    "version-packages": "changeset version",
-    "release": "turbo run build --filter=docs^... && changeset publish"
+    "clean": "turbo run clean && rm -rf node_modules",
+    "dev": "turbo run dev --no-cache --parallel --continue",
+    "format": "npx prettier --ignore-path .gitignore --cache --write .",
+    "lint": "turbo run lint",
+    "release": "turbo run build --filter=docs^... && changeset publish",
+    "test": "turbo run test",
+    "version-packages": "changeset version"
   },
   "devDependencies": {
     "@changesets/cli": "^2.22.0",
@@ -18,10 +18,6 @@
     "prettier": "^2.8.1",
     "prettier-plugin-packagejson": "^2.3.0",
     "turbo": "^1.6.3"
-  },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true
   },
   "packageManager": "pnpm@7.20.0"
 }
