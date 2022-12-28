@@ -27,7 +27,6 @@
   "module": "./dist/index.js",
   "source": "./src/index.ts",
   "types": "./dist/index.d.ts",
-  "typings": "dist/index.d.ts",
   "files": [
     "dist",
     "CHANGELOG.md"
