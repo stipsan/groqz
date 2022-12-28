@@ -28,7 +28,9 @@ jobs:
           key: prettier-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('.gitignore') }}
       - name: check if workflows needs prettier
         run: npx prettier --cache --check ".github/workflows/**/*.yml" || (echo "An action can't make changes to actions, you'll have to run prettier manually" && exit 1)
-      - run: npx prettier --ignore-path .gitignore --cache --write .
+      # - run: npx prettier --ignore-path .gitignore --cache --write .
+      # https://github.com/prettier/prettier/issues/8048
+      - run: npx prettier --ignore-path <(cat .gitignore .prettierignore) --cache --write .
       - uses: EndBug/add-and-commit@61a88be553afe4206585b31aa72387c64295d08b # tag=v9
         with:
           default_author: github_actions
