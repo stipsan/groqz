@@ -12,7 +12,7 @@
     "version-packages": "changeset version"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.22.0",
+    "@changesets/cli": "^2.26.0",
     "eslint": "^7.32.0",
     "eslint-config-groqz": "workspace:*",
     "prettier": "^2.8.1",
