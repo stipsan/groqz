@@ -13,6 +13,7 @@
     "groqz": "workspace:*",
     "next": "^13.1.1",
     "react": "^18.2.0",
+    "zod": "^3.20.2",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
