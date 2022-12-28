@@ -1,3 +1,4 @@
+import type {InferType} from 'groqz'
 import { indexQuery } from '../queries'
 
 export default function Docs() {
@@ -10,6 +11,17 @@ export default function Docs() {
   return (
     <div>
       <h1>GROQZ Documentation</h1>
+      <ListPages data={data} />
     </div>
+  )
+}
+
+function ListPages({data}: {data: InferType<typeof indexQuery>}) {
+  return (
+    <ul>
+      {data.map((page) => (
+        <li key={page._id} data-type={page._type}>{page.title || 'Untitled'}</li>
+      ))}
+    </ul>
   )
 }

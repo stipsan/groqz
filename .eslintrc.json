@@ -1,0 +1,9 @@
+{
+  "root": true,
+  "extends": ["groqz"],
+  "settings": {
+    "next": {
+      "rootDir": ["apps/*/"]
+    },
+  },
+}
