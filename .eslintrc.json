@@ -4,6 +4,6 @@
   "settings": {
     "next": {
       "rootDir": ["apps/*/"]
-    },
-  },
+    }
+  }
 }

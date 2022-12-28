@@ -57,9 +57,8 @@ it('Filters', () => {
       "type": "Filter",
     }
   `)
-  expect(
-    fullParse(groq`*[_type in ["movie", "person"]]`)
-  ).toMatchInlineSnapshot(`
+  expect(fullParse(groq`*[_type in ["movie", "person"]]`))
+    .toMatchInlineSnapshot(`
     {
       "base": {
         "type": "Everything",
@@ -240,9 +239,8 @@ it('Slice Operations', () => {
       "type": "Slice",
     }
   `)
-  expect(
-    fullParse(groq`*[_type == "movie"]{title}[0...10]`)
-  ).toMatchInlineSnapshot(`
+  expect(fullParse(groq`*[_type == "movie"]{title}[0...10]`))
+    .toMatchInlineSnapshot(`
     {
       "base": {
         "base": {
@@ -290,9 +288,8 @@ it('Slice Operations', () => {
       "type": "Slice",
     }
   `)
-  expect(
-    fullParse(groq`*[_type == "movie"][0...10]{title}`)
-  ).toMatchInlineSnapshot(`
+  expect(fullParse(groq`*[_type == "movie"][0...10]{title}`))
+    .toMatchInlineSnapshot(`
     {
       "base": {
         "base": {
@@ -395,9 +392,8 @@ it('Ordering', () => {
       "type": "PipeFuncCall",
     }
   `)
-  expect(
-    fullParse(groq`*[_type == "movie"] | order(_createdAt desc)[0]`)
-  ).toMatchInlineSnapshot(`
+  expect(fullParse(groq`*[_type == "movie"] | order(_createdAt desc)[0]`))
+    .toMatchInlineSnapshot(`
     {
       "base": {
         "args": [
@@ -435,9 +431,8 @@ it('Ordering', () => {
       "type": "AccessElement",
     }
   `)
-  expect(
-    fullParse(groq`*[_type == "movie"][0..9] | order(_createdAt asc)`)
-  ).toMatchInlineSnapshot(`
+  expect(fullParse(groq`*[_type == "movie"][0..9] | order(_createdAt asc)`))
+    .toMatchInlineSnapshot(`
     {
       "args": [
         {
@@ -930,9 +925,8 @@ it('Objects and Arrays', () => {
 })
 
 it('Object Projections', () => {
-  expect(
-    fullParse(groq`*[_type == 'movie']{_id, _type, title}`)
-  ).toMatchInlineSnapshot(`
+  expect(fullParse(groq`*[_type == 'movie']{_id, _type, title}`))
+    .toMatchInlineSnapshot(`
     {
       "base": {
         "base": {
@@ -990,9 +984,8 @@ it('Object Projections', () => {
       "type": "Map",
     }
   `)
-  expect(
-    fullParse(groq`*[_type == 'movie']{'renamedId': _id, _type, title}`)
-  ).toMatchInlineSnapshot(`
+  expect(fullParse(groq`*[_type == 'movie']{'renamedId': _id, _type, title}`))
+    .toMatchInlineSnapshot(`
     {
       "base": {
         "base": {
@@ -1383,9 +1376,8 @@ it('Object Projections', () => {
       "type": "Map",
     }
   `)
-  expect(
-    fullParse(groq`*[_type == 'movie']{"actorCount": count(actors)}`)
-  ).toMatchInlineSnapshot(`
+  expect(fullParse(groq`*[_type == 'movie']{"actorCount": count(actors)}`))
+    .toMatchInlineSnapshot(`
     {
       "base": {
         "base": {
@@ -1602,9 +1594,8 @@ it('Object Projections', () => {
       "type": "Map",
     }
   `)
-  expect(
-    fullParse(groq`*[_type == 'book']{authors[]->{name, bio}}`)
-  ).toMatchInlineSnapshot(`
+  expect(fullParse(groq`*[_type == 'book']{authors[]->{name, bio}}`))
+    .toMatchInlineSnapshot(`
     {
       "base": {
         "base": {
@@ -1682,9 +1673,8 @@ it('Object Projections', () => {
       "type": "Map",
     }
   `)
-  expect(
-    fullParse(groq`{'threeMovieTitles': *[_type=='movie'][0..2].title}`)
-  ).toMatchInlineSnapshot(`
+  expect(fullParse(groq`{'threeMovieTitles': *[_type=='movie'][0..2].title}`))
+    .toMatchInlineSnapshot(`
     {
       "attributes": [
         {
@@ -1872,9 +1862,8 @@ it('Special variables', () => {
       "type": "Filter",
     }
   `)
-  expect(
-    fullParse(groq`*{"arraySizes": arrays[]{"size": count(@)}}`)
-  ).toMatchInlineSnapshot(`
+  expect(fullParse(groq`*{"arraySizes": arrays[]{"size": count(@)}}`))
+    .toMatchInlineSnapshot(`
     {
       "base": {
         "type": "Everything",
@@ -2869,9 +2858,8 @@ it('Conditionals', () => {
 })
 
 it('Functions', () => {
-  expect(
-    fullParse(groq`*[references("person_sigourney-weaver")]{title}`)
-  ).toMatchInlineSnapshot(`
+  expect(fullParse(groq`*[references("person_sigourney-weaver")]{title}`))
+    .toMatchInlineSnapshot(`
     {
       "base": {
         "base": {
@@ -3030,9 +3018,8 @@ it('Functions', () => {
       "type": "Filter",
     }
   `)
-  expect(
-    fullParse(groq`*{"title": coalesce(title.fi, title.en)}`)
-  ).toMatchInlineSnapshot(`
+  expect(fullParse(groq`*{"title": coalesce(title.fi, title.en)}`))
+    .toMatchInlineSnapshot(`
     {
       "base": {
         "type": "Everything",
@@ -3078,9 +3065,8 @@ it('Functions', () => {
       "type": "Map",
     }
   `)
-  expect(
-    fullParse(groq`count(*[_type == 'movie' && rating == 'R'])`)
-  ).toMatchInlineSnapshot(`
+  expect(fullParse(groq`count(*[_type == 'movie' && rating == 'R'])`))
+    .toMatchInlineSnapshot(`
     {
       "args": [
         {
@@ -3690,9 +3676,8 @@ it('Advanced', () => {
       "type": "Map",
     }
   `)
-  expect(
-    fullParse(groq`* { _id, "draft": *[_id == "drafts." + ^._id] }`)
-  ).toMatchInlineSnapshot(`
+  expect(fullParse(groq`* { _id, "draft": *[_id == "drafts." + ^._id] }`))
+    .toMatchInlineSnapshot(`
     {
       "base": {
         "type": "Everything",
@@ -3753,9 +3738,8 @@ it('Advanced', () => {
       "type": "Map",
     }
   `)
-  expect(
-    fullParse(groq`count(*[_type == "person" && isPublished])`)
-  ).toMatchInlineSnapshot(`
+  expect(fullParse(groq`count(*[_type == "person" && isPublished])`))
+    .toMatchInlineSnapshot(`
     {
       "args": [
         {
