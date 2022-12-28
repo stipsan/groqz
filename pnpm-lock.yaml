@@ -80,10 +80,7 @@ importers:
 
 packages:
   /@ampproject/remapping/2.2.0:
-    resolution:
-      {
-        integrity: sha512-qRmjj8nj9qmLTQXXmaR1cck3UXSRMPrbsLJAasZpF+t3riI71BXed5ebIOYwQntykeZuhjsdweEc9BxH5Jc26w==,
-      }
+    resolution: {integrity: sha512-qRmjj8nj9qmLTQXXmaR1cck3UXSRMPrbsLJAasZpF+t3riI71BXed5ebIOYwQntykeZuhjsdweEc9BxH5Jc26w==}
     engines: { node: '>=6.0.0' }
     dependencies:
       '@jridgewell/gen-mapping': 0.1.1
