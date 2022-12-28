@@ -1,13 +1,13 @@
 {
-  "name": "groqz",
-  "version": "1.0.2",
+  "name": "@groqz/to-ts",
+  "version": "0.0.0",
   "bugs": {
     "url": "https://github.com/stipsan/groqz/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/stipsan/groqz.git",
-    "directory": "packages/groqz"
+    "directory": "packages/to-ts"
   },
   "license": "MIT",
   "author": "Cody Olsen <stipsan@gmail.com>",
@@ -36,22 +36,23 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "pkg watch",
     "lint": "TIMING=1 eslint --max-warnings 0 .",
-    "test": "pkg check --strict"
+    "test": "vitest run"
   },
   "browserslist": [
     "> 0.2% and supports es6-module and supports es6-module-dynamic-import and not dead and not IE 11",
     "maintained node versions"
   ],
   "dependencies": {
-    "groq-js": "1.1.4-beta.1",
-    "zod": "^3.20.2"
+    "@groqz/to-zod": "workspace:*",
+    "zod-to-ts": "^1.1.1"
   },
   "devDependencies": {
     "@groqz/tsconfig": "workspace:*",
     "@sanity/pkg-utils": "^2.0.3",
     "eslint": "^8.30.0",
     "eslint-config-groqz": "workspace:*",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "vitest": "^0.26.2"
   },
   "engines": {
     "node": ">=14"

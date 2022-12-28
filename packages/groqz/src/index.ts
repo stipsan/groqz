@@ -28,5 +28,5 @@ export function groq(
   }
 }
 
-export { z }
+export { z, BaseResult }
 export type { InferType } from './types'
