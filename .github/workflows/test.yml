@@ -65,4 +65,4 @@ jobs:
           cache: pnpm
           node-version: ${{ matrix.node }}
       - run: pnpm install
-      - run: pnpm test -- --no-cache --force
+      - run: pnpm test
