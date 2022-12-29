@@ -1,9 +1,9 @@
-import { expect, it, describe } from 'vitest'
+import { expect, test, describe } from 'vitest'
 import { printZodFromGroq } from './index'
 import groq from 'groq'
 
 describe.concurrent('printZodFromGroq', () => {
-  it('Filters', () => {
+  test('Filters', () => {
     expect(printZodFromGroq(groq`*`)).toBe(`z.array(z.unknown())`)
     expect(printZodFromGroq(groq`*[]`)).toBe(`z.array(z.unknown())`)
     expect(printZodFromGroq(groq`*[_type == "movie"]`)).toBe(
@@ -19,7 +19,7 @@ describe.concurrent('printZodFromGroq', () => {
     )
   })
 
-  it('Text matching', () => {
+  test('Text matching', () => {
     expect(printZodFromGroq(groq`*[text match "word"]`)).toBe(
       `z.array(z.unknown())`
     )
@@ -35,7 +35,7 @@ describe.concurrent('printZodFromGroq', () => {
     ).toBe(`z.boolean()`)
   })
 
-  it('Slice Operations', () => {
+  test('Slice Operations', () => {
     expect(printZodFromGroq(groq`*[_type == "movie"][0]`)).toBe(`z.unknown()`)
     expect(printZodFromGroq(groq`*[_type == "movie"][0..5]`)).toBe(
       `z.array(z.unknown()).max(6)`
@@ -54,7 +54,7 @@ describe.concurrent('printZodFromGroq', () => {
     )
   })
 
-  it('Ordering', () => {
+  test('Ordering', () => {
     expect(
       printZodFromGroq(
         groq`*[_type == "movie"] | order(releaseDate desc) | order(_createdAt asc)`
@@ -65,30 +65,30 @@ describe.concurrent('printZodFromGroq', () => {
     ).toBe(`z.array(z.unknown())`)
   })
 
-  it('Joins', () => {
+  test('Joins', () => {
     //
   })
 
-  it('Objects and Arrays', () => {
+  test('Objects and Arrays', () => {
     //
   })
-  it('Object Projections', () => {
+  test('Object Projections', () => {
     //
   })
 
-  it('Special variables', () => {
+  test('Special variables', () => {
     //
   })
-  it('Conditionals', () => {
+  test('Conditionals', () => {
     //
   })
-  it('Functions', () => {
+  test('Functions', () => {
     //
   })
-  it('Geolocation', () => {
+  test('Geolocation', () => {
     //
   })
-  it('Arithmetic and Concatenation', () => {
+  test('Arithmetic and Concatenation', () => {
     expect(printZodFromGroq(groq`1 + 2`)).toBe(`z.number()`)
     expect(printZodFromGroq(groq`3 - 2`)).toBe(`z.number()`)
     expect(printZodFromGroq(groq`2 * 3`)).toBe(`z.number()`)
