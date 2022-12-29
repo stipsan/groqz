@@ -28,8 +28,7 @@ test('Filters', () => {
 })
 
 test('Text matching', () => {
-  const query = groq`"foo bar" match "fo*"`
-  expect(parse(query)).toEqual(fullParse(query))
+  expect(parse(groq`"foo bar" match "fo*"`)).toEqual(fullParse(groq`true`))
   expect(parse(groq`*[text match "word"]`)).toEqual(fullParse(groq`*[true]`))
 })
 
@@ -199,258 +198,28 @@ test('Object Projections', () => {
 })
 
 test('Special variables', () => {
-  expect(fullParse(groq`*[ @["1"] ]`)).toMatchInlineSnapshot(`
-    {
-      "base": {
-        "type": "Everything",
-      },
-      "expr": {
-        "base": {
-          "type": "This",
-        },
-        "name": "1",
-        "type": "AccessAttribute",
-      },
-      "type": "Filter",
-    }
-  `)
-  expect(fullParse(groq`*[ @[$prop]._ref == $refId ]`)).toMatchInlineSnapshot(`
-    {
-      "base": {
-        "type": "Everything",
-      },
-      "expr": {
-        "left": {
-          "base": {
-            "base": {
-              "type": "This",
-            },
-            "expr": {
-              "name": "prop",
-              "type": "Parameter",
-            },
-            "type": "Filter",
-          },
-          "expr": {
-            "base": {
-              "type": "This",
-            },
-            "name": "_ref",
-            "type": "AccessAttribute",
-          },
-          "type": "Map",
-        },
-        "op": "==",
-        "right": {
-          "name": "refId",
-          "type": "Parameter",
-        },
-        "type": "OpCall",
-      },
-      "type": "Filter",
-    }
-  `)
-  expect(fullParse(groq`*{"arraySizes": arrays[]{"size": count(@)}}`))
-    .toMatchInlineSnapshot(`
-    {
-      "base": {
-        "type": "Everything",
-      },
-      "expr": {
-        "base": {
-          "type": "This",
-        },
-        "expr": {
-          "attributes": [
-            {
-              "name": "arraySizes",
-              "type": "ObjectAttributeValue",
-              "value": {
-                "base": {
-                  "base": {
-                    "name": "arrays",
-                    "type": "AccessAttribute",
-                  },
-                  "type": "ArrayCoerce",
-                },
-                "expr": {
-                  "base": {
-                    "type": "This",
-                  },
-                  "expr": {
-                    "attributes": [
-                      {
-                        "name": "size",
-                        "type": "ObjectAttributeValue",
-                        "value": {
-                          "args": [
-                            {
-                              "type": "This",
-                            },
-                          ],
-                          "func": [Function],
-                          "name": "count",
-                          "type": "FuncCall",
-                        },
-                      },
-                    ],
-                    "type": "Object",
-                  },
-                  "type": "Projection",
-                },
-                "type": "Map",
-              },
-            },
-          ],
-          "type": "Object",
-        },
-        "type": "Projection",
-      },
-      "type": "Map",
-    }
-  `)
-
-  expect(parse(groq`*[ @["1"] ]`)).toEqual(fullParse(groq`*[true]`))
+  expect(parse(groq`*[ @["1"] ]`)).toEqual(fullParse(groq`*[ @["1"] ]`))
   expect(parse(groq`*[ @[$prop]._ref == $refId ]`)).toEqual(
     fullParse(groq`*[true]`)
   )
 
-  const query = groq`*{"arraySizes": arrays[]{"size": count(@)}}`
+  let query = groq`*{"arraySizes": arrays[]{"size": count(@)}}`
   expect(parse(query)).toEqual(fullParse(query))
 
-  expect(
-    parse(groq`*[_type=="person"]{
-    name,
-    "relatedMovies": *[_type=='movie' && references(^._id)]{ title }
-  }`)
-  ).toEqual(
-    fullParse(groq`*[_type=="person"]{
-    name,
-    "relatedMovies": *[_type=='movie' && true]{ title }
-  }`)
-  )
+  query = groq`*[_type=="person"]{
+      name,
+      "relatedMovies": *[_type=='movie' && references(^._id)]{ title }
+    }`
+  expect(parse(query)).toEqual(fullParse(query))
 
-  expect(
-    fullParse(groq`*[_type=="person"]{
+  query = groq`*[_type=="person"]{
     name,
     "relatedMovies": *[_type=='movie' && references(^._id)]{ title }
-  }`)
-  ).toMatchInlineSnapshot()
+  }`
+  expect(parse(query)).toEqual(fullParse(query))
 })
 
 test('Conditionals', () => {
-  expect(
-    fullParse(groq`*[_type=='movie']{..., "popularity": select(
-    popularity > 20 => "high",
-    popularity > 10 => "medium",
-    popularity <= 10 => "low"
-  )}`)
-  ).toMatchInlineSnapshot(`
-    {
-      "base": {
-        "base": {
-          "type": "Everything",
-        },
-        "expr": {
-          "left": {
-            "name": "_type",
-            "type": "AccessAttribute",
-          },
-          "op": "==",
-          "right": {
-            "type": "Value",
-            "value": "movie",
-          },
-          "type": "OpCall",
-        },
-        "type": "Filter",
-      },
-      "expr": {
-        "base": {
-          "type": "This",
-        },
-        "expr": {
-          "attributes": [
-            {
-              "type": "ObjectSplat",
-              "value": {
-                "type": "This",
-              },
-            },
-            {
-              "name": "popularity",
-              "type": "ObjectAttributeValue",
-              "value": {
-                "alternatives": [
-                  {
-                    "condition": {
-                      "left": {
-                        "name": "popularity",
-                        "type": "AccessAttribute",
-                      },
-                      "op": ">",
-                      "right": {
-                        "type": "Value",
-                        "value": 20,
-                      },
-                      "type": "OpCall",
-                    },
-                    "type": "SelectAlternative",
-                    "value": {
-                      "type": "Value",
-                      "value": "high",
-                    },
-                  },
-                  {
-                    "condition": {
-                      "left": {
-                        "name": "popularity",
-                        "type": "AccessAttribute",
-                      },
-                      "op": ">",
-                      "right": {
-                        "type": "Value",
-                        "value": 10,
-                      },
-                      "type": "OpCall",
-                    },
-                    "type": "SelectAlternative",
-                    "value": {
-                      "type": "Value",
-                      "value": "medium",
-                    },
-                  },
-                  {
-                    "condition": {
-                      "left": {
-                        "name": "popularity",
-                        "type": "AccessAttribute",
-                      },
-                      "op": "<=",
-                      "right": {
-                        "type": "Value",
-                        "value": 10,
-                      },
-                      "type": "OpCall",
-                    },
-                    "type": "SelectAlternative",
-                    "value": {
-                      "type": "Value",
-                      "value": "low",
-                    },
-                  },
-                ],
-                "type": "Select",
-              },
-            },
-          ],
-          "type": "Object",
-        },
-        "type": "Projection",
-      },
-      "type": "Map",
-    }
-  `)
   expect(
     parse(groq`*[_type=='movie']{..., "popularity": select(
     popularity > 20 => "high",
@@ -498,7 +267,7 @@ test('Conditionals', () => {
       "screenings": *[_type == 'screening' && true],
       "news": *[_type == 'news' && true],
     },
-    true => {
+    true && true => {
       "featured": true,
       "awards": *[_type == 'award' && true],
     },
@@ -524,7 +293,7 @@ test('Conditionals', () => {
       "screenings": *[_type == 'screening' && true],
       "news": *[_type == 'news' && true],
     }),
-    ...select(true => {
+    ...select(true && true => {
       "featured": true,
       "awards": *[_type == 'award' && true],
     }),
@@ -544,75 +313,25 @@ test('Conditionals', () => {
 })
 
 test('Functions', () => {
-  expect(fullParse(groq`*[references("person_sigourney-weaver")]{title}`))
-    .toMatchInlineSnapshot(`
-    {
-      "base": {
-        "base": {
-          "type": "Everything",
-        },
-        "expr": {
-          "args": [
-            {
-              "type": "Value",
-              "value": "person_sigourney-weaver",
-            },
-          ],
-          "func": [Function],
-          "name": "references",
-          "type": "FuncCall",
-        },
-        "type": "Filter",
-      },
-      "expr": {
-        "base": {
-          "type": "This",
-        },
-        "expr": {
-          "attributes": [
-            {
-              "name": "title",
-              "type": "ObjectAttributeValue",
-              "value": {
-                "name": "title",
-                "type": "AccessAttribute",
-              },
-            },
-          ],
-          "type": "Object",
-        },
-        "type": "Projection",
-      },
-      "type": "Map",
-    }
-  `)
-  expect(parse(groq`*[references("person_sigourney-weaver")]{title}`)).toEqual(
-    fullParse(groq`*[true]{title}`)
-  )
+  let query = groq`*[references("person_sigourney-weaver")]{title}`
+  expect(parse(query)).toEqual(fullParse(query))
 
-  expect(
-    fullParse(
-      groq`*[_type=="movie" && references(*[_type=="person" && age > 99]._id)]{title}`
-    )
-  ).toMatchInlineSnapshot()
   expect(
     parse(
       groq`*[_type=="movie" && references(*[_type=="person" && age > 99]._id)]{title}`
     )
-  ).toEqual(fullParse(groq`*[_type=="movie" && true]{title}`))
+  ).toEqual(
+    fullParse(
+      groq`*[_type=="movie" && references(*[_type=="person" && true]._id)]{title}`
+    )
+  )
 
-  expect(fullParse(groq`*[defined(tags)]`)).toMatchInlineSnapshot()
-  expect(parse(groq`*[defined(tags)]`)).toEqual(fullParse(groq`*[true]`))
-
-  expect(
-    fullParse(groq`*{"title": coalesce(title.fi, title.en)}`)
-  ).toMatchInlineSnapshot()
-  let query = groq`*{"title": coalesce(title.fi, title.en)}`
+  query = groq`*[defined(tags)]`
   expect(parse(query)).toEqual(fullParse(query))
 
-  expect(
-    fullParse(groq`count(*[_type == 'movie' && rating == 'R'])`)
-  ).toMatchInlineSnapshot()
+  query = groq`*{"title": coalesce(title.fi, title.en)}`
+  expect(parse(query)).toEqual(fullParse(query))
+
   expect(parse(groq`count(*[_type == 'movie' && rating == 'R'])`)).toEqual(
     fullParse(groq`count(*[_type == 'movie' && true])`)
   )
@@ -623,20 +342,12 @@ test('Functions', () => {
   }`
   expect(parse(query)).toEqual(fullParse(query))
 
-  expect(fullParse(groq`round(3.14)`)).toMatchInlineSnapshot()
   query = groq`round(3.14)`
   expect(parse(query)).toEqual(fullParse(query))
 
-  expect(fullParse(groq`round(3.14, 1)`)).toMatchInlineSnapshot()
   query = groq`round(3.14, 1)`
   expect(parse(query)).toEqual(fullParse(query))
 
-  expect(
-    fullParse(groq`*[_type == "post"] 
-  | score(description match "GROQ") 
-  | order(_score desc) 
-  { _score, title }`)
-  ).toMatchInlineSnapshot()
   expect(
     parse(groq`*[_type == "post"] 
   | score(description match "GROQ") 
@@ -644,14 +355,9 @@ test('Functions', () => {
   { _score, title }`)
   ).toEqual(fullParse(groq`*[_type == "post"] { _score, title }`))
 
-  expect(fullParse(groq`array::unique(*._type)`)).toMatchInlineSnapshot()
   query = groq`array::unique(*._type)`
   expect(parse(query)).toEqual(fullParse(query))
 
-  expect(
-    fullParse(groq`*[_type == "post"] 
-  { "plaintextBody": pt::text(body) }`)
-  ).toMatchInlineSnapshot()
   query = groq`*[_type == "post"] 
   { "plaintextBody": pt::text(body) }`
   expect(parse(query)).toEqual(fullParse(query))
@@ -698,25 +404,18 @@ test('Advanced', () => {
     fullParse(groq`* { _id, "draft": *[true] }`)
   )
 
-  expect(parse(groq`count(*[_type == "person" && isPublished])`)).toEqual(
-    fullParse(groq`count(*[_type == "person" && true])`)
-  )
+  let query = groq`count(*[_type == "person" && isPublished])`
+  expect(parse(query)).toEqual(fullParse(query))
 
-  expect(
-    fullParse(
-      groq`count(*[_type == "person" && (firstName + " " + lastName) == "Ronald McDonald"])`
-    )
-  ).toMatchInlineSnapshot()
   expect(
     parse(
       groq`count(*[_type == "person" && (firstName + " " + lastName) == "Ronald McDonald"])`
     )
   ).toEqual(fullParse(groq`count(*[_type == "person" && true])`))
 
-  expect(fullParse(groq`* | order(name)`)).toMatchInlineSnapshot()
   expect(parse(groq`* | order(name)`)).toEqual(fullParse(groq`*`))
 
-  let query = groq`*[_type == "category"] {
+  query = groq`*[_type == "category"] {
     title,
     parent->
   }`
@@ -758,7 +457,7 @@ test('Advanced', () => {
     categories[]->
   }`)
   ).toEqual(
-    fullParse(groq`*[_type == "product" && true && true]{
+    fullParse(groq`*[_type == "product" && defined(salePrice) && true]{
     ...,
     categories[]->
   }`)
@@ -772,7 +471,7 @@ test('Advanced', () => {
     "categories": categories[]->title
   }`)
   ).toEqual(
-    fullParse(groq`*[_type == "product" && true && true]{
+    fullParse(groq`*[_type == "product" && defined(salePrice) && true]{
     title,
     salePrice,
     displayPrice,

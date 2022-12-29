@@ -1,4 +1,7 @@
-import { parse as _parse } from 'groq-js'
+import { type OpCall, parse as _parse } from 'groq-js'
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const funcCallCache = new Map<string, any>()
 
 /**
  * This JSON.stringify replacer and JSON.parse reviver function compacts the AST returned by groq-js and removes anything
@@ -8,19 +11,75 @@ import { parse as _parse } from 'groq-js'
 function compacter(key: string, value: any): any {
   if (typeof value === 'object') {
     /**
+     * Turns `popularity > 5 => "result"` to `true => "result" and `popularity > 5 => {splat}` to `true => {splat}`
+     */
+    /*
+    if (
+      value?.type === 'SelectAlternative' ||
+      value?.type === 'ObjectConditionalSplat'
+    ) {
+      return { ...value, condition: { type: 'Value', value: true } }
+    }
+    // */
+
+    /**
+     * Handle coalesce functions
+     */
+    if (value?.type === 'FuncCall') {
+      if (value.func) {
+        funcCallCache.set(value.name, value.func)
+        return value
+      }
+      if (funcCallCache.has(value.name)) {
+        return { ...value, func: funcCallCache.get(value.name) }
+      }
+    }
+
+    /**
      * Replaces operator calls with `true` to be compatible with introspection
      * Except for `_type` queries, which are used to determine the type of the document
      */
-    if (key === 'expr' || key === 'left' || key === 'right') {
-      if (value.type === 'OpCall') {
-        if (
-          (value.left.type === 'AccessAttribute' &&
-            value.left.name !== '_type') ||
-          (value.right.type === 'AccessAttribute' &&
-            value.right.name !== '_type')
-        ) {
+    if (value?.type === 'OpCall') {
+      switch (value.op as OpCall) {
+        /**
+         * Operators to evaluate during introspection
+         */
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+        case '%':
+        case '**':
+          return value
+        /**
+         * Comparison operators that don't need to be evaulated, treat them as `true`
+         */
+        case '>':
+        case '>=':
+        case '<':
+        case '<=':
+        case 'match':
           return { type: 'Value', value: true }
-        }
+        /**
+         * Allow `in` to introspect queries like `_type in ["movie", "person"]`
+         */
+        case 'in':
+          return value.left.type === 'AccessAttribute' &&
+            value.left.name === '_type'
+            ? value
+            : { type: 'Value', value: true }
+        /**
+         * Handle the common `_type == "movie"` styles of filters, and run them during introspection
+         * to allow generating rich `z.enum` and `z.object` schemas.
+         */
+        case '==':
+        case '!=':
+          return (value.left.type === 'AccessAttribute' &&
+            value.left.name === '_type') ||
+            (value.right.type === 'AccessAttribute' &&
+              value.right.name === '_type')
+            ? value
+            : { type: 'Value', value: true }
       }
     }
 

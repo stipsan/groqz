@@ -1,6 +1,13 @@
 import { expect, test, describe } from 'vitest'
-import { printZodFromGroq } from './index'
+import { groqToZod } from './index'
+import { zodToTs, printNode } from 'zod-to-ts'
 import groq from 'groq'
+
+function printZodFromGroq(query: string) {
+  const schema = groqToZod(query)
+  const { node } = zodToTs(schema)
+  return printNode(node)
+}
 
 describe.concurrent('printZodFromGroq', () => {
   test('Filters', () => {

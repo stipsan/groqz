@@ -10,16 +10,4 @@ export function groqToZod(query: string): z.ZodType<unknown> {
   return z.unknown()
 }
 
-/**
- * Used for tooling that generate source code from a query
- * @alpha
- */
-export function printZodFromGroq(query: string): string {
-  const ast = parse(query)
-
-  console.log('printZodFromGroq', { query, ast })
-
-  return `z.unknown()`
-}
-
 export { z }
