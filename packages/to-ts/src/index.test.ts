@@ -5,8 +5,9 @@ import { expect, test } from 'vitest'
 import { groqToTs, printQueries } from './index'
 
 function fmt(code: string) {
-  return prettier.format(`interface Test ${code}`, {
+  return prettier.format(`type Test = ${code}`, {
     semi: false,
+    endOfLine: 'lf',
     parser: 'typescript',
   })
 }
@@ -78,8 +79,8 @@ test('printQueries', async () => {
           dataset: [{ _type: 'page', title: 'title' }, { _type: 'person' }],
         }
       ),
-      { semi: false, parser: 'typescript' }
-    )
+      { semi: false, parser: 'typescript', endOfLine: 'lf', }
+    ).
   ).toMatchInlineSnapshot(`
     "// This file was automatically generated. Edits will be overwritten
     import { z } from \\"zod\\"

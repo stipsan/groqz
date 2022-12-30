@@ -56,13 +56,8 @@ export async function groqToZod(query: string, options?: EvaluateOptions) {
         case 'boolean':
           return key === '' ? z.boolean() : z.boolean().optional()
         case 'object':
-          return key === ''
-            ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              z.object(value as any).strict()
-            : z
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                .object(value as any)
-                .strict()
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          return z.object(value as any).strict()
       }
 
       throw new Error(`Unknown key ${key} with value ${value}`)
