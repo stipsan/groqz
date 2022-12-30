@@ -1,7 +1,15 @@
 import groq from 'groq'
 import { expect, test } from 'vitest'
+import prettier from 'prettier'
 
 import { groqToTs, printQueries } from './index'
+
+function fmt(code: string) {
+  return prettier.format(`interface Test ${code}`, {
+    semi: false,
+    parser: 'typescript',
+  })
+}
 
 test('groqToTs', async () => {
   expect(await groqToTs(groq`*[_type == "page"]{ _id, _type, title }`)).toBe(
@@ -15,15 +23,22 @@ test('groqToTs', async () => {
   ).toBe(`Json[]`)
 
   expect(
-    await groqToTs(groq`*[_type == "page"]{ _id, _type, title, description }`, {
-      dataset: [{ _type: 'page', _id: '_id', title: 'title' }],
-    })
-  ).toBe(`{
+    fmt(
+      await groqToTs(
+        groq`*[_type == "page"]{ _id, _type, title, description }`,
+        {
+          dataset: [{ _type: 'page', _id: '_id', title: 'title' }],
+        }
+      )
+    )
+  ).toBe(
+    fmt(`{
     _id: string;
     _type: "page";
     title?: string | undefined;
     description?: Json | undefined;
 }[]`)
+  )
 
   expect(
     await groqToTs(groq`*[]{_type, title }`, {
@@ -50,42 +65,50 @@ test('groqToTs', async () => {
 
 test('printQueries', async () => {
   expect(
-    await printQueries(
-      [
-        groq`*[]{_type, title }`,
-        groq`*[_type == "page"]{_type, title }[0]`,
-        groq`*[_type == "movie"]{
+    prettier.format(
+      await printQueries(
+        [
+          groq`*[]{_type, title }`,
+          groq`*[_type == "page"]{_type, title }[0]`,
+          groq`*[_type == "movie"]{
           _type, title 
         }[0]`,
-      ],
-      {
-        dataset: [{ _type: 'page', title: 'title' }, { _type: 'person' }],
-      }
+        ],
+        {
+          dataset: [{ _type: 'page', title: 'title' }, { _type: 'person' }],
+        }
+      ),
+      { semi: false, parser: 'typescript' }
     )
   ).toMatchInlineSnapshot(`
     "// This file was automatically generated. Edits will be overwritten
-    import {z} from \\"zod\\";
+    import { z } from \\"zod\\"
 
     export type Literal = string | number | boolean | null
     export type Json = Literal | { [key: string]: Json } | Json[]
 
     export interface gen0 {
       query: /* groq */ \`*[]{_type, title }\`
-      schema: z.ZodType<({
-        _type: \\"page\\";
-        title?: string | undefined;
-    } | {
-        _type: \\"person\\";
-        title?: Json | undefined;
-    })[]>
+      schema: z.ZodType<
+        (
+          | {
+              _type: \\"page\\"
+              title?: string | undefined
+            }
+          | {
+              _type: \\"person\\"
+              title?: Json | undefined
+            }
+        )[]
+      >
     }
 
     export interface gen1 {
       query: /* groq */ \`*[_type == \\"page\\"]{_type, title }[0]\`
       schema: z.ZodType<{
-        _type: \\"page\\";
-        title?: string | undefined;
-    }>
+        _type: \\"page\\"
+        title?: string | undefined
+      }>
     }
 
     export interface gen2 {
