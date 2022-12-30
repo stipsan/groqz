@@ -10,7 +10,7 @@ function fmt(code: string) {
       semi: false,
       parser: 'typescript',
     })
-    .replace('\r\n', '\n')
+    .replaceAll('\r\n', '\n')
 }
 
 test('groqToTs', async () => {
