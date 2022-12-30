@@ -7,7 +7,7 @@ import { groqToTs, printQueries } from './index'
 function fmt(code: string) {
   return prettier.format(`type Test = ${code}`, {
     semi: false,
-    endOfLine: 'lf',
+    endOfLine: 'auto',
     parser: 'typescript',
   })
 }
@@ -79,7 +79,7 @@ test('printQueries', async () => {
           dataset: [{ _type: 'page', title: 'title' }, { _type: 'person' }],
         }
       ),
-      { semi: false, parser: 'typescript', endOfLine: 'lf' }
+      { semi: false, parser: 'typescript', endOfLine: 'auto' }
     )
   ).toMatchInlineSnapshot(`
     "// This file was automatically generated. Edits will be overwritten
