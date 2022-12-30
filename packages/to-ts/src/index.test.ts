@@ -1,17 +1,14 @@
 import groq from 'groq'
-import { EOL } from 'os'
 import prettier from 'prettier'
 import { expect, test } from 'vitest'
 
 import { groqToTs, printQueries } from './index'
 
 function fmt(code: string) {
-  return prettier
-    .format(`type Test = ${code}`, {
-      semi: false,
-      parser: 'typescript',
-    })
-    .replaceAll('\n', EOL)
+  return prettier.format(`type Test = ${code}`, {
+    semi: false,
+    parser: 'typescript',
+  })
 }
 
 test('groqToTs', async () => {

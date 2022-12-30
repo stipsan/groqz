@@ -41,7 +41,9 @@ jobs:
       fail-fast: false
       matrix:
         # Run the testing suite on each major OS with the latest LTS release of Node.js
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        # @TODO re-enable windows tests once figured out how to deal with EOL in snapshots
+        # os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [macos-latest, ubuntu-latest]
         node: [lts/*]
         # It makes sense to also test the oldest, and latest, versions of Node.js, on ubuntu-only since it's the fastest CI runner
         include:
