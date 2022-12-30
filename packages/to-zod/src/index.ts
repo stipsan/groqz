@@ -1,8 +1,7 @@
-import { type EvaluateOptions, evaluate } from 'groq-js'
+import { type EvaluateOptions, introspect } from '@groqz/parser'
 import { z } from 'zod'
 
 import { jsonSchema } from './jsonSchema'
-import { parse } from './parse'
 
 export * from './jsonSchema'
 
@@ -19,12 +18,9 @@ export type { EvaluateOptions }
 /** @alpha */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function groqToZod(query: string, options?: EvaluateOptions) {
-  const ast = parse(query)
-  const result = await evaluate(ast, options)
-
-  return JSON.parse(
-    JSON.stringify(await result.get()),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return await introspect(
+    query,
+    options, // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (key: string, value: any) => {
       if (key === '_type' && typeof value === 'string') {
         return z.literal(value)
@@ -73,5 +69,3 @@ export async function groqToZod(query: string, options?: EvaluateOptions) {
     }
   )
 }
-
-export { z }

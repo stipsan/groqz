@@ -1,0 +1,6 @@
+{
+  "extends": "@groqz/tsconfig/base.json",
+  "include": ["src"],
+  "compilerOptions": { "rootDir": ".", "outDir": "dist" },
+  "exclude": ["dist", "build", "node_modules"]
+}

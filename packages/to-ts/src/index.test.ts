@@ -1,9 +1,9 @@
 import groq from 'groq'
-import { expect, it } from 'vitest'
+import { expect, test } from 'vitest'
 
-import { groqToTs } from './index'
+import { groqToTs, printQueries } from './index'
 
-it('creates valid type definitions', async () => {
+test('groqToTs', async () => {
   expect(await groqToTs(groq`*[_type == "page"]{ _id, _type, title }`)).toBe(
     `Json`
   )
@@ -35,4 +35,63 @@ it('creates valid type definitions', async () => {
   title?: string | undefined;
   description?: Json | undefined;
 }[]`)
+
+  expect(
+    await groqToTs(groq`*[]{_type, title }`, {
+      dataset: [{ _type: 'page', title: 'title' }, { _type: 'person' }],
+    })
+  ).toBe(`{
+_id: string;
+_type: "page";
+title?: string | undefined;
+description?: Json | undefined;
+}[]`)
+})
+
+test('printQueries', async () => {
+  expect(
+    await printQueries(
+      [
+        groq`*[]{_type, title }`,
+        groq`*[_type == "page"]{_type, title }[0]`,
+        groq`*[_type == "movie"]{
+          _type, title 
+        }[0]`,
+      ],
+      {
+        dataset: [{ _type: 'page', title: 'title' }, { _type: 'person' }],
+      }
+    )
+  ).toMatchInlineSnapshot(`
+    "// This file was automatically generated. Edits will be overwritten
+    import {z} from \\"zod\\";
+
+    export type Literal = string | number | boolean | null
+    export type Json = Literal | { [key: string]: Json } | Json[]
+
+    export interface gen0 {
+      query: /* groq */ \\"*[]{_type, title }\\"
+      schema: z.ZodType<({
+        _type: \\"page\\";
+        title?: string | undefined;
+    } | {
+        _type: \\"person\\";
+        title?: Json | undefined;
+    })[]>
+    }
+
+    export interface gen1 {
+      query: /* groq */ \\"*[_type == \\\\\\"page\\\\\\"]{_type, title }[0]\\"
+      schema: z.ZodType<{
+        _type: \\"page\\";
+        title?: string | undefined;
+    }>
+    }
+
+    export interface gen2 {
+      query: /* groq */ \\"*[_type == \\\\\\"movie\\\\\\"]{\\\\n          _type, title \\\\n        }[0]\\"
+      schema: z.ZodType<Json>
+    }
+    "
+  `)
 })

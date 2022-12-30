@@ -20,25 +20,30 @@ importers:
 
   apps/docs:
     specifiers:
+      '@groqz/to-ts': workspace:*
       '@groqz/tsconfig': workspace:*
       '@types/node': ^18.11.18
       '@types/react': ^18.0.26
       '@types/react-dom': ^18.0.10
       eslint-config-groqz: workspace:*
       eslint-config-next: ^13.1.1
+      groq: ^2.33.2
       groqz: workspace:*
       next: ^13.1.1
       react: ^18.2.0
       react-dom: ^18.2.0
       typescript: ^4.9.4
+      write-file-atomic: ^5.0.0
       zod: ^3.20.2
     dependencies:
+      groq: 2.33.2
       groqz: link:../../packages/groqz
       next: 13.1.1_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       zod: 3.20.2
     devDependencies:
+      '@groqz/to-ts': link:../../packages/to-ts
       '@groqz/tsconfig': link:../../packages/tsconfig
       '@types/node': 18.11.18
       '@types/react': 18.0.26
@@ -46,6 +51,7 @@ importers:
       eslint-config-groqz: link:../../packages/eslint-config-groqz
       eslint-config-next: 13.1.1_lzzuuodtsqwxnvqeq4g4likcqa
       typescript: 4.9.4
+      write-file-atomic: 5.0.0
 
   packages/eslint-config-groqz:
     specifiers:
@@ -82,6 +88,27 @@ importers:
       eslint-config-groqz: link:../eslint-config-groqz
       typescript: 4.9.4
 
+  packages/parser:
+    specifiers:
+      '@groqz/tsconfig': workspace:*
+      '@sanity/pkg-utils': ^2.0.3
+      eslint: ^8.30.0
+      eslint-config-groqz: workspace:*
+      groq: ^2.33.2
+      groq-js: 1.1.4-beta.1
+      typescript: ^4.9.4
+      vitest: ^0.26.2
+    dependencies:
+      groq-js: 1.1.4-beta.1
+    devDependencies:
+      '@groqz/tsconfig': link:../tsconfig
+      '@sanity/pkg-utils': 2.0.3_typescript@4.9.4
+      eslint: 8.30.0
+      eslint-config-groqz: link:../eslint-config-groqz
+      groq: 2.33.2
+      typescript: 4.9.4
+      vitest: 0.26.2
+
   packages/to-ts:
     specifiers:
       '@groqz/to-zod': workspace:*
@@ -92,6 +119,7 @@ importers:
       groq: ^2.33.2
       typescript: ^4.9.4
       vitest: ^0.26.2
+      zod: ^3.20.2
       zod-to-ts: ^1.1.1
     dependencies:
       '@groqz/to-zod': link:../to-zod
@@ -104,22 +132,22 @@ importers:
       groq: 2.33.2
       typescript: 4.9.4
       vitest: 0.26.2
+      zod: 3.20.2
 
   packages/to-zod:
     specifiers:
+      '@groqz/parser': workspace:*
       '@groqz/tsconfig': workspace:*
       '@sanity/pkg-utils': ^2.0.3
       eslint: ^8.30.0
       eslint-config-groqz: workspace:*
       groq: ^2.33.2
-      groq-js: 1.1.4-beta.1
       typescript: ^4.9.4
       vitest: ^0.26.2
       zod: ^3.20.2
       zod-to-ts: ^1.1.1
     dependencies:
-      groq-js: 1.1.4-beta.1
-      zod: 3.20.2
+      '@groqz/parser': link:../parser
       zod-to-ts: 1.1.1_4umapwpw55xijlh2mknjgcn4rq
     devDependencies:
       '@groqz/tsconfig': link:../tsconfig
@@ -129,6 +157,7 @@ importers:
       groq: 2.33.2
       typescript: 4.9.4
       vitest: 0.26.2
+      zod: 3.20.2
 
   packages/tsconfig:
     specifiers: {}
@@ -3737,7 +3766,6 @@ packages:
   /groq/2.33.2:
     resolution: {integrity: sha512-5pf4c91JESCS28IJCgolJq/WBw4Xvf2m8FgZVUlrCig17I+qERosALAHLyyutXu403EYnyCD3DdCLaPb3aGneA==}
     engines: {node: '>=6'}
-    dev: true
 
   /hard-rejection/2.1.0:
     resolution: {integrity: sha512-VIZB+ibDhx7ObhAe7OVtoEbuP4h/MuOTHJ+J8h/eBXotJYl0fBgR72xDFCKgIh22OJZIOVNxBMWuhAr10r8HdA==}
@@ -5722,6 +5750,14 @@ packages:
 
   /wrappy/1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
+
+  /write-file-atomic/5.0.0:
+    resolution: {integrity: sha512-R7NYMnHSlV42K54lwY9lvW6MnSm1HSJqZL3xiSgi9E7//FYaI74r2G0rd+/X6VAMkHEdzxQaU5HUOXWUz5kA/w==}
+    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+    dependencies:
+      imurmurhash: 0.1.4
+      signal-exit: 3.0.7
+    dev: true
 
   /y18n/4.0.3:
     resolution: {integrity: sha512-JKhqTOwSrqNA1NY5lSztJ1GrBiUodLMmIZuLiDaMRJ+itFd+ABVE8XBjOvIWL+rSqNDC74LCSFmlb/U4UZ4hJQ==}
