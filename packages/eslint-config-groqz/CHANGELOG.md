@@ -1,5 +1,11 @@
 # eslint-config-groqz
 
+## 0.0.3
+
+### Patch Changes
+
+- 47264fc: sync wip
+
 ## 0.0.2
 
 ### Patch Changes
