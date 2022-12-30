@@ -1,5 +1,5 @@
-import prettier from 'prettier'
 import { type EvaluateOptions, introspect } from '@groqz/parser'
+import prettier from 'prettier'
 
 export type { EvaluateOptions }
 
@@ -14,6 +14,7 @@ const guaranteedKeys = new Set([
 
 /** @alpha */
 export async function groqToJs(query: string, options?: EvaluateOptions) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const result = await introspect(query, options, (key: string, value: any) => {
     if (key === '_type' && typeof value === 'string') {
       return `z.literal(${JSON.stringify(value)})`
@@ -55,6 +56,7 @@ export async function groqToJs(query: string, options?: EvaluateOptions) {
   return prettier.format(result, { semi: false, parser: 'babel' })
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function stringifyObject(obj: any): string {
   const parts = []
   for (const key in obj) {

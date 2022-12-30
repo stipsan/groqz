@@ -1,6 +1,6 @@
 import groq from 'groq'
-import { expect, test } from 'vitest'
 import prettier from 'prettier'
+import { expect, test } from 'vitest'
 
 import { groqToTs, printQueries } from './index'
 
