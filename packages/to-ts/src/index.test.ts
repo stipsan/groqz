@@ -1,4 +1,5 @@
 import groq from 'groq'
+import { EOL } from 'os'
 import prettier from 'prettier'
 import { expect, test } from 'vitest'
 
@@ -10,7 +11,7 @@ function fmt(code: string) {
       semi: false,
       parser: 'typescript',
     })
-    .replaceAll('\r\n', '\n')
+    .replaceAll('\n', EOL)
 }
 
 test('groqToTs', async () => {
