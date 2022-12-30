@@ -7,8 +7,8 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next",
     "dev": "next dev -p 3002",
     "lint": "TIMING=1 next lint",
-    "typegen": "node scripts/typegen.mjs",
-    "start": "next start "
+    "start": "next start ",
+    "typegen": "node scripts/typegen.mjs"
   },
   "dependencies": {
     "groq": "^2.33.2",
