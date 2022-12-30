@@ -79,8 +79,8 @@ test('printQueries', async () => {
           dataset: [{ _type: 'page', title: 'title' }, { _type: 'person' }],
         }
       ),
-      { semi: false, parser: 'typescript', endOfLine: 'lf', }
-    ).
+      { semi: false, parser: 'typescript', endOfLine: 'lf' }
+    )
   ).toMatchInlineSnapshot(`
     "// This file was automatically generated. Edits will be overwritten
     import { z } from \\"zod\\"
