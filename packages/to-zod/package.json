@@ -44,7 +44,7 @@
   ],
   "dependencies": {
     "@groqz/parser": "workspace:*",
-    "zod-to-ts": "^1.1.1"
+    "zod-to-ts": "^1.1.2"
   },
   "devDependencies": {
     "@groqz/tsconfig": "workspace:*",
