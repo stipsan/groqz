@@ -1,5 +1,6 @@
-import { z } from 'zod'
 import { parse } from 'groq-js'
+import { z } from 'zod'
+
 import type { BaseResult } from './types'
 
 /** @alpha */
@@ -28,5 +29,5 @@ export function groq(
   }
 }
 
-export { z, BaseResult }
+export { BaseResult,z }
 export type { InferType } from './types'

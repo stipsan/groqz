@@ -1,119 +1,1378 @@
-import { expect, test, describe } from 'vitest'
-import { groqToZod } from './index'
-import { zodToTs, printNode } from 'zod-to-ts'
 import groq from 'groq'
+import { expect, test } from 'vitest'
 
-function printZodFromGroq(query: string) {
-  const schema = groqToZod(query)
-  const { node } = zodToTs(schema)
-  return printNode(node)
-}
+import { type EvaluateOptions, groqToZod } from './index'
 
-describe.concurrent('printZodFromGroq', () => {
-  test('Filters', () => {
-    expect(printZodFromGroq(groq`*`)).toBe(`z.array(z.unknown())`)
-    expect(printZodFromGroq(groq`*[]`)).toBe(`z.array(z.unknown())`)
-    expect(printZodFromGroq(groq`*[_type == "movie"]`)).toBe(
-      `z.array(z.unknown())`
-    )
-    expect(
-      printZodFromGroq(
-        groq`*["person_sigourney-weaver" in castMembers[].person._ref]`
-      )
-    ).toBe(`z.array(z.unknown())`)
-    expect(printZodFromGroq(groq`*[slug.current == "some-slug"]`)).toBe(
-      `z.array(z.unknown())`
-    )
-  })
+test('No dataset', async () => {
+  let schema = await groqToZod(groq`*`)
+  expect(schema.parse([])).toEqual([])
+  expect(schema.parse({})).toEqual({})
+  expect(schema.parse(null)).toEqual(null)
+  expect(schema.parse([{}, 1])).toEqual([{}, 1])
+  expect(() => schema.parse(NaN)).toThrowErrorMatchingSnapshot()
+  expect(() => schema.parse([NaN])).toThrowErrorMatchingSnapshot()
 
-  test('Text matching', () => {
-    expect(printZodFromGroq(groq`*[text match "word"]`)).toBe(
-      `z.array(z.unknown())`
-    )
-    expect(printZodFromGroq(groq`*[[title, body] match ["wo*", "zero"]]`)).toBe(
-      `z.array(z.unknown())`
-    )
-    expect(
-      printZodFromGroq(groq`*[body[].children[].text match "aliens"]`)
-    ).toBe(`z.array(z.unknown())`)
-    expect(printZodFromGroq(groq`"foo bar" match "fo*"`)).toBe(`z.boolean()`)
-    expect(
-      printZodFromGroq(groq`"my-pretty-pony-123.jpg" match "my*.jpg"`)
-    ).toBe(`z.boolean()`)
-  })
+  schema = await groqToZod(
+    groq`{"count": count(*[_type == "person" && isPublished])}`
+  )
+  expect(schema.parse({ count: 0 })).toEqual({ count: 0 })
+  expect(() => schema.parse({ length: 0 })).toThrowErrorMatchingSnapshot()
+  expect(() => schema.parse(null)).toThrowErrorMatchingSnapshot()
 
-  test('Slice Operations', () => {
-    expect(printZodFromGroq(groq`*[_type == "movie"][0]`)).toBe(`z.unknown()`)
-    expect(printZodFromGroq(groq`*[_type == "movie"][0..5]`)).toBe(
-      `z.array(z.unknown()).max(6)`
-    )
-    expect(printZodFromGroq(groq`*[_type == "movie"][0...5]`)).toBe(
-      `z.array(z.unknown()).max(5)`
-    )
-    expect(printZodFromGroq(groq`*[_type == "movie"]{title}[0...10]`)).toBe(
-      `z.array(z.object({title: z.string()})).max(10)`
-    )
-    expect(printZodFromGroq(groq`*[_type == "movie"][0...10]{title}`)).toBe(
-      `z.array(z.object({title: z.string()})).max(10)`
-    )
-    expect(printZodFromGroq(groq`*[_type == "movie"][10...20]{title}`)).toBe(
-      `z.array(z.object({title: z.string()})).max(10)`
-    )
-  })
+  schema = await groqToZod(groq`1+2`)
+  expect(schema.parse(3)).toEqual(3)
+  expect(() => schema.parse(null)).toThrowErrorMatchingSnapshot()
+})
+test('Empty dataset array', async () => {
+  const dataset = [] as const
+  let schema = await groqToZod(groq`*`, { dataset })
+  expect(schema.parse([])).toEqual([])
+  expect(() => schema.parse({})).toThrowErrorMatchingSnapshot()
+  expect(() => schema.parse(null)).toThrowErrorMatchingSnapshot()
+  expect(schema.parse([{}, 1])).toEqual([{}, 1])
+  expect(() => schema.parse(NaN)).toThrowErrorMatchingSnapshot()
+  expect(() => schema.parse([NaN])).toThrowErrorMatchingSnapshot()
 
-  test('Ordering', () => {
-    expect(
-      printZodFromGroq(
-        groq`*[_type == "movie"] | order(releaseDate desc) | order(_createdAt asc)`
-      )
-    ).toBe(`z.array(z.unknown())`)
-    expect(
-      printZodFromGroq(groq`*[_type == "movie"][0..9] | order(_createdAt asc)`)
-    ).toBe(`z.array(z.unknown())`)
+  schema = await groqToZod(groq`count(*[_type == "person" && isPublished])`, {
+    dataset,
   })
+  expect(schema.parse(0)).toEqual(0)
+  expect(() => schema.parse(null)).toThrowErrorMatchingSnapshot()
+})
 
-  test('Joins', () => {
-    //
-  })
+const dataset = [
+  {
+    _type: 'movie',
+    _id: 'movie',
+    _createdAt: '2018-06-13T08:57:45Z',
+    _rev: 'Ql9pBhXUiKAfQDz2O3JdTy',
+    _updatedAt: '2021-09-27T11:51:34Z',
+    title: 'WALL-E',
+    slug: {
+      _type: 'slug',
+      current: 'walle',
+      source: 'title',
+    },
+    releaseDate: '2008-06-22T00:00:00Z',
+    poster: {
+      _type: 'image',
+      asset: {
+        _ref: 'image-69ad5d60ff19c456954513e8c67e9563c780d5e1-780x1170-jpg',
+        _type: 'reference',
+      },
+      crop: {
+        bottom: 0,
+        left: 0,
+        right: 0,
+        top: 0,
+      },
+      hotspot: {
+        height: 0,
+        width: 0,
+        x: 0,
+        y: 0,
+      },
+    },
+    popularity: 0.5,
+    overview: [
+      {
+        _key: '8a1fd7b434db11443bf33bc3a2428b64',
+        _type: 'block',
+      },
+    ],
+    externalId: 10681,
+    crewMembers: [
+      {
+        _type: 'crewMember',
+        _key: 'c1fa227f38952ce26d9a66cbe1813672',
+        department: 'Directing',
+        externalCreditId: '52fe43a29251416c750180d1',
+        externalId: 7,
+        job: 'Director',
+        person: {
+          _ref: 'person',
+          _type: 'reference',
+        },
+      },
+    ],
+    castMembers: [
+      {
+        _type: 'castMember',
+        _key: '3d1bfb748327aefa5a65203b99f59a04',
+        characterName: 'WALL·E / M-O (voice)',
+        externalCreditId: '52fe43a29251416c75018111',
+        externalId: 670,
+        person: {
+          _ref: 'person',
+          _type: 'reference',
+        },
+      },
+    ],
+  },
+  {
+    _type: 'sanity.imageAsset',
+    _id: 'image-69ad5d60ff19c456954513e8c67e9563c780d5e1-780x1170-jpg',
+    _createdAt: '2021-09-27T11:51:05Z',
+    _rev: '91mNbnWW9fkBqVwXvIRtZU',
+    _updatedAt: '2021-09-27T11:51:06Z',
+    assetId: '69ad5d60ff19c456954513e8c67e9563c780d5e1',
+    extension: 'jpg',
+    metadata: {
+      dimensions: {
+        aspectRatio: 0.6666666666666666,
+        height: 1170,
+        width: 780,
+      },
+      palette: {
+        darkMuted: {
+          background: 'color',
+          foreground: 'color',
+          population: 0,
+          title: 'color',
+        },
+        darkVibrant: {
+          background: 'color',
+          foreground: 'color',
+          population: 0,
+          title: 'color',
+        },
+        dominant: {
+          background: 'color',
+          foreground: 'color',
+          population: 0,
+          title: 'color',
+        },
+        lightMuted: {
+          background: 'color',
+          foreground: 'color',
+          population: 0,
+          title: 'color',
+        },
+        lightVibrant: {
+          background: 'color',
+          foreground: 'color',
+          population: 0,
+          title: 'color',
+        },
+        muted: {
+          background: 'color',
+          foreground: 'color',
+          population: 0,
+          title: 'color',
+        },
+        vibrant: {
+          background: 'color',
+          foreground: 'color',
+          population: 0,
+          title: 'color',
+        },
+      },
+    },
+    mimeType: 'image/jpeg',
+    originalFilename: '9cJETuLMc6R0bTWRA5i7ctY9bxk.jpg',
+    path: 'images/ppsg7ml5/movies/69ad5d60ff19c456954513e8c67e9563c780d5e1-780x1170.jpg',
+    sha1hash: '24c06f292f58e9cac6efd371104e51c16f6c36f8',
+    size: 153341,
+    uploadId: 'xGiN4ECUAF4PSONjFQuD5gN9UYh4NNZY',
+    url: 'https://cdn.sanity.io/images/ppsg7ml5/movies/69ad5d60ff19c456954513e8c67e9563c780d5e1-780x1170.jpg',
+  },
+  {
+    _type: 'person',
+    _id: 'person',
+    _createdAt: '2018-06-13T08:57:45Z',
+    _rev: 'Ql9pBhXUiKAfQDz2O3JWhy',
+    _updatedAt: '2021-09-27T11:51:31Z',
+    image: {
+      _type: 'image',
+      asset: {
+        _ref: 'image-69ad5d60ff19c456954513e8c67e9563c780d5e1-780x1170-jpg',
+        _type: 'reference',
+      },
+    },
+    name: 'Ben Burtt',
+    slug: {
+      _type: 'slug',
+      current: 'ben-burtt',
+      source: 'name',
+    },
+  },
+] as const
+const options: EvaluateOptions = { dataset }
 
-  test('Objects and Arrays', () => {
-    //
-  })
-  test('Object Projections', () => {
-    //
-  })
+test('Filters', async () => {
+  let schema = await groqToZod(groq`*`, options)
+  expect(schema.parse([])).toEqual([])
+  expect(() => schema.parse([{}, 1])).toThrowErrorMatchingSnapshot()
+  expect(() => schema.parse([{ foo: 'bar' }, 1])).toThrowErrorMatchingSnapshot()
 
-  test('Special variables', () => {
-    //
-  })
-  test('Conditionals', () => {
-    //
-  })
-  test('Functions', () => {
-    //
-  })
-  test('Geolocation', () => {
-    //
-  })
-  test('Arithmetic and Concatenation', () => {
-    expect(printZodFromGroq(groq`1 + 2`)).toBe(`z.number()`)
-    expect(printZodFromGroq(groq`3 - 2`)).toBe(`z.number()`)
-    expect(printZodFromGroq(groq`2 * 3`)).toBe(`z.number()`)
-    expect(printZodFromGroq(groq`8 / 4`)).toBe(`z.number()`)
-    expect(printZodFromGroq(groq`2 ** 4`)).toBe(`z.number()`)
-    expect(printZodFromGroq(groq`8 % 3`)).toBe(`z.number()`)
-    expect(printZodFromGroq(groq`9 ** (1/2)`)).toBe(`z.number()`)
-    expect(printZodFromGroq(groq`27 ** (1/3)`)).toBe(`z.number()`)
-    expect(printZodFromGroq(groq`"abc" + "def"`)).toBe(`z.string()`)
-    expect(printZodFromGroq(groq`[1,2] + [3,4]`)).toBe(`z.array(z.number())`)
-    expect(printZodFromGroq(groq`[1,"2"] + ["3",4]`)).toBe(
-      `z.array(z.union([z.number(), z.string()]))`
-    )
-    expect(printZodFromGroq(groq`{"a":1,"b":2} + {"c":3}`)).toBe(
-      `z.record(z.number())`
-    )
-    expect(printZodFromGroq(groq`{"a":1,"b":2} + {"c":"d"}`)).toBe(
-      `z.record(z.union([z.number(), z.string()]))`
-    )
-  })
+  schema = await groqToZod(groq`*[]{_type}`, options)
+  expect(
+    schema.parse([
+      { _type: 'movie' },
+      { _type: 'person' },
+      { _type: 'sanity.imageAsset' },
+    ])
+  ).toEqual([
+    { _type: 'movie' },
+    { _type: 'person' },
+    { _type: 'sanity.imageAsset' },
+  ])
+  expect(() => schema.parse([{}])).toThrowErrorMatchingSnapshot()
+  expect(() =>
+    schema.parse([{ _type: 'crewMember' }])
+  ).toThrowErrorMatchingSnapshot()
+
+  schema = await groqToZod(
+    groq`*[_type in ["movie", "person"]]{_type}`,
+    options
+  )
+  expect(schema.parse([{ _type: 'movie' }, { _type: 'person' }])).toEqual([
+    { _type: 'movie' },
+    { _type: 'person' },
+  ])
+  expect(() =>
+    schema.parse([{ _type: 'sanity.imageAsset' }])
+  ).toThrowErrorMatchingSnapshot()
+  expect(() => schema.parse([{}])).toThrowErrorMatchingSnapshot()
+
+  schema = await groqToZod(groq`*[]{foobar}`, options)
+  expect(schema.parse([{ foobar: 'foobar' }, { foobar: null }, {}])).toEqual([
+    { foobar: 'foobar' },
+    { foobar: null },
+    {},
+  ])
+  expect(() => schema.parse([{ foobar: NaN }])).toThrowErrorMatchingSnapshot()
+  expect(() => schema.parse([undefined])).toThrowErrorMatchingSnapshot()
+})
+
+test('Text matching', async () => {
+  //
+})
+
+test('Slice Operations', async () => {
+  //
+})
+
+test('Ordering', async () => {
+  //
+})
+
+test('Joins', async () => {
+  //
+})
+
+test('Objects and Arrays', async () => {
+  //
+})
+test('Object Projections', async () => {
+  //
+})
+
+test('Special variables', async () => {
+  //
+})
+test('Conditionals', async () => {
+  //
+})
+test('Functions', async () => {
+  //
+})
+test('Geolocation', async () => {
+  //
+})
+test('Arithmetic and Concatenation', async () => {
+  expect(await groqToZod(groq`1 + 2`)).toMatchInlineSnapshot(`
+    ZodNumber {
+      "_def": {
+        "checks": [],
+        "coerce": false,
+        "typeName": "ZodNumber",
+      },
+      "and": [Function],
+      "array": [Function],
+      "brand": [Function],
+      "catch": [Function],
+      "default": [Function],
+      "describe": [Function],
+      "isNullable": [Function],
+      "isOptional": [Function],
+      "max": [Function],
+      "min": [Function],
+      "nullable": [Function],
+      "nullish": [Function],
+      "optional": [Function],
+      "or": [Function],
+      "parse": [Function],
+      "parseAsync": [Function],
+      "pipe": [Function],
+      "promise": [Function],
+      "refine": [Function],
+      "refinement": [Function],
+      "safeParse": [Function],
+      "safeParseAsync": [Function],
+      "spa": [Function],
+      "step": [Function],
+      "superRefine": [Function],
+      "transform": [Function],
+    }
+  `)
+  expect(await groqToZod(groq`3 - 2`)).toMatchInlineSnapshot(`
+    ZodNumber {
+      "_def": {
+        "checks": [],
+        "coerce": false,
+        "typeName": "ZodNumber",
+      },
+      "and": [Function],
+      "array": [Function],
+      "brand": [Function],
+      "catch": [Function],
+      "default": [Function],
+      "describe": [Function],
+      "isNullable": [Function],
+      "isOptional": [Function],
+      "max": [Function],
+      "min": [Function],
+      "nullable": [Function],
+      "nullish": [Function],
+      "optional": [Function],
+      "or": [Function],
+      "parse": [Function],
+      "parseAsync": [Function],
+      "pipe": [Function],
+      "promise": [Function],
+      "refine": [Function],
+      "refinement": [Function],
+      "safeParse": [Function],
+      "safeParseAsync": [Function],
+      "spa": [Function],
+      "step": [Function],
+      "superRefine": [Function],
+      "transform": [Function],
+    }
+  `)
+  expect(await groqToZod(groq`2 * 3`)).toMatchInlineSnapshot(`
+    ZodNumber {
+      "_def": {
+        "checks": [],
+        "coerce": false,
+        "typeName": "ZodNumber",
+      },
+      "and": [Function],
+      "array": [Function],
+      "brand": [Function],
+      "catch": [Function],
+      "default": [Function],
+      "describe": [Function],
+      "isNullable": [Function],
+      "isOptional": [Function],
+      "max": [Function],
+      "min": [Function],
+      "nullable": [Function],
+      "nullish": [Function],
+      "optional": [Function],
+      "or": [Function],
+      "parse": [Function],
+      "parseAsync": [Function],
+      "pipe": [Function],
+      "promise": [Function],
+      "refine": [Function],
+      "refinement": [Function],
+      "safeParse": [Function],
+      "safeParseAsync": [Function],
+      "spa": [Function],
+      "step": [Function],
+      "superRefine": [Function],
+      "transform": [Function],
+    }
+  `)
+  expect(await groqToZod(groq`8 / 4`)).toMatchInlineSnapshot(`
+    ZodNumber {
+      "_def": {
+        "checks": [],
+        "coerce": false,
+        "typeName": "ZodNumber",
+      },
+      "and": [Function],
+      "array": [Function],
+      "brand": [Function],
+      "catch": [Function],
+      "default": [Function],
+      "describe": [Function],
+      "isNullable": [Function],
+      "isOptional": [Function],
+      "max": [Function],
+      "min": [Function],
+      "nullable": [Function],
+      "nullish": [Function],
+      "optional": [Function],
+      "or": [Function],
+      "parse": [Function],
+      "parseAsync": [Function],
+      "pipe": [Function],
+      "promise": [Function],
+      "refine": [Function],
+      "refinement": [Function],
+      "safeParse": [Function],
+      "safeParseAsync": [Function],
+      "spa": [Function],
+      "step": [Function],
+      "superRefine": [Function],
+      "transform": [Function],
+    }
+  `)
+  expect(await groqToZod(groq`2 ** 4`)).toMatchInlineSnapshot(`
+    ZodNumber {
+      "_def": {
+        "checks": [],
+        "coerce": false,
+        "typeName": "ZodNumber",
+      },
+      "and": [Function],
+      "array": [Function],
+      "brand": [Function],
+      "catch": [Function],
+      "default": [Function],
+      "describe": [Function],
+      "isNullable": [Function],
+      "isOptional": [Function],
+      "max": [Function],
+      "min": [Function],
+      "nullable": [Function],
+      "nullish": [Function],
+      "optional": [Function],
+      "or": [Function],
+      "parse": [Function],
+      "parseAsync": [Function],
+      "pipe": [Function],
+      "promise": [Function],
+      "refine": [Function],
+      "refinement": [Function],
+      "safeParse": [Function],
+      "safeParseAsync": [Function],
+      "spa": [Function],
+      "step": [Function],
+      "superRefine": [Function],
+      "transform": [Function],
+    }
+  `)
+  expect(await groqToZod(groq`8 % 3`)).toMatchInlineSnapshot(`
+    ZodNumber {
+      "_def": {
+        "checks": [],
+        "coerce": false,
+        "typeName": "ZodNumber",
+      },
+      "and": [Function],
+      "array": [Function],
+      "brand": [Function],
+      "catch": [Function],
+      "default": [Function],
+      "describe": [Function],
+      "isNullable": [Function],
+      "isOptional": [Function],
+      "max": [Function],
+      "min": [Function],
+      "nullable": [Function],
+      "nullish": [Function],
+      "optional": [Function],
+      "or": [Function],
+      "parse": [Function],
+      "parseAsync": [Function],
+      "pipe": [Function],
+      "promise": [Function],
+      "refine": [Function],
+      "refinement": [Function],
+      "safeParse": [Function],
+      "safeParseAsync": [Function],
+      "spa": [Function],
+      "step": [Function],
+      "superRefine": [Function],
+      "transform": [Function],
+    }
+  `)
+  expect(await groqToZod(groq`9 ** (1/2)`)).toMatchInlineSnapshot(`
+    ZodNumber {
+      "_def": {
+        "checks": [],
+        "coerce": false,
+        "typeName": "ZodNumber",
+      },
+      "and": [Function],
+      "array": [Function],
+      "brand": [Function],
+      "catch": [Function],
+      "default": [Function],
+      "describe": [Function],
+      "isNullable": [Function],
+      "isOptional": [Function],
+      "max": [Function],
+      "min": [Function],
+      "nullable": [Function],
+      "nullish": [Function],
+      "optional": [Function],
+      "or": [Function],
+      "parse": [Function],
+      "parseAsync": [Function],
+      "pipe": [Function],
+      "promise": [Function],
+      "refine": [Function],
+      "refinement": [Function],
+      "safeParse": [Function],
+      "safeParseAsync": [Function],
+      "spa": [Function],
+      "step": [Function],
+      "superRefine": [Function],
+      "transform": [Function],
+    }
+  `)
+  expect(await groqToZod(groq`27 ** (1/3)`)).toMatchInlineSnapshot(`
+    ZodNumber {
+      "_def": {
+        "checks": [],
+        "coerce": false,
+        "typeName": "ZodNumber",
+      },
+      "and": [Function],
+      "array": [Function],
+      "brand": [Function],
+      "catch": [Function],
+      "default": [Function],
+      "describe": [Function],
+      "isNullable": [Function],
+      "isOptional": [Function],
+      "max": [Function],
+      "min": [Function],
+      "nullable": [Function],
+      "nullish": [Function],
+      "optional": [Function],
+      "or": [Function],
+      "parse": [Function],
+      "parseAsync": [Function],
+      "pipe": [Function],
+      "promise": [Function],
+      "refine": [Function],
+      "refinement": [Function],
+      "safeParse": [Function],
+      "safeParseAsync": [Function],
+      "spa": [Function],
+      "step": [Function],
+      "superRefine": [Function],
+      "transform": [Function],
+    }
+  `)
+  expect(await groqToZod(groq`"abc" + "def"`)).toMatchInlineSnapshot(
+    `
+    ZodOptional {
+      "_def": {
+        "innerType": ZodString {
+          "_def": {
+            "checks": [],
+            "coerce": false,
+            "typeName": "ZodString",
+          },
+          "_regex": [Function],
+          "and": [Function],
+          "array": [Function],
+          "brand": [Function],
+          "catch": [Function],
+          "default": [Function],
+          "describe": [Function],
+          "isNullable": [Function],
+          "isOptional": [Function],
+          "nonempty": [Function],
+          "nullable": [Function],
+          "nullish": [Function],
+          "optional": [Function],
+          "or": [Function],
+          "parse": [Function],
+          "parseAsync": [Function],
+          "pipe": [Function],
+          "promise": [Function],
+          "refine": [Function],
+          "refinement": [Function],
+          "safeParse": [Function],
+          "safeParseAsync": [Function],
+          "spa": [Function],
+          "superRefine": [Function],
+          "transform": [Function],
+          "trim": [Function],
+        },
+        "typeName": "ZodOptional",
+      },
+      "and": [Function],
+      "array": [Function],
+      "brand": [Function],
+      "catch": [Function],
+      "default": [Function],
+      "describe": [Function],
+      "isNullable": [Function],
+      "isOptional": [Function],
+      "nullable": [Function],
+      "nullish": [Function],
+      "optional": [Function],
+      "or": [Function],
+      "parse": [Function],
+      "parseAsync": [Function],
+      "pipe": [Function],
+      "promise": [Function],
+      "refine": [Function],
+      "refinement": [Function],
+      "safeParse": [Function],
+      "safeParseAsync": [Function],
+      "spa": [Function],
+      "superRefine": [Function],
+      "transform": [Function],
+    }
+  `
+  )
+  expect(await groqToZod(groq`[1,2] + [3,4]`)).toMatchInlineSnapshot(
+    `
+    ZodArray {
+      "_def": {
+        "exactLength": null,
+        "maxLength": null,
+        "minLength": null,
+        "type": ZodUnion {
+          "_def": {
+            "options": [
+              ZodOptional {
+                "_def": {
+                  "innerType": ZodNumber {
+                    "_def": {
+                      "checks": [],
+                      "coerce": false,
+                      "typeName": "ZodNumber",
+                    },
+                    "and": [Function],
+                    "array": [Function],
+                    "brand": [Function],
+                    "catch": [Function],
+                    "default": [Function],
+                    "describe": [Function],
+                    "isNullable": [Function],
+                    "isOptional": [Function],
+                    "max": [Function],
+                    "min": [Function],
+                    "nullable": [Function],
+                    "nullish": [Function],
+                    "optional": [Function],
+                    "or": [Function],
+                    "parse": [Function],
+                    "parseAsync": [Function],
+                    "pipe": [Function],
+                    "promise": [Function],
+                    "refine": [Function],
+                    "refinement": [Function],
+                    "safeParse": [Function],
+                    "safeParseAsync": [Function],
+                    "spa": [Function],
+                    "step": [Function],
+                    "superRefine": [Function],
+                    "transform": [Function],
+                  },
+                  "typeName": "ZodOptional",
+                },
+                "and": [Function],
+                "array": [Function],
+                "brand": [Function],
+                "catch": [Function],
+                "default": [Function],
+                "describe": [Function],
+                "isNullable": [Function],
+                "isOptional": [Function],
+                "nullable": [Function],
+                "nullish": [Function],
+                "optional": [Function],
+                "or": [Function],
+                "parse": [Function],
+                "parseAsync": [Function],
+                "pipe": [Function],
+                "promise": [Function],
+                "refine": [Function],
+                "refinement": [Function],
+                "safeParse": [Function],
+                "safeParseAsync": [Function],
+                "spa": [Function],
+                "superRefine": [Function],
+                "transform": [Function],
+              },
+              ZodOptional {
+                "_def": {
+                  "innerType": ZodNumber {
+                    "_def": {
+                      "checks": [],
+                      "coerce": false,
+                      "typeName": "ZodNumber",
+                    },
+                    "and": [Function],
+                    "array": [Function],
+                    "brand": [Function],
+                    "catch": [Function],
+                    "default": [Function],
+                    "describe": [Function],
+                    "isNullable": [Function],
+                    "isOptional": [Function],
+                    "max": [Function],
+                    "min": [Function],
+                    "nullable": [Function],
+                    "nullish": [Function],
+                    "optional": [Function],
+                    "or": [Function],
+                    "parse": [Function],
+                    "parseAsync": [Function],
+                    "pipe": [Function],
+                    "promise": [Function],
+                    "refine": [Function],
+                    "refinement": [Function],
+                    "safeParse": [Function],
+                    "safeParseAsync": [Function],
+                    "spa": [Function],
+                    "step": [Function],
+                    "superRefine": [Function],
+                    "transform": [Function],
+                  },
+                  "typeName": "ZodOptional",
+                },
+                "and": [Function],
+                "array": [Function],
+                "brand": [Function],
+                "catch": [Function],
+                "default": [Function],
+                "describe": [Function],
+                "isNullable": [Function],
+                "isOptional": [Function],
+                "nullable": [Function],
+                "nullish": [Function],
+                "optional": [Function],
+                "or": [Function],
+                "parse": [Function],
+                "parseAsync": [Function],
+                "pipe": [Function],
+                "promise": [Function],
+                "refine": [Function],
+                "refinement": [Function],
+                "safeParse": [Function],
+                "safeParseAsync": [Function],
+                "spa": [Function],
+                "superRefine": [Function],
+                "transform": [Function],
+              },
+              ZodOptional {
+                "_def": {
+                  "innerType": ZodNumber {
+                    "_def": {
+                      "checks": [],
+                      "coerce": false,
+                      "typeName": "ZodNumber",
+                    },
+                    "and": [Function],
+                    "array": [Function],
+                    "brand": [Function],
+                    "catch": [Function],
+                    "default": [Function],
+                    "describe": [Function],
+                    "isNullable": [Function],
+                    "isOptional": [Function],
+                    "max": [Function],
+                    "min": [Function],
+                    "nullable": [Function],
+                    "nullish": [Function],
+                    "optional": [Function],
+                    "or": [Function],
+                    "parse": [Function],
+                    "parseAsync": [Function],
+                    "pipe": [Function],
+                    "promise": [Function],
+                    "refine": [Function],
+                    "refinement": [Function],
+                    "safeParse": [Function],
+                    "safeParseAsync": [Function],
+                    "spa": [Function],
+                    "step": [Function],
+                    "superRefine": [Function],
+                    "transform": [Function],
+                  },
+                  "typeName": "ZodOptional",
+                },
+                "and": [Function],
+                "array": [Function],
+                "brand": [Function],
+                "catch": [Function],
+                "default": [Function],
+                "describe": [Function],
+                "isNullable": [Function],
+                "isOptional": [Function],
+                "nullable": [Function],
+                "nullish": [Function],
+                "optional": [Function],
+                "or": [Function],
+                "parse": [Function],
+                "parseAsync": [Function],
+                "pipe": [Function],
+                "promise": [Function],
+                "refine": [Function],
+                "refinement": [Function],
+                "safeParse": [Function],
+                "safeParseAsync": [Function],
+                "spa": [Function],
+                "superRefine": [Function],
+                "transform": [Function],
+              },
+              ZodOptional {
+                "_def": {
+                  "innerType": ZodNumber {
+                    "_def": {
+                      "checks": [],
+                      "coerce": false,
+                      "typeName": "ZodNumber",
+                    },
+                    "and": [Function],
+                    "array": [Function],
+                    "brand": [Function],
+                    "catch": [Function],
+                    "default": [Function],
+                    "describe": [Function],
+                    "isNullable": [Function],
+                    "isOptional": [Function],
+                    "max": [Function],
+                    "min": [Function],
+                    "nullable": [Function],
+                    "nullish": [Function],
+                    "optional": [Function],
+                    "or": [Function],
+                    "parse": [Function],
+                    "parseAsync": [Function],
+                    "pipe": [Function],
+                    "promise": [Function],
+                    "refine": [Function],
+                    "refinement": [Function],
+                    "safeParse": [Function],
+                    "safeParseAsync": [Function],
+                    "spa": [Function],
+                    "step": [Function],
+                    "superRefine": [Function],
+                    "transform": [Function],
+                  },
+                  "typeName": "ZodOptional",
+                },
+                "and": [Function],
+                "array": [Function],
+                "brand": [Function],
+                "catch": [Function],
+                "default": [Function],
+                "describe": [Function],
+                "isNullable": [Function],
+                "isOptional": [Function],
+                "nullable": [Function],
+                "nullish": [Function],
+                "optional": [Function],
+                "or": [Function],
+                "parse": [Function],
+                "parseAsync": [Function],
+                "pipe": [Function],
+                "promise": [Function],
+                "refine": [Function],
+                "refinement": [Function],
+                "safeParse": [Function],
+                "safeParseAsync": [Function],
+                "spa": [Function],
+                "superRefine": [Function],
+                "transform": [Function],
+              },
+            ],
+            "typeName": "ZodUnion",
+          },
+          "and": [Function],
+          "array": [Function],
+          "brand": [Function],
+          "catch": [Function],
+          "default": [Function],
+          "describe": [Function],
+          "isNullable": [Function],
+          "isOptional": [Function],
+          "nullable": [Function],
+          "nullish": [Function],
+          "optional": [Function],
+          "or": [Function],
+          "parse": [Function],
+          "parseAsync": [Function],
+          "pipe": [Function],
+          "promise": [Function],
+          "refine": [Function],
+          "refinement": [Function],
+          "safeParse": [Function],
+          "safeParseAsync": [Function],
+          "spa": [Function],
+          "superRefine": [Function],
+          "transform": [Function],
+        },
+        "typeName": "ZodArray",
+      },
+      "and": [Function],
+      "array": [Function],
+      "brand": [Function],
+      "catch": [Function],
+      "default": [Function],
+      "describe": [Function],
+      "isNullable": [Function],
+      "isOptional": [Function],
+      "nullable": [Function],
+      "nullish": [Function],
+      "optional": [Function],
+      "or": [Function],
+      "parse": [Function],
+      "parseAsync": [Function],
+      "pipe": [Function],
+      "promise": [Function],
+      "refine": [Function],
+      "refinement": [Function],
+      "safeParse": [Function],
+      "safeParseAsync": [Function],
+      "spa": [Function],
+      "superRefine": [Function],
+      "transform": [Function],
+    }
+  `
+  )
+  expect(await groqToZod(groq`[1,"2"] + ["3",4]`)).toMatchInlineSnapshot(
+    `
+    ZodArray {
+      "_def": {
+        "exactLength": null,
+        "maxLength": null,
+        "minLength": null,
+        "type": ZodUnion {
+          "_def": {
+            "options": [
+              ZodOptional {
+                "_def": {
+                  "innerType": ZodNumber {
+                    "_def": {
+                      "checks": [],
+                      "coerce": false,
+                      "typeName": "ZodNumber",
+                    },
+                    "and": [Function],
+                    "array": [Function],
+                    "brand": [Function],
+                    "catch": [Function],
+                    "default": [Function],
+                    "describe": [Function],
+                    "isNullable": [Function],
+                    "isOptional": [Function],
+                    "max": [Function],
+                    "min": [Function],
+                    "nullable": [Function],
+                    "nullish": [Function],
+                    "optional": [Function],
+                    "or": [Function],
+                    "parse": [Function],
+                    "parseAsync": [Function],
+                    "pipe": [Function],
+                    "promise": [Function],
+                    "refine": [Function],
+                    "refinement": [Function],
+                    "safeParse": [Function],
+                    "safeParseAsync": [Function],
+                    "spa": [Function],
+                    "step": [Function],
+                    "superRefine": [Function],
+                    "transform": [Function],
+                  },
+                  "typeName": "ZodOptional",
+                },
+                "and": [Function],
+                "array": [Function],
+                "brand": [Function],
+                "catch": [Function],
+                "default": [Function],
+                "describe": [Function],
+                "isNullable": [Function],
+                "isOptional": [Function],
+                "nullable": [Function],
+                "nullish": [Function],
+                "optional": [Function],
+                "or": [Function],
+                "parse": [Function],
+                "parseAsync": [Function],
+                "pipe": [Function],
+                "promise": [Function],
+                "refine": [Function],
+                "refinement": [Function],
+                "safeParse": [Function],
+                "safeParseAsync": [Function],
+                "spa": [Function],
+                "superRefine": [Function],
+                "transform": [Function],
+              },
+              ZodOptional {
+                "_def": {
+                  "innerType": ZodString {
+                    "_def": {
+                      "checks": [],
+                      "coerce": false,
+                      "typeName": "ZodString",
+                    },
+                    "_regex": [Function],
+                    "and": [Function],
+                    "array": [Function],
+                    "brand": [Function],
+                    "catch": [Function],
+                    "default": [Function],
+                    "describe": [Function],
+                    "isNullable": [Function],
+                    "isOptional": [Function],
+                    "nonempty": [Function],
+                    "nullable": [Function],
+                    "nullish": [Function],
+                    "optional": [Function],
+                    "or": [Function],
+                    "parse": [Function],
+                    "parseAsync": [Function],
+                    "pipe": [Function],
+                    "promise": [Function],
+                    "refine": [Function],
+                    "refinement": [Function],
+                    "safeParse": [Function],
+                    "safeParseAsync": [Function],
+                    "spa": [Function],
+                    "superRefine": [Function],
+                    "transform": [Function],
+                    "trim": [Function],
+                  },
+                  "typeName": "ZodOptional",
+                },
+                "and": [Function],
+                "array": [Function],
+                "brand": [Function],
+                "catch": [Function],
+                "default": [Function],
+                "describe": [Function],
+                "isNullable": [Function],
+                "isOptional": [Function],
+                "nullable": [Function],
+                "nullish": [Function],
+                "optional": [Function],
+                "or": [Function],
+                "parse": [Function],
+                "parseAsync": [Function],
+                "pipe": [Function],
+                "promise": [Function],
+                "refine": [Function],
+                "refinement": [Function],
+                "safeParse": [Function],
+                "safeParseAsync": [Function],
+                "spa": [Function],
+                "superRefine": [Function],
+                "transform": [Function],
+              },
+              ZodOptional {
+                "_def": {
+                  "innerType": ZodString {
+                    "_def": {
+                      "checks": [],
+                      "coerce": false,
+                      "typeName": "ZodString",
+                    },
+                    "_regex": [Function],
+                    "and": [Function],
+                    "array": [Function],
+                    "brand": [Function],
+                    "catch": [Function],
+                    "default": [Function],
+                    "describe": [Function],
+                    "isNullable": [Function],
+                    "isOptional": [Function],
+                    "nonempty": [Function],
+                    "nullable": [Function],
+                    "nullish": [Function],
+                    "optional": [Function],
+                    "or": [Function],
+                    "parse": [Function],
+                    "parseAsync": [Function],
+                    "pipe": [Function],
+                    "promise": [Function],
+                    "refine": [Function],
+                    "refinement": [Function],
+                    "safeParse": [Function],
+                    "safeParseAsync": [Function],
+                    "spa": [Function],
+                    "superRefine": [Function],
+                    "transform": [Function],
+                    "trim": [Function],
+                  },
+                  "typeName": "ZodOptional",
+                },
+                "and": [Function],
+                "array": [Function],
+                "brand": [Function],
+                "catch": [Function],
+                "default": [Function],
+                "describe": [Function],
+                "isNullable": [Function],
+                "isOptional": [Function],
+                "nullable": [Function],
+                "nullish": [Function],
+                "optional": [Function],
+                "or": [Function],
+                "parse": [Function],
+                "parseAsync": [Function],
+                "pipe": [Function],
+                "promise": [Function],
+                "refine": [Function],
+                "refinement": [Function],
+                "safeParse": [Function],
+                "safeParseAsync": [Function],
+                "spa": [Function],
+                "superRefine": [Function],
+                "transform": [Function],
+              },
+              ZodOptional {
+                "_def": {
+                  "innerType": ZodNumber {
+                    "_def": {
+                      "checks": [],
+                      "coerce": false,
+                      "typeName": "ZodNumber",
+                    },
+                    "and": [Function],
+                    "array": [Function],
+                    "brand": [Function],
+                    "catch": [Function],
+                    "default": [Function],
+                    "describe": [Function],
+                    "isNullable": [Function],
+                    "isOptional": [Function],
+                    "max": [Function],
+                    "min": [Function],
+                    "nullable": [Function],
+                    "nullish": [Function],
+                    "optional": [Function],
+                    "or": [Function],
+                    "parse": [Function],
+                    "parseAsync": [Function],
+                    "pipe": [Function],
+                    "promise": [Function],
+                    "refine": [Function],
+                    "refinement": [Function],
+                    "safeParse": [Function],
+                    "safeParseAsync": [Function],
+                    "spa": [Function],
+                    "step": [Function],
+                    "superRefine": [Function],
+                    "transform": [Function],
+                  },
+                  "typeName": "ZodOptional",
+                },
+                "and": [Function],
+                "array": [Function],
+                "brand": [Function],
+                "catch": [Function],
+                "default": [Function],
+                "describe": [Function],
+                "isNullable": [Function],
+                "isOptional": [Function],
+                "nullable": [Function],
+                "nullish": [Function],
+                "optional": [Function],
+                "or": [Function],
+                "parse": [Function],
+                "parseAsync": [Function],
+                "pipe": [Function],
+                "promise": [Function],
+                "refine": [Function],
+                "refinement": [Function],
+                "safeParse": [Function],
+                "safeParseAsync": [Function],
+                "spa": [Function],
+                "superRefine": [Function],
+                "transform": [Function],
+              },
+            ],
+            "typeName": "ZodUnion",
+          },
+          "and": [Function],
+          "array": [Function],
+          "brand": [Function],
+          "catch": [Function],
+          "default": [Function],
+          "describe": [Function],
+          "isNullable": [Function],
+          "isOptional": [Function],
+          "nullable": [Function],
+          "nullish": [Function],
+          "optional": [Function],
+          "or": [Function],
+          "parse": [Function],
+          "parseAsync": [Function],
+          "pipe": [Function],
+          "promise": [Function],
+          "refine": [Function],
+          "refinement": [Function],
+          "safeParse": [Function],
+          "safeParseAsync": [Function],
+          "spa": [Function],
+          "superRefine": [Function],
+          "transform": [Function],
+        },
+        "typeName": "ZodArray",
+      },
+      "and": [Function],
+      "array": [Function],
+      "brand": [Function],
+      "catch": [Function],
+      "default": [Function],
+      "describe": [Function],
+      "isNullable": [Function],
+      "isOptional": [Function],
+      "nullable": [Function],
+      "nullish": [Function],
+      "optional": [Function],
+      "or": [Function],
+      "parse": [Function],
+      "parseAsync": [Function],
+      "pipe": [Function],
+      "promise": [Function],
+      "refine": [Function],
+      "refinement": [Function],
+      "safeParse": [Function],
+      "safeParseAsync": [Function],
+      "spa": [Function],
+      "superRefine": [Function],
+      "transform": [Function],
+    }
+  `
+  )
+  expect(await groqToZod(groq`{"a":1,"b":2} + {"c":3}`)).toMatchInlineSnapshot(
+    `
+    ZodObject {
+      "_cached": null,
+      "_def": {
+        "catchall": ZodNever {
+          "_def": {
+            "typeName": "ZodNever",
+          },
+          "and": [Function],
+          "array": [Function],
+          "brand": [Function],
+          "catch": [Function],
+          "default": [Function],
+          "describe": [Function],
+          "isNullable": [Function],
+          "isOptional": [Function],
+          "nullable": [Function],
+          "nullish": [Function],
+          "optional": [Function],
+          "or": [Function],
+          "parse": [Function],
+          "parseAsync": [Function],
+          "pipe": [Function],
+          "promise": [Function],
+          "refine": [Function],
+          "refinement": [Function],
+          "safeParse": [Function],
+          "safeParseAsync": [Function],
+          "spa": [Function],
+          "superRefine": [Function],
+          "transform": [Function],
+        },
+        "shape": [Function],
+        "typeName": "ZodObject",
+        "unknownKeys": "strict",
+      },
+      "and": [Function],
+      "array": [Function],
+      "augment": [Function],
+      "brand": [Function],
+      "catch": [Function],
+      "default": [Function],
+      "describe": [Function],
+      "extend": [Function],
+      "isNullable": [Function],
+      "isOptional": [Function],
+      "nonstrict": [Function],
+      "nullable": [Function],
+      "nullish": [Function],
+      "optional": [Function],
+      "or": [Function],
+      "parse": [Function],
+      "parseAsync": [Function],
+      "pipe": [Function],
+      "promise": [Function],
+      "refine": [Function],
+      "refinement": [Function],
+      "safeParse": [Function],
+      "safeParseAsync": [Function],
+      "spa": [Function],
+      "superRefine": [Function],
+      "transform": [Function],
+    }
+  `
+  )
+  expect(await groqToZod(groq`{"a":1,"b":2} + {"c":"d"}`))
+    .toMatchInlineSnapshot(`
+      ZodObject {
+        "_cached": null,
+        "_def": {
+          "catchall": ZodNever {
+            "_def": {
+              "typeName": "ZodNever",
+            },
+            "and": [Function],
+            "array": [Function],
+            "brand": [Function],
+            "catch": [Function],
+            "default": [Function],
+            "describe": [Function],
+            "isNullable": [Function],
+            "isOptional": [Function],
+            "nullable": [Function],
+            "nullish": [Function],
+            "optional": [Function],
+            "or": [Function],
+            "parse": [Function],
+            "parseAsync": [Function],
+            "pipe": [Function],
+            "promise": [Function],
+            "refine": [Function],
+            "refinement": [Function],
+            "safeParse": [Function],
+            "safeParseAsync": [Function],
+            "spa": [Function],
+            "superRefine": [Function],
+            "transform": [Function],
+          },
+          "shape": [Function],
+          "typeName": "ZodObject",
+          "unknownKeys": "strict",
+        },
+        "and": [Function],
+        "array": [Function],
+        "augment": [Function],
+        "brand": [Function],
+        "catch": [Function],
+        "default": [Function],
+        "describe": [Function],
+        "extend": [Function],
+        "isNullable": [Function],
+        "isOptional": [Function],
+        "nonstrict": [Function],
+        "nullable": [Function],
+        "nullish": [Function],
+        "optional": [Function],
+        "or": [Function],
+        "parse": [Function],
+        "parseAsync": [Function],
+        "pipe": [Function],
+        "promise": [Function],
+        "refine": [Function],
+        "refinement": [Function],
+        "safeParse": [Function],
+        "safeParseAsync": [Function],
+        "spa": [Function],
+        "superRefine": [Function],
+        "transform": [Function],
+      }
+    `)
 })

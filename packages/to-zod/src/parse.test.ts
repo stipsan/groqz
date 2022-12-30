@@ -1,7 +1,8 @@
-import { expect, test } from 'vitest'
-import { parse } from './parse'
-import { parse as fullParse } from 'groq-js'
 import groq from 'groq'
+import { parse as fullParse } from 'groq-js'
+import { expect, test } from 'vitest'
+
+import { parse } from './parse'
 
 test('Filters', () => {
   let query = groq`*`

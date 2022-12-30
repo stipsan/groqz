@@ -54,12 +54,14 @@ importers:
       eslint-config-prettier: ^8.5.0
       eslint-config-turbo: ^0.0.7
       eslint-plugin-react: 7.31.11
+      eslint-plugin-simple-import-sort: ^8.0.0
     dependencies:
       '@typescript-eslint/eslint-plugin': 5.47.1_txmweb6yn7coi7nfrp22gpyqmy
       '@typescript-eslint/parser': 5.47.1_lzzuuodtsqwxnvqeq4g4likcqa
       eslint-config-prettier: 8.5.0_eslint@8.30.0
       eslint-config-turbo: 0.0.7_eslint@8.30.0
       eslint-plugin-react: 7.31.11_eslint@8.30.0
+      eslint-plugin-simple-import-sort: 8.0.0_eslint@8.30.0
 
   packages/groqz:
     specifiers:
@@ -87,6 +89,7 @@ importers:
       '@sanity/pkg-utils': ^2.0.3
       eslint: ^8.30.0
       eslint-config-groqz: workspace:*
+      groq: ^2.33.2
       typescript: ^4.9.4
       vitest: ^0.26.2
       zod-to-ts: ^1.1.1
@@ -98,6 +101,7 @@ importers:
       '@sanity/pkg-utils': 2.0.3_typescript@4.9.4
       eslint: 8.30.0
       eslint-config-groqz: link:../eslint-config-groqz
+      groq: 2.33.2
       typescript: 4.9.4
       vitest: 0.26.2
 
@@ -116,6 +120,7 @@ importers:
     dependencies:
       groq-js: 1.1.4-beta.1
       zod: 3.20.2
+      zod-to-ts: 1.1.1_4umapwpw55xijlh2mknjgcn4rq
     devDependencies:
       '@groqz/tsconfig': link:../tsconfig
       '@sanity/pkg-utils': 2.0.3_typescript@4.9.4
@@ -124,7 +129,6 @@ importers:
       groq: 2.33.2
       typescript: 4.9.4
       vitest: 0.26.2
-      zod-to-ts: 1.1.1_4umapwpw55xijlh2mknjgcn4rq
 
   packages/tsconfig:
     specifiers: {}
@@ -3295,6 +3299,14 @@ packages:
       semver: 6.3.0
       string.prototype.matchall: 4.0.8
 
+  /eslint-plugin-simple-import-sort/8.0.0_eslint@8.30.0:
+    resolution: {integrity: sha512-bXgJQ+lqhtQBCuWY/FUWdB27j4+lqcvXv5rUARkzbeWLwea+S5eBZEQrhnO+WgX3ZoJHVj0cn943iyXwByHHQw==}
+    peerDependencies:
+      eslint: '>=5.0.0'
+    dependencies:
+      eslint: 8.30.0
+    dev: false
+
   /eslint-plugin-turbo/0.0.7_eslint@8.30.0:
     resolution: {integrity: sha512-iajOH8eD4jha3duztGVBD1BEmvNrQBaA/y3HFHf91vMDRYRwH7BpHSDFtxydDpk5ghlhRxG299SFxz7D6z4MBQ==}
     peerDependencies:
@@ -5798,6 +5810,7 @@ packages:
     dependencies:
       typescript: 4.9.4
       zod: 3.20.2
+    dev: false
 
   /zod/3.20.2:
     resolution: {integrity: sha512-1MzNQdAvO+54H+EaK5YpyEy0T+Ejo/7YLHS93G3RnYWh5gaotGHwGeN/ZO687qEDU2y4CdStQYXVHIgrUl5UVQ==}

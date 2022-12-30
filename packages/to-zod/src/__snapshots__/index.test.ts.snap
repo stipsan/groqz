@@ -1,0 +1,1760 @@
+// Vitest Snapshot v1
+
+exports[`Empty dataset array 1`] = `
+"[
+  {
+    \\"code\\": \\"invalid_type\\",
+    \\"expected\\": \\"array\\",
+    \\"received\\": \\"object\\",
+    \\"path\\": [],
+    \\"message\\": \\"Expected array, received object\\"
+  }
+]"
+`;
+
+exports[`Empty dataset array 2`] = `
+"[
+  {
+    \\"code\\": \\"invalid_type\\",
+    \\"expected\\": \\"array\\",
+    \\"received\\": \\"null\\",
+    \\"path\\": [],
+    \\"message\\": \\"Expected array, received null\\"
+  }
+]"
+`;
+
+exports[`Empty dataset array 3`] = `
+"[
+  {
+    \\"code\\": \\"invalid_type\\",
+    \\"expected\\": \\"array\\",
+    \\"received\\": \\"nan\\",
+    \\"path\\": [],
+    \\"message\\": \\"Expected array, received nan\\"
+  }
+]"
+`;
+
+exports[`Empty dataset array 4`] = `
+"[
+  {
+    \\"code\\": \\"invalid_union\\",
+    \\"unionErrors\\": [
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_union\\",
+            \\"unionErrors\\": [
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"string\\",
+                    \\"received\\": \\"nan\\",
+                    \\"path\\": [
+                      0
+                    ],
+                    \\"message\\": \\"Expected string, received nan\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"number\\",
+                    \\"received\\": \\"nan\\",
+                    \\"path\\": [
+                      0
+                    ],
+                    \\"message\\": \\"Expected number, received nan\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"boolean\\",
+                    \\"received\\": \\"nan\\",
+                    \\"path\\": [
+                      0
+                    ],
+                    \\"message\\": \\"Expected boolean, received nan\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"null\\",
+                    \\"received\\": \\"nan\\",
+                    \\"path\\": [
+                      0
+                    ],
+                    \\"message\\": \\"Expected null, received nan\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              }
+            ],
+            \\"path\\": [
+              0
+            ],
+            \\"message\\": \\"Invalid input\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"array\\",
+            \\"received\\": \\"nan\\",
+            \\"path\\": [
+              0
+            ],
+            \\"message\\": \\"Expected array, received nan\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"nan\\",
+            \\"path\\": [
+              0
+            ],
+            \\"message\\": \\"Expected object, received nan\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      }
+    ],
+    \\"path\\": [
+      0
+    ],
+    \\"message\\": \\"Invalid input\\"
+  }
+]"
+`;
+
+exports[`Empty dataset array 5`] = `
+"[
+  {
+    \\"code\\": \\"invalid_type\\",
+    \\"expected\\": \\"number\\",
+    \\"received\\": \\"null\\",
+    \\"path\\": [],
+    \\"message\\": \\"Expected number, received null\\"
+  }
+]"
+`;
+
+exports[`Filters 1`] = `
+"[
+  {
+    \\"code\\": \\"invalid_union\\",
+    \\"unionErrors\\": [
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_literal\\",
+            \\"expected\\": \\"movie\\",
+            \\"path\\": [
+              0,
+              \\"_type\\"
+            ],
+            \\"message\\": \\"Invalid literal value, expected \\\\\\"movie\\\\\\"\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_id\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_createdAt\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_rev\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_updatedAt\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"slug\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"poster\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"array\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"overview\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"array\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"crewMembers\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"array\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"castMembers\\"
+            ],
+            \\"message\\": \\"Required\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_literal\\",
+            \\"expected\\": \\"sanity.imageAsset\\",
+            \\"path\\": [
+              0,
+              \\"_type\\"
+            ],
+            \\"message\\": \\"Invalid literal value, expected \\\\\\"sanity.imageAsset\\\\\\"\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_id\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_createdAt\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_rev\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_updatedAt\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"metadata\\"
+            ],
+            \\"message\\": \\"Required\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_literal\\",
+            \\"expected\\": \\"person\\",
+            \\"path\\": [
+              0,
+              \\"_type\\"
+            ],
+            \\"message\\": \\"Invalid literal value, expected \\\\\\"person\\\\\\"\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_id\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_createdAt\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_rev\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_updatedAt\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"image\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"slug\\"
+            ],
+            \\"message\\": \\"Required\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      }
+    ],
+    \\"path\\": [
+      0
+    ],
+    \\"message\\": \\"Invalid input\\"
+  },
+  {
+    \\"code\\": \\"invalid_union\\",
+    \\"unionErrors\\": [
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"number\\",
+            \\"path\\": [
+              1
+            ],
+            \\"message\\": \\"Expected object, received number\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"number\\",
+            \\"path\\": [
+              1
+            ],
+            \\"message\\": \\"Expected object, received number\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"number\\",
+            \\"path\\": [
+              1
+            ],
+            \\"message\\": \\"Expected object, received number\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      }
+    ],
+    \\"path\\": [
+      1
+    ],
+    \\"message\\": \\"Invalid input\\"
+  }
+]"
+`;
+
+exports[`Filters 2`] = `
+"[
+  {
+    \\"code\\": \\"invalid_union\\",
+    \\"unionErrors\\": [
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_literal\\",
+            \\"expected\\": \\"movie\\",
+            \\"path\\": [
+              0,
+              \\"_type\\"
+            ],
+            \\"message\\": \\"Invalid literal value, expected \\\\\\"movie\\\\\\"\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_id\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_createdAt\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_rev\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_updatedAt\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"slug\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"poster\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"array\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"overview\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"array\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"crewMembers\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"array\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"castMembers\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"unrecognized_keys\\",
+            \\"keys\\": [
+              \\"foo\\"
+            ],
+            \\"path\\": [
+              0
+            ],
+            \\"message\\": \\"Unrecognized key(s) in object: 'foo'\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_literal\\",
+            \\"expected\\": \\"sanity.imageAsset\\",
+            \\"path\\": [
+              0,
+              \\"_type\\"
+            ],
+            \\"message\\": \\"Invalid literal value, expected \\\\\\"sanity.imageAsset\\\\\\"\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_id\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_createdAt\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_rev\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_updatedAt\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"metadata\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"unrecognized_keys\\",
+            \\"keys\\": [
+              \\"foo\\"
+            ],
+            \\"path\\": [
+              0
+            ],
+            \\"message\\": \\"Unrecognized key(s) in object: 'foo'\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_literal\\",
+            \\"expected\\": \\"person\\",
+            \\"path\\": [
+              0,
+              \\"_type\\"
+            ],
+            \\"message\\": \\"Invalid literal value, expected \\\\\\"person\\\\\\"\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_id\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_createdAt\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_rev\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"_updatedAt\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"image\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0,
+              \\"slug\\"
+            ],
+            \\"message\\": \\"Required\\"
+          },
+          {
+            \\"code\\": \\"unrecognized_keys\\",
+            \\"keys\\": [
+              \\"foo\\"
+            ],
+            \\"path\\": [
+              0
+            ],
+            \\"message\\": \\"Unrecognized key(s) in object: 'foo'\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      }
+    ],
+    \\"path\\": [
+      0
+    ],
+    \\"message\\": \\"Invalid input\\"
+  },
+  {
+    \\"code\\": \\"invalid_union\\",
+    \\"unionErrors\\": [
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"number\\",
+            \\"path\\": [
+              1
+            ],
+            \\"message\\": \\"Expected object, received number\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"number\\",
+            \\"path\\": [
+              1
+            ],
+            \\"message\\": \\"Expected object, received number\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"number\\",
+            \\"path\\": [
+              1
+            ],
+            \\"message\\": \\"Expected object, received number\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      }
+    ],
+    \\"path\\": [
+      1
+    ],
+    \\"message\\": \\"Invalid input\\"
+  }
+]"
+`;
+
+exports[`Filters 3`] = `
+"[
+  {
+    \\"code\\": \\"invalid_union\\",
+    \\"unionErrors\\": [
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_literal\\",
+            \\"expected\\": \\"movie\\",
+            \\"path\\": [
+              0,
+              \\"_type\\"
+            ],
+            \\"message\\": \\"Invalid literal value, expected \\\\\\"movie\\\\\\"\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_literal\\",
+            \\"expected\\": \\"sanity.imageAsset\\",
+            \\"path\\": [
+              0,
+              \\"_type\\"
+            ],
+            \\"message\\": \\"Invalid literal value, expected \\\\\\"sanity.imageAsset\\\\\\"\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_literal\\",
+            \\"expected\\": \\"person\\",
+            \\"path\\": [
+              0,
+              \\"_type\\"
+            ],
+            \\"message\\": \\"Invalid literal value, expected \\\\\\"person\\\\\\"\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      }
+    ],
+    \\"path\\": [
+      0
+    ],
+    \\"message\\": \\"Invalid input\\"
+  }
+]"
+`;
+
+exports[`Filters 4`] = `
+"[
+  {
+    \\"code\\": \\"invalid_union\\",
+    \\"unionErrors\\": [
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_literal\\",
+            \\"expected\\": \\"movie\\",
+            \\"path\\": [
+              0,
+              \\"_type\\"
+            ],
+            \\"message\\": \\"Invalid literal value, expected \\\\\\"movie\\\\\\"\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_literal\\",
+            \\"expected\\": \\"sanity.imageAsset\\",
+            \\"path\\": [
+              0,
+              \\"_type\\"
+            ],
+            \\"message\\": \\"Invalid literal value, expected \\\\\\"sanity.imageAsset\\\\\\"\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_literal\\",
+            \\"expected\\": \\"person\\",
+            \\"path\\": [
+              0,
+              \\"_type\\"
+            ],
+            \\"message\\": \\"Invalid literal value, expected \\\\\\"person\\\\\\"\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      }
+    ],
+    \\"path\\": [
+      0
+    ],
+    \\"message\\": \\"Invalid input\\"
+  }
+]"
+`;
+
+exports[`Filters 5`] = `
+"[
+  {
+    \\"code\\": \\"invalid_union\\",
+    \\"unionErrors\\": [
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_literal\\",
+            \\"expected\\": \\"movie\\",
+            \\"path\\": [
+              0,
+              \\"_type\\"
+            ],
+            \\"message\\": \\"Invalid literal value, expected \\\\\\"movie\\\\\\"\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_literal\\",
+            \\"expected\\": \\"person\\",
+            \\"path\\": [
+              0,
+              \\"_type\\"
+            ],
+            \\"message\\": \\"Invalid literal value, expected \\\\\\"person\\\\\\"\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      }
+    ],
+    \\"path\\": [
+      0
+    ],
+    \\"message\\": \\"Invalid input\\"
+  }
+]"
+`;
+
+exports[`Filters 6`] = `
+"[
+  {
+    \\"code\\": \\"invalid_union\\",
+    \\"unionErrors\\": [
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_literal\\",
+            \\"expected\\": \\"movie\\",
+            \\"path\\": [
+              0,
+              \\"_type\\"
+            ],
+            \\"message\\": \\"Invalid literal value, expected \\\\\\"movie\\\\\\"\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_literal\\",
+            \\"expected\\": \\"person\\",
+            \\"path\\": [
+              0,
+              \\"_type\\"
+            ],
+            \\"message\\": \\"Invalid literal value, expected \\\\\\"person\\\\\\"\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      }
+    ],
+    \\"path\\": [
+      0
+    ],
+    \\"message\\": \\"Invalid input\\"
+  }
+]"
+`;
+
+exports[`Filters 7`] = `
+"[
+  {
+    \\"code\\": \\"invalid_union\\",
+    \\"unionErrors\\": [
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_union\\",
+            \\"unionErrors\\": [
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_union\\",
+                    \\"unionErrors\\": [
+                      {
+                        \\"issues\\": [
+                          {
+                            \\"code\\": \\"invalid_type\\",
+                            \\"expected\\": \\"string\\",
+                            \\"received\\": \\"nan\\",
+                            \\"path\\": [
+                              0,
+                              \\"foobar\\"
+                            ],
+                            \\"message\\": \\"Expected string, received nan\\"
+                          }
+                        ],
+                        \\"name\\": \\"ZodError\\"
+                      },
+                      {
+                        \\"issues\\": [
+                          {
+                            \\"code\\": \\"invalid_type\\",
+                            \\"expected\\": \\"number\\",
+                            \\"received\\": \\"nan\\",
+                            \\"path\\": [
+                              0,
+                              \\"foobar\\"
+                            ],
+                            \\"message\\": \\"Expected number, received nan\\"
+                          }
+                        ],
+                        \\"name\\": \\"ZodError\\"
+                      },
+                      {
+                        \\"issues\\": [
+                          {
+                            \\"code\\": \\"invalid_type\\",
+                            \\"expected\\": \\"boolean\\",
+                            \\"received\\": \\"nan\\",
+                            \\"path\\": [
+                              0,
+                              \\"foobar\\"
+                            ],
+                            \\"message\\": \\"Expected boolean, received nan\\"
+                          }
+                        ],
+                        \\"name\\": \\"ZodError\\"
+                      },
+                      {
+                        \\"issues\\": [
+                          {
+                            \\"code\\": \\"invalid_type\\",
+                            \\"expected\\": \\"null\\",
+                            \\"received\\": \\"nan\\",
+                            \\"path\\": [
+                              0,
+                              \\"foobar\\"
+                            ],
+                            \\"message\\": \\"Expected null, received nan\\"
+                          }
+                        ],
+                        \\"name\\": \\"ZodError\\"
+                      }
+                    ],
+                    \\"path\\": [
+                      0,
+                      \\"foobar\\"
+                    ],
+                    \\"message\\": \\"Invalid input\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"array\\",
+                    \\"received\\": \\"nan\\",
+                    \\"path\\": [
+                      0,
+                      \\"foobar\\"
+                    ],
+                    \\"message\\": \\"Expected array, received nan\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"object\\",
+                    \\"received\\": \\"nan\\",
+                    \\"path\\": [
+                      0,
+                      \\"foobar\\"
+                    ],
+                    \\"message\\": \\"Expected object, received nan\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              }
+            ],
+            \\"path\\": [
+              0,
+              \\"foobar\\"
+            ],
+            \\"message\\": \\"Invalid input\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_union\\",
+            \\"unionErrors\\": [
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_union\\",
+                    \\"unionErrors\\": [
+                      {
+                        \\"issues\\": [
+                          {
+                            \\"code\\": \\"invalid_type\\",
+                            \\"expected\\": \\"string\\",
+                            \\"received\\": \\"nan\\",
+                            \\"path\\": [
+                              0,
+                              \\"foobar\\"
+                            ],
+                            \\"message\\": \\"Expected string, received nan\\"
+                          }
+                        ],
+                        \\"name\\": \\"ZodError\\"
+                      },
+                      {
+                        \\"issues\\": [
+                          {
+                            \\"code\\": \\"invalid_type\\",
+                            \\"expected\\": \\"number\\",
+                            \\"received\\": \\"nan\\",
+                            \\"path\\": [
+                              0,
+                              \\"foobar\\"
+                            ],
+                            \\"message\\": \\"Expected number, received nan\\"
+                          }
+                        ],
+                        \\"name\\": \\"ZodError\\"
+                      },
+                      {
+                        \\"issues\\": [
+                          {
+                            \\"code\\": \\"invalid_type\\",
+                            \\"expected\\": \\"boolean\\",
+                            \\"received\\": \\"nan\\",
+                            \\"path\\": [
+                              0,
+                              \\"foobar\\"
+                            ],
+                            \\"message\\": \\"Expected boolean, received nan\\"
+                          }
+                        ],
+                        \\"name\\": \\"ZodError\\"
+                      },
+                      {
+                        \\"issues\\": [
+                          {
+                            \\"code\\": \\"invalid_type\\",
+                            \\"expected\\": \\"null\\",
+                            \\"received\\": \\"nan\\",
+                            \\"path\\": [
+                              0,
+                              \\"foobar\\"
+                            ],
+                            \\"message\\": \\"Expected null, received nan\\"
+                          }
+                        ],
+                        \\"name\\": \\"ZodError\\"
+                      }
+                    ],
+                    \\"path\\": [
+                      0,
+                      \\"foobar\\"
+                    ],
+                    \\"message\\": \\"Invalid input\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"array\\",
+                    \\"received\\": \\"nan\\",
+                    \\"path\\": [
+                      0,
+                      \\"foobar\\"
+                    ],
+                    \\"message\\": \\"Expected array, received nan\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"object\\",
+                    \\"received\\": \\"nan\\",
+                    \\"path\\": [
+                      0,
+                      \\"foobar\\"
+                    ],
+                    \\"message\\": \\"Expected object, received nan\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              }
+            ],
+            \\"path\\": [
+              0,
+              \\"foobar\\"
+            ],
+            \\"message\\": \\"Invalid input\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_union\\",
+            \\"unionErrors\\": [
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_union\\",
+                    \\"unionErrors\\": [
+                      {
+                        \\"issues\\": [
+                          {
+                            \\"code\\": \\"invalid_type\\",
+                            \\"expected\\": \\"string\\",
+                            \\"received\\": \\"nan\\",
+                            \\"path\\": [
+                              0,
+                              \\"foobar\\"
+                            ],
+                            \\"message\\": \\"Expected string, received nan\\"
+                          }
+                        ],
+                        \\"name\\": \\"ZodError\\"
+                      },
+                      {
+                        \\"issues\\": [
+                          {
+                            \\"code\\": \\"invalid_type\\",
+                            \\"expected\\": \\"number\\",
+                            \\"received\\": \\"nan\\",
+                            \\"path\\": [
+                              0,
+                              \\"foobar\\"
+                            ],
+                            \\"message\\": \\"Expected number, received nan\\"
+                          }
+                        ],
+                        \\"name\\": \\"ZodError\\"
+                      },
+                      {
+                        \\"issues\\": [
+                          {
+                            \\"code\\": \\"invalid_type\\",
+                            \\"expected\\": \\"boolean\\",
+                            \\"received\\": \\"nan\\",
+                            \\"path\\": [
+                              0,
+                              \\"foobar\\"
+                            ],
+                            \\"message\\": \\"Expected boolean, received nan\\"
+                          }
+                        ],
+                        \\"name\\": \\"ZodError\\"
+                      },
+                      {
+                        \\"issues\\": [
+                          {
+                            \\"code\\": \\"invalid_type\\",
+                            \\"expected\\": \\"null\\",
+                            \\"received\\": \\"nan\\",
+                            \\"path\\": [
+                              0,
+                              \\"foobar\\"
+                            ],
+                            \\"message\\": \\"Expected null, received nan\\"
+                          }
+                        ],
+                        \\"name\\": \\"ZodError\\"
+                      }
+                    ],
+                    \\"path\\": [
+                      0,
+                      \\"foobar\\"
+                    ],
+                    \\"message\\": \\"Invalid input\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"array\\",
+                    \\"received\\": \\"nan\\",
+                    \\"path\\": [
+                      0,
+                      \\"foobar\\"
+                    ],
+                    \\"message\\": \\"Expected array, received nan\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"object\\",
+                    \\"received\\": \\"nan\\",
+                    \\"path\\": [
+                      0,
+                      \\"foobar\\"
+                    ],
+                    \\"message\\": \\"Expected object, received nan\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              }
+            ],
+            \\"path\\": [
+              0,
+              \\"foobar\\"
+            ],
+            \\"message\\": \\"Invalid input\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      }
+    ],
+    \\"path\\": [
+      0
+    ],
+    \\"message\\": \\"Invalid input\\"
+  }
+]"
+`;
+
+exports[`Filters 8`] = `
+"[
+  {
+    \\"code\\": \\"invalid_union\\",
+    \\"unionErrors\\": [
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0
+            ],
+            \\"message\\": \\"Required\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0
+            ],
+            \\"message\\": \\"Required\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"undefined\\",
+            \\"path\\": [
+              0
+            ],
+            \\"message\\": \\"Required\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      }
+    ],
+    \\"path\\": [
+      0
+    ],
+    \\"message\\": \\"Invalid input\\"
+  }
+]"
+`;
+
+exports[`No dataset 1`] = `
+"[
+  {
+    \\"code\\": \\"invalid_union\\",
+    \\"unionErrors\\": [
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_union\\",
+            \\"unionErrors\\": [
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"string\\",
+                    \\"received\\": \\"nan\\",
+                    \\"path\\": [],
+                    \\"message\\": \\"Expected string, received nan\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"number\\",
+                    \\"received\\": \\"nan\\",
+                    \\"path\\": [],
+                    \\"message\\": \\"Expected number, received nan\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"boolean\\",
+                    \\"received\\": \\"nan\\",
+                    \\"path\\": [],
+                    \\"message\\": \\"Expected boolean, received nan\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"null\\",
+                    \\"received\\": \\"nan\\",
+                    \\"path\\": [],
+                    \\"message\\": \\"Expected null, received nan\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              }
+            ],
+            \\"path\\": [],
+            \\"message\\": \\"Invalid input\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"array\\",
+            \\"received\\": \\"nan\\",
+            \\"path\\": [],
+            \\"message\\": \\"Expected array, received nan\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"nan\\",
+            \\"path\\": [],
+            \\"message\\": \\"Expected object, received nan\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      }
+    ],
+    \\"path\\": [],
+    \\"message\\": \\"Invalid input\\"
+  }
+]"
+`;
+
+exports[`No dataset 2`] = `
+"[
+  {
+    \\"code\\": \\"invalid_union\\",
+    \\"unionErrors\\": [
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_union\\",
+            \\"unionErrors\\": [
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"string\\",
+                    \\"received\\": \\"array\\",
+                    \\"path\\": [],
+                    \\"message\\": \\"Expected string, received array\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"number\\",
+                    \\"received\\": \\"array\\",
+                    \\"path\\": [],
+                    \\"message\\": \\"Expected number, received array\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"boolean\\",
+                    \\"received\\": \\"array\\",
+                    \\"path\\": [],
+                    \\"message\\": \\"Expected boolean, received array\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"null\\",
+                    \\"received\\": \\"array\\",
+                    \\"path\\": [],
+                    \\"message\\": \\"Expected null, received array\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              }
+            ],
+            \\"path\\": [],
+            \\"message\\": \\"Invalid input\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_union\\",
+            \\"unionErrors\\": [
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_union\\",
+                    \\"unionErrors\\": [
+                      {
+                        \\"issues\\": [
+                          {
+                            \\"code\\": \\"invalid_type\\",
+                            \\"expected\\": \\"string\\",
+                            \\"received\\": \\"nan\\",
+                            \\"path\\": [
+                              0
+                            ],
+                            \\"message\\": \\"Expected string, received nan\\"
+                          }
+                        ],
+                        \\"name\\": \\"ZodError\\"
+                      },
+                      {
+                        \\"issues\\": [
+                          {
+                            \\"code\\": \\"invalid_type\\",
+                            \\"expected\\": \\"number\\",
+                            \\"received\\": \\"nan\\",
+                            \\"path\\": [
+                              0
+                            ],
+                            \\"message\\": \\"Expected number, received nan\\"
+                          }
+                        ],
+                        \\"name\\": \\"ZodError\\"
+                      },
+                      {
+                        \\"issues\\": [
+                          {
+                            \\"code\\": \\"invalid_type\\",
+                            \\"expected\\": \\"boolean\\",
+                            \\"received\\": \\"nan\\",
+                            \\"path\\": [
+                              0
+                            ],
+                            \\"message\\": \\"Expected boolean, received nan\\"
+                          }
+                        ],
+                        \\"name\\": \\"ZodError\\"
+                      },
+                      {
+                        \\"issues\\": [
+                          {
+                            \\"code\\": \\"invalid_type\\",
+                            \\"expected\\": \\"null\\",
+                            \\"received\\": \\"nan\\",
+                            \\"path\\": [
+                              0
+                            ],
+                            \\"message\\": \\"Expected null, received nan\\"
+                          }
+                        ],
+                        \\"name\\": \\"ZodError\\"
+                      }
+                    ],
+                    \\"path\\": [
+                      0
+                    ],
+                    \\"message\\": \\"Invalid input\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"array\\",
+                    \\"received\\": \\"nan\\",
+                    \\"path\\": [
+                      0
+                    ],
+                    \\"message\\": \\"Expected array, received nan\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"object\\",
+                    \\"received\\": \\"nan\\",
+                    \\"path\\": [
+                      0
+                    ],
+                    \\"message\\": \\"Expected object, received nan\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              }
+            ],
+            \\"path\\": [
+              0
+            ],
+            \\"message\\": \\"Invalid input\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"array\\",
+            \\"path\\": [],
+            \\"message\\": \\"Expected object, received array\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      }
+    ],
+    \\"path\\": [],
+    \\"message\\": \\"Invalid input\\"
+  }
+]"
+`;
+
+exports[`No dataset 3`] = `
+"[
+  {
+    \\"code\\": \\"unrecognized_keys\\",
+    \\"keys\\": [
+      \\"length\\"
+    ],
+    \\"path\\": [],
+    \\"message\\": \\"Unrecognized key(s) in object: 'length'\\"
+  }
+]"
+`;
+
+exports[`No dataset 4`] = `
+"[
+  {
+    \\"code\\": \\"invalid_type\\",
+    \\"expected\\": \\"object\\",
+    \\"received\\": \\"null\\",
+    \\"path\\": [],
+    \\"message\\": \\"Expected object, received null\\"
+  }
+]"
+`;
+
+exports[`No dataset 5`] = `
+"[
+  {
+    \\"code\\": \\"invalid_type\\",
+    \\"expected\\": \\"number\\",
+    \\"received\\": \\"null\\",
+    \\"path\\": [],
+    \\"message\\": \\"Expected number, received null\\"
+  }
+]"
+`;

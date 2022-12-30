@@ -1,4 +1,5 @@
 import type { InferType } from 'groqz'
+
 import { indexQuery } from '../queries'
 
 export default function Docs() {
