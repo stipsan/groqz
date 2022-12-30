@@ -19,7 +19,7 @@ export async function printQueries(
   for (const query of queries) {
     const identifier = `gen${typedefs.length}`
     typedefs.push(`export interface ${identifier} {
-  query: /* groq */ ${JSON.stringify(query)}
+  query: /* groq */ \`${JSON.parse(JSON.stringify(`${query}`))}\`
   schema: z.ZodType<${await groqToTs(query, options)}>
 }`)
   }

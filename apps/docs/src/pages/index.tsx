@@ -8,7 +8,9 @@ export default function Docs() {
     { _id: '123', _type: 'page', title: 'Hello' },
     { _id: '456', _type: 'page' },
   ])
-  console.log({ data })
+  console.log(data.length)
+  // @ts-expect-error -- data is an array
+  console.log(data.title)
   return (
     <div>
       <h1>GROQZ Documentation</h1>

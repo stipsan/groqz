@@ -20,6 +20,7 @@ importers:
 
   apps/docs:
     specifiers:
+      '@groqz/to-js': workspace:*
       '@groqz/to-ts': workspace:*
       '@groqz/tsconfig': workspace:*
       '@types/node': ^18.11.18
@@ -43,6 +44,7 @@ importers:
       react-dom: 18.2.0_react@18.2.0
       zod: 3.20.2
     devDependencies:
+      '@groqz/to-js': link:../../packages/to-js
       '@groqz/to-ts': link:../../packages/to-ts
       '@groqz/tsconfig': link:../../packages/tsconfig
       '@types/node': 18.11.18
@@ -108,6 +110,31 @@ importers:
       groq: 2.33.2
       typescript: 4.9.4
       vitest: 0.26.2
+
+  packages/to-js:
+    specifiers:
+      '@groqz/parser': workspace:*
+      '@groqz/tsconfig': workspace:*
+      '@sanity/pkg-utils': ^2.0.3
+      eslint: ^8.30.0
+      eslint-config-groqz: workspace:*
+      groq: ^2.33.2
+      prettier: ^2.8.1
+      typescript: ^4.9.4
+      vitest: ^0.26.2
+      zod: ^3.20.2
+    dependencies:
+      '@groqz/parser': link:../parser
+      prettier: 2.8.1
+    devDependencies:
+      '@groqz/tsconfig': link:../tsconfig
+      '@sanity/pkg-utils': 2.0.3_typescript@4.9.4
+      eslint: 8.30.0
+      eslint-config-groqz: link:../eslint-config-groqz
+      groq: 2.33.2
+      typescript: 4.9.4
+      vitest: 0.26.2
+      zod: 3.20.2
 
   packages/to-ts:
     specifiers:
@@ -4720,7 +4747,6 @@ packages:
     resolution: {integrity: sha512-lqGoSJBQNJidqCHE80vqZJHWHRFoNYsSpP9AjFhlhi9ODCJA541svILes/+/1GM3VaL/abZi7cpFzOpdR9UPKg==}
     engines: {node: '>=10.13.0'}
     hasBin: true
-    dev: true
 
   /pretty-bytes/5.6.0:
     resolution: {integrity: sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==}

@@ -29,23 +29,23 @@ test('groqToTs', async () => {
     await groqToTs(groq`*[]{_type, title }`, {
       dataset: [{ _type: 'page', title: 'title' }, { _type: 'person' }],
     })
-  ).toBe(`{
-  _id: string;
-  _type: "page";
-  title?: string | undefined;
-  description?: Json | undefined;
-}[]`)
+  ).toBe(`({
+    _type: "page";
+    title?: string | undefined;
+} | {
+    _type: "person";
+    title?: Json | undefined;
+})[]`)
 
   expect(
-    await groqToTs(groq`*[]{_type, title }`, {
-      dataset: [{ _type: 'page', title: 'title' }, { _type: 'person' }],
+    await groqToTs(groq`*[]{_type }`, {
+      dataset: [{ _type: 'page' }, { _type: 'person' }],
     })
-  ).toBe(`{
-_id: string;
-_type: "page";
-title?: string | undefined;
-description?: Json | undefined;
-}[]`)
+  ).toBe(`({
+    _type: "page";
+} | {
+    _type: "person";
+})[]`)
 })
 
 test('printQueries', async () => {
@@ -70,7 +70,7 @@ test('printQueries', async () => {
     export type Json = Literal | { [key: string]: Json } | Json[]
 
     export interface gen0 {
-      query: /* groq */ \\"*[]{_type, title }\\"
+      query: /* groq */ \`*[]{_type, title }\`
       schema: z.ZodType<({
         _type: \\"page\\";
         title?: string | undefined;
@@ -81,7 +81,7 @@ test('printQueries', async () => {
     }
 
     export interface gen1 {
-      query: /* groq */ \\"*[_type == \\\\\\"page\\\\\\"]{_type, title }[0]\\"
+      query: /* groq */ \`*[_type == \\"page\\"]{_type, title }[0]\`
       schema: z.ZodType<{
         _type: \\"page\\";
         title?: string | undefined;
@@ -89,7 +89,9 @@ test('printQueries', async () => {
     }
 
     export interface gen2 {
-      query: /* groq */ \\"*[_type == \\\\\\"movie\\\\\\"]{\\\\n          _type, title \\\\n        }[0]\\"
+      query: /* groq */ \`*[_type == \\"movie\\"]{
+              _type, title 
+            }[0]\`
       schema: z.ZodType<Json>
     }
     "
