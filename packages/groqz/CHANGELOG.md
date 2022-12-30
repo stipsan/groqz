@@ -1,5 +1,11 @@
 # groqz
 
+## 1.0.3
+
+### Patch Changes
+
+- 47264fc: sync wip
+
 ## 1.0.2
 
 ### Patch Changes
