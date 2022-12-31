@@ -167,10 +167,10 @@ importers:
       typescript: ^4.9.4
       vitest: ^0.26.2
       zod: ^3.20.2
-      zod-to-ts: ^1.1.1
+      zod-to-ts: ^1.1.2
     dependencies:
       '@groqz/to-zod': link:../to-zod
-      zod-to-ts: 1.1.1_4umapwpw55xijlh2mknjgcn4rq
+      zod-to-ts: 1.1.2_4umapwpw55xijlh2mknjgcn4rq
     devDependencies:
       '@groqz/tsconfig': link:../tsconfig
       '@sanity/pkg-utils': 2.0.4-beta.1_typescript@4.9.4
@@ -195,11 +195,11 @@ importers:
       typescript: ^4.9.4
       vitest: ^0.26.2
       zod: ^3.20.2
-      zod-to-ts: ^1.1.1
+      zod-to-ts: ^1.1.2
     dependencies:
       '@groqz/json': link:../json
       '@groqz/parser': link:../parser
-      zod-to-ts: 1.1.1_4umapwpw55xijlh2mknjgcn4rq
+      zod-to-ts: 1.1.2_4umapwpw55xijlh2mknjgcn4rq
     devDependencies:
       '@groqz/tsconfig': link:../tsconfig
       '@sanity/pkg-utils': 2.0.4-beta.1_typescript@4.9.4
@@ -5938,10 +5938,10 @@ packages:
       commander: 9.4.1
     dev: true
 
-  /zod-to-ts/1.1.1_4umapwpw55xijlh2mknjgcn4rq:
-    resolution: {integrity: sha512-7UGV+GnuKLUyJbJeyrkfMqCP8wk37dFkOwguIWN/jVL7kQg2e1N5o0SDPVodlfTutxeAP9IRXsWLoSlEnmetCA==}
+  /zod-to-ts/1.1.2_4umapwpw55xijlh2mknjgcn4rq:
+    resolution: {integrity: sha512-IZdM0Ga1l/vQnrNy63aV3qsLNchD0aUYZEtXcyt8A3xA7+erFO0zeImEcUH5qNLA6tXDTjRpcWp0paoVoH/D0A==}
     peerDependencies:
-      typescript: ^4
+      typescript: ^4.9.4
       zod: ^3
     dependencies:
       typescript: 4.9.4
