@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 /** @alpha */
-export type BaseResult<T> = {
+export type ParsedQuery<T> = {
   query: string
   schema: T
 }
@@ -10,7 +10,7 @@ export type BaseResult<T> = {
  * Based on https://github.com/FormidableLabs/groqd/blob/c36a0140230e50ecc58ce466e5ab9f9069476b27/src/types.ts
  * @alpha
  */
-export type InferType<Result> = Result extends BaseResult<infer T>
+export type InferType<Result> = Result extends ParsedQuery<infer T>
   ? T extends z.ZodType
     ? z.infer<T>
     : never

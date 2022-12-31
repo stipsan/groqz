@@ -43,12 +43,13 @@
     "maintained node versions"
   ],
   "dependencies": {
+    "@groqz/json": "workspace:*",
     "@groqz/parser": "workspace:*",
     "zod-to-ts": "^1.1.1"
   },
   "devDependencies": {
     "@groqz/tsconfig": "workspace:*",
-    "@sanity/pkg-utils": "^2.0.3",
+    "@sanity/pkg-utils": "2.0.4-beta.1",
     "eslint": "^8.30.0",
     "eslint-config-groqz": "workspace:*",
     "groq": "^2.33.2",

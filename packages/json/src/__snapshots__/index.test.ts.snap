@@ -1,0 +1,293 @@
+// Vitest Snapshot v1
+
+exports[`parsing 1`] = `
+"[
+  {
+    \\"code\\": \\"invalid_union\\",
+    \\"unionErrors\\": [
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_union\\",
+            \\"unionErrors\\": [
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"string\\",
+                    \\"received\\": \\"nan\\",
+                    \\"path\\": [],
+                    \\"message\\": \\"Expected string, received nan\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"number\\",
+                    \\"received\\": \\"nan\\",
+                    \\"path\\": [],
+                    \\"message\\": \\"Expected number, received nan\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"boolean\\",
+                    \\"received\\": \\"nan\\",
+                    \\"path\\": [],
+                    \\"message\\": \\"Expected boolean, received nan\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"null\\",
+                    \\"received\\": \\"nan\\",
+                    \\"path\\": [],
+                    \\"message\\": \\"Expected null, received nan\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              }
+            ],
+            \\"path\\": [],
+            \\"message\\": \\"Invalid input\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"array\\",
+            \\"received\\": \\"nan\\",
+            \\"path\\": [],
+            \\"message\\": \\"Expected array, received nan\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"nan\\",
+            \\"path\\": [],
+            \\"message\\": \\"Expected object, received nan\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      }
+    ],
+    \\"path\\": [],
+    \\"message\\": \\"Invalid input\\"
+  }
+]"
+`;
+
+exports[`parsing 2`] = `
+"[
+  {
+    \\"code\\": \\"invalid_union\\",
+    \\"unionErrors\\": [
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_union\\",
+            \\"unionErrors\\": [
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"string\\",
+                    \\"received\\": \\"array\\",
+                    \\"path\\": [],
+                    \\"message\\": \\"Expected string, received array\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"number\\",
+                    \\"received\\": \\"array\\",
+                    \\"path\\": [],
+                    \\"message\\": \\"Expected number, received array\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"boolean\\",
+                    \\"received\\": \\"array\\",
+                    \\"path\\": [],
+                    \\"message\\": \\"Expected boolean, received array\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"null\\",
+                    \\"received\\": \\"array\\",
+                    \\"path\\": [],
+                    \\"message\\": \\"Expected null, received array\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              }
+            ],
+            \\"path\\": [],
+            \\"message\\": \\"Invalid input\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_union\\",
+            \\"unionErrors\\": [
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_union\\",
+                    \\"unionErrors\\": [
+                      {
+                        \\"issues\\": [
+                          {
+                            \\"code\\": \\"invalid_type\\",
+                            \\"expected\\": \\"string\\",
+                            \\"received\\": \\"nan\\",
+                            \\"path\\": [
+                              0
+                            ],
+                            \\"message\\": \\"Expected string, received nan\\"
+                          }
+                        ],
+                        \\"name\\": \\"ZodError\\"
+                      },
+                      {
+                        \\"issues\\": [
+                          {
+                            \\"code\\": \\"invalid_type\\",
+                            \\"expected\\": \\"number\\",
+                            \\"received\\": \\"nan\\",
+                            \\"path\\": [
+                              0
+                            ],
+                            \\"message\\": \\"Expected number, received nan\\"
+                          }
+                        ],
+                        \\"name\\": \\"ZodError\\"
+                      },
+                      {
+                        \\"issues\\": [
+                          {
+                            \\"code\\": \\"invalid_type\\",
+                            \\"expected\\": \\"boolean\\",
+                            \\"received\\": \\"nan\\",
+                            \\"path\\": [
+                              0
+                            ],
+                            \\"message\\": \\"Expected boolean, received nan\\"
+                          }
+                        ],
+                        \\"name\\": \\"ZodError\\"
+                      },
+                      {
+                        \\"issues\\": [
+                          {
+                            \\"code\\": \\"invalid_type\\",
+                            \\"expected\\": \\"null\\",
+                            \\"received\\": \\"nan\\",
+                            \\"path\\": [
+                              0
+                            ],
+                            \\"message\\": \\"Expected null, received nan\\"
+                          }
+                        ],
+                        \\"name\\": \\"ZodError\\"
+                      }
+                    ],
+                    \\"path\\": [
+                      0
+                    ],
+                    \\"message\\": \\"Invalid input\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"array\\",
+                    \\"received\\": \\"nan\\",
+                    \\"path\\": [
+                      0
+                    ],
+                    \\"message\\": \\"Expected array, received nan\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              },
+              {
+                \\"issues\\": [
+                  {
+                    \\"code\\": \\"invalid_type\\",
+                    \\"expected\\": \\"object\\",
+                    \\"received\\": \\"nan\\",
+                    \\"path\\": [
+                      0
+                    ],
+                    \\"message\\": \\"Expected object, received nan\\"
+                  }
+                ],
+                \\"name\\": \\"ZodError\\"
+              }
+            ],
+            \\"path\\": [
+              0
+            ],
+            \\"message\\": \\"Invalid input\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"object\\",
+            \\"received\\": \\"array\\",
+            \\"path\\": [],
+            \\"message\\": \\"Expected object, received array\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      }
+    ],
+    \\"path\\": [],
+    \\"message\\": \\"Invalid input\\"
+  }
+]"
+`;

@@ -1,9 +1,20 @@
+import { json as _json } from '@groqz/json'
 import { type EvaluateOptions, introspect } from '@groqz/parser'
 import { z } from 'zod'
+import { withGetType } from 'zod-to-ts'
 
-import { jsonSchema } from './jsonSchema'
+export * from '@groqz/json'
 
-export * from './jsonSchema'
+// return a TS AST node with an import to the recursive JSON type
+const json: typeof _json = withGetType(_json, (ts) =>
+  ts.factory.createImportTypeNode(
+    ts.factory.createLiteralTypeNode(ts.factory.createStringLiteral('groqz')),
+    undefined,
+    ts.factory.createIdentifier('Json'),
+    undefined,
+    false
+  )
+)
 
 const guaranteedKeys = new Set([
   '_createdAt',
@@ -30,7 +41,7 @@ export async function groqToZod(query: string, options?: EvaluateOptions) {
        * If it's null then we can't infer the type and we return the general JSON type
        */
       if (value === null) {
-        return key === '' ? jsonSchema : jsonSchema.optional()
+        return key === '' ? json : json.optional()
       }
 
       if (Array.isArray(value)) {
@@ -38,7 +49,7 @@ export async function groqToZod(query: string, options?: EvaluateOptions) {
          * If the array is empty then we can't infer the type beyond it being an array that can contain items of the general JSON type
          */
         if (value.length === 0) {
-          return z.array(jsonSchema)
+          return z.array(json)
         }
         if (value.length === 1) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any

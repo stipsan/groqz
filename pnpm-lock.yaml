@@ -73,22 +73,40 @@ importers:
 
   packages/groqz:
     specifiers:
+      '@groqz/json': workspace:*
       '@groqz/tsconfig': workspace:*
-      '@sanity/pkg-utils': ^2.0.3
+      '@sanity/pkg-utils': 2.0.4-beta.1
       eslint: ^8.30.0
       eslint-config-groqz: workspace:*
-      groq-js: 1.1.4-beta.1
       typescript: ^4.9.4
       zod: ^3.20.2
     dependencies:
-      groq-js: 1.1.4-beta.1
-      zod: 3.20.2
+      '@groqz/json': link:../json
     devDependencies:
       '@groqz/tsconfig': link:../tsconfig
-      '@sanity/pkg-utils': 2.0.3_typescript@4.9.4
+      '@sanity/pkg-utils': 2.0.4-beta.1_typescript@4.9.4
       eslint: 8.30.0
       eslint-config-groqz: link:../eslint-config-groqz
       typescript: 4.9.4
+      zod: 3.20.2
+
+  packages/json:
+    specifiers:
+      '@groqz/tsconfig': workspace:*
+      '@sanity/pkg-utils': 2.0.4-beta.1
+      eslint: ^8.30.0
+      eslint-config-groqz: workspace:*
+      typescript: ^4.9.4
+      vitest: ^0.26.2
+      zod: ^3.20.2
+    devDependencies:
+      '@groqz/tsconfig': link:../tsconfig
+      '@sanity/pkg-utils': 2.0.4-beta.1_typescript@4.9.4
+      eslint: 8.30.0
+      eslint-config-groqz: link:../eslint-config-groqz
+      typescript: 4.9.4
+      vitest: 0.26.2
+      zod: 3.20.2
 
   packages/parser:
     specifiers:
@@ -115,7 +133,7 @@ importers:
     specifiers:
       '@groqz/parser': workspace:*
       '@groqz/tsconfig': workspace:*
-      '@sanity/pkg-utils': ^2.0.3
+      '@sanity/pkg-utils': 2.0.4-beta.1
       eslint: ^8.30.0
       eslint-config-groqz: workspace:*
       groq: ^2.33.2
@@ -128,7 +146,7 @@ importers:
       prettier: 2.8.1
     devDependencies:
       '@groqz/tsconfig': link:../tsconfig
-      '@sanity/pkg-utils': 2.0.3_typescript@4.9.4
+      '@sanity/pkg-utils': 2.0.4-beta.1_typescript@4.9.4
       eslint: 8.30.0
       eslint-config-groqz: link:../eslint-config-groqz
       groq: 2.33.2
@@ -140,7 +158,7 @@ importers:
     specifiers:
       '@groqz/to-zod': workspace:*
       '@groqz/tsconfig': workspace:*
-      '@sanity/pkg-utils': ^2.0.3
+      '@sanity/pkg-utils': 2.0.4-beta.1
       '@types/prettier': ^2.7.2
       eslint: ^8.30.0
       eslint-config-groqz: workspace:*
@@ -155,7 +173,7 @@ importers:
       zod-to-ts: 1.1.1_4umapwpw55xijlh2mknjgcn4rq
     devDependencies:
       '@groqz/tsconfig': link:../tsconfig
-      '@sanity/pkg-utils': 2.0.3_typescript@4.9.4
+      '@sanity/pkg-utils': 2.0.4-beta.1_typescript@4.9.4
       '@types/prettier': 2.7.2
       eslint: 8.30.0
       eslint-config-groqz: link:../eslint-config-groqz
@@ -167,9 +185,10 @@ importers:
 
   packages/to-zod:
     specifiers:
+      '@groqz/json': workspace:*
       '@groqz/parser': workspace:*
       '@groqz/tsconfig': workspace:*
-      '@sanity/pkg-utils': ^2.0.3
+      '@sanity/pkg-utils': 2.0.4-beta.1
       eslint: ^8.30.0
       eslint-config-groqz: workspace:*
       groq: ^2.33.2
@@ -178,11 +197,12 @@ importers:
       zod: ^3.20.2
       zod-to-ts: ^1.1.1
     dependencies:
+      '@groqz/json': link:../json
       '@groqz/parser': link:../parser
       zod-to-ts: 1.1.1_4umapwpw55xijlh2mknjgcn4rq
     devDependencies:
       '@groqz/tsconfig': link:../tsconfig
-      '@sanity/pkg-utils': 2.0.3_typescript@4.9.4
+      '@sanity/pkg-utils': 2.0.4-beta.1_typescript@4.9.4
       eslint: 8.30.0
       eslint-config-groqz: link:../eslint-config-groqz
       groq: 2.33.2
@@ -2194,6 +2214,52 @@ packages:
     dependencies:
       '@babel/core': 7.20.7
       '@babel/plugin-proposal-object-rest-spread': 7.20.7_@babel+core@7.20.7
+      '@babel/preset-env': 7.20.2_@babel+core@7.20.7
+      '@babel/types': 7.20.7
+      '@microsoft/api-extractor': 7.33.7
+      '@microsoft/tsdoc-config': 0.16.2
+      '@rollup/plugin-alias': 4.0.2_rollup@3.9.0
+      '@rollup/plugin-babel': 6.0.3_reuzow2s3jnfjeviq3lgj55fky
+      '@rollup/plugin-commonjs': 24.0.0_rollup@3.9.0
+      '@rollup/plugin-json': 6.0.0_rollup@3.9.0
+      '@rollup/plugin-node-resolve': 15.0.1_rollup@3.9.0
+      '@rollup/plugin-replace': 5.0.2_rollup@3.9.0
+      '@rollup/plugin-terser': 0.2.1_rollup@3.9.0
+      browserslist: 4.21.4
+      cac: 6.7.14
+      chalk: 4.1.2
+      chokidar: 3.5.3
+      esbuild: 0.16.12
+      esbuild-register: 3.4.2_esbuild@0.16.12
+      find-config: 1.0.0
+      globby: 11.1.0
+      jsonc-parser: 3.2.0
+      mkdirp: 1.0.4
+      pkg-up: 3.1.0
+      prettier: 2.8.1
+      pretty-bytes: 5.6.0
+      recast: 0.22.0
+      rimraf: 3.0.2
+      rollup: 3.9.0
+      rollup-plugin-esbuild: 5.0.0_y373bxzhxrh563zoydfean2qqi
+      rxjs: 7.8.0
+      treeify: 1.1.0
+      typescript: 4.9.4
+      uuid: 9.0.0
+      zod: 3.20.2
+    transitivePeerDependencies:
+      - '@types/babel__core'
+      - supports-color
+    dev: true
+
+  /@sanity/pkg-utils/2.0.4-beta.1_typescript@4.9.4:
+    resolution: {integrity: sha512-ct+9FNqixMniRN0Gu+Ln1OQQRLtwIrcGuT2PrDGUTPr08NrPVR6kFwhucs4k6OFjgXeHQn8C8tRTo8oc3qiICA==}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
+    peerDependencies:
+      typescript: ^4.7
+    dependencies:
+      '@babel/core': 7.20.7
       '@babel/preset-env': 7.20.2_@babel+core@7.20.7
       '@babel/types': 7.20.7
       '@microsoft/api-extractor': 7.33.7

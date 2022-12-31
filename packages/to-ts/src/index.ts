@@ -27,9 +27,6 @@ export async function printQueries(
   return `// This file was automatically generated. Edits will be overwritten
 import {z} from "zod";
 
-export type Literal = string | number | boolean | null
-export type Json = Literal | { [key: string]: Json } | Json[]
-
 ${typedefs.join(`
 
 `)}

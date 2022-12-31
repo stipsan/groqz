@@ -1,33 +1,26 @@
-import { parse } from 'groq-js'
-import { z } from 'zod'
+import { json as schema } from '@groqz/json'
 
-import type { BaseResult } from './types'
+import type { ParsedQuery } from './types'
 
 /** @alpha */
 export function groq(
   strings: TemplateStringsArray,
+  // @TODO change the typing to disallow arguments, as they're not supported
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ...keys: any[]
-): BaseResult<z.ZodType<unknown>> {
+): ParsedQuery<typeof schema> {
   const lastIndex = strings.length - 1
   const query =
     strings.slice(0, lastIndex).reduce((acc, str, i) => {
       return acc + str + keys[i]
     }, '') + strings[lastIndex]
-  const schema = z.array(z.unknown())
-  const ast = parse(query)
 
-  console.log('groqz', { query, ast, schema })
+  // @TODO console.warn about missing tooling, need to setup babel, rollup or whatever
 
-  return {
-    get query() {
-      return query
-    },
-    get schema() {
-      return schema
-    },
-  }
+  // Bundler tooling makes sure the runtime parser is generated at build time,
+  // the logic in this function isn't intended to be used at runtime.
+  return { query, schema }
 }
 
-export { BaseResult, z }
-export type { InferType } from './types'
+export * from './types'
+export * from '@groqz/json'

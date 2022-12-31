@@ -13,14 +13,14 @@ function fmt(code: string) {
 
 test('groqToTs', async () => {
   expect(await groqToTs(groq`*[_type == "page"]{ _id, _type, title }`)).toBe(
-    `Json`
+    `import("groqz").Json`
   )
 
   expect(
     await groqToTs(groq`*[_type == "page"]{ _id, _type, title }`, {
       dataset: [],
     })
-  ).toBe(`Json[]`)
+  ).toBe(`import("groqz").Json[]`)
 
   expect(
     fmt(
@@ -36,7 +36,7 @@ test('groqToTs', async () => {
     _id: string;
     _type: "page";
     title?: string | undefined;
-    description?: Json | undefined;
+    description?: import("groqz").Json | undefined;
 }[]`)
   )
 
@@ -49,7 +49,7 @@ test('groqToTs', async () => {
     title?: string | undefined;
 } | {
     _type: "person";
-    title?: Json | undefined;
+    title?: import("groqz").Json | undefined;
 })[]`)
 
   expect(
@@ -84,9 +84,6 @@ test('printQueries', async () => {
     "// This file was automatically generated. Edits will be overwritten
     import { z } from \\"zod\\"
 
-    export type Literal = string | number | boolean | null
-    export type Json = Literal | { [key: string]: Json } | Json[]
-
     export interface gen0 {
       query: /* groq */ \`*[]{_type, title }\`
       schema: z.ZodType<
@@ -97,7 +94,7 @@ test('printQueries', async () => {
             }
           | {
               _type: \\"person\\"
-              title?: Json | undefined
+              title?: import(\\"groqz\\").Json | undefined
             }
         )[]
       >
@@ -115,7 +112,7 @@ test('printQueries', async () => {
       query: /* groq */ \`*[_type == \\"movie\\"]{
               _type, title 
             }[0]\`
-      schema: z.ZodType<Json>
+      schema: z.ZodType<import(\\"groqz\\").Json>
     }
     "
   `)

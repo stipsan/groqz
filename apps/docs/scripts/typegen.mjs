@@ -6,7 +6,7 @@ import writeFileAtomic from 'write-file-atomic'
 const options = {
   dataset: [{ _type: 'page', _id: 'page', title: 'title' }],
 }
-const queries = [groq`*[_type == "page"]{ _id, _type, title }`]
+const queries = [groq`*[_type == "page"]{ _id, _type, title, description }`]
 
 await writeFileAtomic(
   'src/queries.typegen.ts',

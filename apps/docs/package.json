@@ -8,6 +8,7 @@
     "dev": "next dev -p 3002",
     "lint": "TIMING=1 next lint",
     "start": "next start ",
+    "test": "pnpm typegen",
     "typegen": "node scripts/typegen.mjs",
     "posttypegen": "npx prettier --cache --write '**/*.typegen.*'"
   },

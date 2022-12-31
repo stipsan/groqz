@@ -3,6 +3,14 @@ import prettier from 'prettier'
 
 export type { EvaluateOptions }
 
+/** @alpha */
+export interface IntrospectOptions extends EvaluateOptions {
+  /**
+   * @defaultValue 'json'
+   */
+  jsonSchemaIdentifier?: string
+}
+
 // @TODO move this to @groqz/parser
 const guaranteedKeys = new Set([
   '_createdAt',
@@ -13,7 +21,10 @@ const guaranteedKeys = new Set([
 ])
 
 /** @alpha */
-export async function groqToJs(query: string, options?: EvaluateOptions) {
+export async function groqToJs(
+  query: string,
+  { jsonSchemaIdentifier = 'json', ...options }: IntrospectOptions = {}
+) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const result = await introspect(query, options, (key: string, value: any) => {
     if (key === '_type' && typeof value === 'string') {
@@ -24,7 +35,9 @@ export async function groqToJs(query: string, options?: EvaluateOptions) {
      * If it's null then we can't infer the type and we return the general JSON type
      */
     if (value === null) {
-      return key === '' ? `jsonSchema` : `jsonSchema.optional()`
+      return key === ''
+        ? jsonSchemaIdentifier
+        : `${jsonSchemaIdentifier}.optional()`
     }
 
     if (Array.isArray(value)) {
@@ -32,7 +45,7 @@ export async function groqToJs(query: string, options?: EvaluateOptions) {
        * If the array is empty then we can't infer the type beyond it being an array that can contain items of the general JSON type
        */
       if (value.length === 0) {
-        return `z.array(jsonSchema)`
+        return `z.array(${jsonSchemaIdentifier})`
       }
       if (value.length === 1) {
         return `z.array(${value[0]})`
@@ -84,16 +97,7 @@ export async function printQueries(
 
   const result = `// This file was automatically generated. Edits will be overwritten
   import {z} from "zod";
-  
-  export const literalSchema = z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    z.null(),
-  ])
-  export const jsonSchema = z.lazy(() =>
-    z.union([literalSchema, z.array(jsonSchema), z.record(jsonSchema)])
-  )
+  import {json} from "groqz";
   
   ${typedefs.join(`
   

@@ -1,13 +1,13 @@
 {
-  "name": "@groqz/to-js",
-  "version": "0.0.1",
+  "name": "@groqz/json",
+  "version": "0.0.0",
   "bugs": {
     "url": "https://github.com/stipsan/groqz/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/stipsan/groqz.git",
-    "directory": "packages/to-ts"
+    "directory": "packages/json"
   },
   "license": "MIT",
   "author": "Cody Olsen <stipsan@gmail.com>",
@@ -42,16 +42,11 @@
     "> 0.2% and supports es6-module and supports es6-module-dynamic-import and not dead and not IE 11",
     "maintained node versions"
   ],
-  "dependencies": {
-    "@groqz/parser": "workspace:*",
-    "prettier": "^2.8.1"
-  },
   "devDependencies": {
     "@groqz/tsconfig": "workspace:*",
     "@sanity/pkg-utils": "2.0.4-beta.1",
     "eslint": "^8.30.0",
     "eslint-config-groqz": "workspace:*",
-    "groq": "^2.33.2",
     "typescript": "^4.9.4",
     "vitest": "^0.26.2",
     "zod": "^3.20.2"

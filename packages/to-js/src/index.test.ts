@@ -5,7 +5,7 @@ import { groqToJs, printQueries } from './index'
 
 test('groqToJs', async () => {
   expect(await groqToJs(groq`*[_type == "page"]{ _id, _type, title }`)).toBe(
-    `jsonSchema
+    `json
 `
   )
 
@@ -13,7 +13,7 @@ test('groqToJs', async () => {
     await groqToJs(groq`*[_type == "page"]{ _id, _type, title }`, {
       dataset: [],
     })
-  ).toBe(`z.array(jsonSchema)
+  ).toBe(`z.array(json)
 `)
 
   expect(
@@ -26,7 +26,7 @@ test('groqToJs', async () => {
       _id: z.string(),
       _type: z.literal("page"),
       title: z.string().optional(),
-      description: jsonSchema.optional(),
+      description: json.optional(),
     })
     .strict()
 )
@@ -47,7 +47,7 @@ test('groqToJs', async () => {
     z
       .object({
         _type: z.literal("person"),
-        title: jsonSchema.optional(),
+        title: json.optional(),
       })
       .strict(),
   ])
@@ -92,16 +92,7 @@ test('printQueries', async () => {
   ).toMatchInlineSnapshot(`
     "// This file was automatically generated. Edits will be overwritten
     import { z } from \\"zod\\"
-
-    export const literalSchema = z.union([
-      z.string(),
-      z.number(),
-      z.boolean(),
-      z.null(),
-    ])
-    export const jsonSchema = z.lazy(() =>
-      z.union([literalSchema, z.array(jsonSchema), z.record(jsonSchema)])
-    )
+    import { json } from \\"groqz\\"
 
     export const gen0 = {
       query: \\"*[]{_type, title }\\",
@@ -116,7 +107,7 @@ test('printQueries', async () => {
           z
             .object({
               _type: z.literal(\\"person\\"),
-              title: jsonSchema.optional(),
+              title: json.optional(),
             })
             .strict(),
         ])
@@ -135,7 +126,7 @@ test('printQueries', async () => {
 
     export const gen2 = {
       query: '*[_type == \\"movie\\"]{\\\\n          _type, title \\\\n        }[0]',
-      schema: jsonSchema,
+      schema: json,
     }
     "
   `)
