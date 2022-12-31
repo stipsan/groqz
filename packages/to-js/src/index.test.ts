@@ -91,8 +91,8 @@ test('printQueries', async () => {
     )
   ).toMatchInlineSnapshot(`
     "// This file was automatically generated. Edits will be overwritten
-    import { z } from \\"zod\\"
     import { json } from \\"groqz\\"
+    import { z } from \\"zod\\"
 
     export const gen0 = {
       query: \\"*[]{_type, title }\\",

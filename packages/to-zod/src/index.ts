@@ -41,7 +41,7 @@ export async function groqToZod(query: string, options?: EvaluateOptions) {
        * If it's null then we can't infer the type and we return the general JSON type
        */
       if (value === null) {
-        return key === '' ? json : json.optional()
+        return key === '' || isNumber.test(key) ? json : json.optional()
       }
 
       if (Array.isArray(value)) {
@@ -63,15 +63,15 @@ export async function groqToZod(query: string, options?: EvaluateOptions) {
         case 'number':
           return key === '' || isNumber.test(key)
             ? z.number()
-            : z.number().optional()
+            : z.number().nullish()
         case 'string':
           return key === '' || isNumber.test(key) || guaranteedKeys.has(key)
             ? z.string()
-            : z.string().optional()
+            : z.string().nullish()
         case 'boolean':
           return key === '' || isNumber.test(key)
             ? z.boolean()
-            : z.boolean().optional()
+            : z.boolean().nullish()
         case 'object':
           return key === '' || isNumber.test(key)
             ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -80,7 +80,7 @@ export async function groqToZod(query: string, options?: EvaluateOptions) {
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 .object(value as any)
                 .strict()
-                .optional()
+                .nullish()
       }
 
       throw new Error(`Unknown key ${key} with value ${value}`)

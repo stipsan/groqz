@@ -824,13 +824,28 @@ exports[`Filters 5`] = `
       {
         \\"issues\\": [
           {
+            \\"code\\": \\"invalid_type\\",
+            \\"expected\\": \\"string\\",
+            \\"received\\": \\"number\\",
+            \\"path\\": [
+              0,
+              \\"title\\"
+            ],
+            \\"message\\": \\"Expected string, received number\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
             \\"code\\": \\"invalid_literal\\",
-            \\"expected\\": \\"movie\\",
+            \\"expected\\": \\"sanity.imageAsset\\",
             \\"path\\": [
               0,
               \\"_type\\"
             ],
-            \\"message\\": \\"Invalid literal value, expected \\\\\\"movie\\\\\\"\\"
+            \\"message\\": \\"Invalid literal value, expected \\\\\\"sanity.imageAsset\\\\\\"\\"
           }
         ],
         \\"name\\": \\"ZodError\\"
@@ -908,6 +923,48 @@ exports[`Filters 7`] = `
       {
         \\"issues\\": [
           {
+            \\"code\\": \\"invalid_literal\\",
+            \\"expected\\": \\"movie\\",
+            \\"path\\": [
+              0,
+              \\"_type\\"
+            ],
+            \\"message\\": \\"Invalid literal value, expected \\\\\\"movie\\\\\\"\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      },
+      {
+        \\"issues\\": [
+          {
+            \\"code\\": \\"invalid_literal\\",
+            \\"expected\\": \\"person\\",
+            \\"path\\": [
+              0,
+              \\"_type\\"
+            ],
+            \\"message\\": \\"Invalid literal value, expected \\\\\\"person\\\\\\"\\"
+          }
+        ],
+        \\"name\\": \\"ZodError\\"
+      }
+    ],
+    \\"path\\": [
+      0
+    ],
+    \\"message\\": \\"Invalid input\\"
+  }
+]"
+`;
+
+exports[`Filters 8`] = `
+"[
+  {
+    \\"code\\": \\"invalid_union\\",
+    \\"unionErrors\\": [
+      {
+        \\"issues\\": [
+          {
             \\"code\\": \\"invalid_union\\",
             \\"unionErrors\\": [
               {
@@ -1274,7 +1331,7 @@ exports[`Filters 7`] = `
 ]"
 `;
 
-exports[`Filters 8`] = `
+exports[`Filters 9`] = `
 "[
   {
     \\"code\\": \\"invalid_union\\",
