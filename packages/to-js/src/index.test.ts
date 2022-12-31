@@ -25,7 +25,7 @@ test('groqToJs', async () => {
     .object({
       _id: z.string(),
       _type: z.literal("page"),
-      title: z.string().optional(),
+      title: z.string().nullish(),
       description: json.optional(),
     })
     .strict()
@@ -41,7 +41,7 @@ test('groqToJs', async () => {
     z
       .object({
         _type: z.literal("page"),
-        title: z.string().optional(),
+        title: z.string().nullish(),
       })
       .strict(),
     z
@@ -101,7 +101,7 @@ test('printQueries', async () => {
           z
             .object({
               _type: z.literal(\\"page\\"),
-              title: z.string().optional(),
+              title: z.string().nullish(),
             })
             .strict(),
           z
@@ -119,7 +119,7 @@ test('printQueries', async () => {
       schema: z
         .object({
           _type: z.literal(\\"page\\"),
-          title: z.string().optional(),
+          title: z.string().nullish(),
         })
         .strict(),
     }

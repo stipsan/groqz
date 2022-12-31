@@ -35,7 +35,7 @@ test('groqToTs', async () => {
     fmt(`{
     _id: string;
     _type: "page";
-    title?: string | undefined;
+    title?: (string | undefined) | null;
     description?: import("groqz").Json | undefined;
 }[]`)
   )
@@ -46,7 +46,7 @@ test('groqToTs', async () => {
     })
   ).toBe(`({
     _type: "page";
-    title?: string | undefined;
+    title?: (string | undefined) | null;
 } | {
     _type: "person";
     title?: import("groqz").Json | undefined;
@@ -90,7 +90,7 @@ test('printQueries', async () => {
         (
           | {
               _type: \\"page\\"
-              title?: string | undefined
+              title?: (string | undefined) | null
             }
           | {
               _type: \\"person\\"
@@ -104,7 +104,7 @@ test('printQueries', async () => {
       query: /* groq */ \`*[_type == \\"page\\"]{_type, title }[0]\`
       schema: z.ZodType<{
         _type: \\"page\\"
-        title?: string | undefined
+        title?: (string | undefined) | null
       }>
     }
 

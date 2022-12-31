@@ -1,20 +1,20 @@
 // This file was automatically generated. Edits will be overwritten
-import { json } from "groqz"
-import { z } from "zod"
+import { json } from 'groqz'
+import { z } from 'zod'
 
 export const gen0 = {
-  query: "*",
+  query: '*',
   schema: z.array(
     z.union([
       z
         .object({
-          _type: z.literal("page"),
+          _type: z.literal('page'),
           _id: z.string(),
           title: z.string().nullish(),
           category: z
             .object({
               _ref: z.string().nullish(),
-              _type: z.literal("reference"),
+              _type: z.literal('reference'),
             })
             .strict()
             .nullish(),
@@ -22,7 +22,7 @@ export const gen0 = {
         .strict(),
       z
         .object({
-          _type: z.literal("category"),
+          _type: z.literal('category'),
           _id: z.string(),
           title: z.string().nullish(),
         })
@@ -35,12 +35,12 @@ export const gen1 = {
   query: '*[_type == "page"]{ ..., category-> }[0]',
   schema: z
     .object({
-      _type: z.literal("page"),
+      _type: z.literal('page'),
       _id: z.string(),
       title: z.string().nullish(),
       category: z
         .object({
-          _type: z.literal("category"),
+          _type: z.literal('category'),
           _id: z.string(),
           title: z.string().nullish(),
         })
