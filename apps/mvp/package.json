@@ -1,0 +1,22 @@
+{
+  "name": "@groqz/mvp",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "clean": "rm -rf .turbo && rm -rf node_modules",
+    "lint": "TIMING=1 eslint --max-warnings 0 .",
+    "test": "tsc --noEmit"
+  },
+  "dependencies": {
+    "groqz": "workspace:*",
+    "zod": "^3.20.2"
+  },
+  "devDependencies": {
+    "@groqz/tsconfig": "workspace:*",
+    "eslint-config-groqz": "workspace:*",
+    "typescript": "^4.9.4"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}

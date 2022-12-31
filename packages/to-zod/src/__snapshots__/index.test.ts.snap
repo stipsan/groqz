@@ -218,26 +218,6 @@ exports[`Filters 1`] = `
           },
           {
             \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"object\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"slug\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"object\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"poster\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
             \\"expected\\": \\"array\\",
             \\"received\\": \\"undefined\\",
             \\"path\\": [
@@ -319,16 +299,6 @@ exports[`Filters 1`] = `
               \\"_updatedAt\\"
             ],
             \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"object\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"metadata\\"
-            ],
-            \\"message\\": \\"Required\\"
           }
         ],
         \\"name\\": \\"ZodError\\"
@@ -381,26 +351,6 @@ exports[`Filters 1`] = `
             \\"path\\": [
               0,
               \\"_updatedAt\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"object\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"image\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"object\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"slug\\"
             ],
             \\"message\\": \\"Required\\"
           }
@@ -525,26 +475,6 @@ exports[`Filters 2`] = `
           },
           {
             \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"object\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"slug\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"object\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"poster\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
             \\"expected\\": \\"array\\",
             \\"received\\": \\"undefined\\",
             \\"path\\": [
@@ -638,16 +568,6 @@ exports[`Filters 2`] = `
             \\"message\\": \\"Required\\"
           },
           {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"object\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"metadata\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
             \\"code\\": \\"unrecognized_keys\\",
             \\"keys\\": [
               \\"foo\\"
@@ -708,26 +628,6 @@ exports[`Filters 2`] = `
             \\"path\\": [
               0,
               \\"_updatedAt\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"object\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"image\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"object\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"slug\\"
             ],
             \\"message\\": \\"Required\\"
           },

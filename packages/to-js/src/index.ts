@@ -55,13 +55,21 @@ export async function groqToJs(
 
     switch (typeof value) {
       case 'number':
-        return key === '' ? `z.number()` : `z.number().optional()`
+        return key === '' || isNumber.test(key)
+          ? `z.number()`
+          : `z.number().optional()`
       case 'string':
-        return guaranteedKeys.has(key) ? `z.string()` : `z.string().optional()`
+        return key === '' || isNumber.test(key) || guaranteedKeys.has(key)
+          ? `z.string()`
+          : `z.string().optional()`
       case 'boolean':
-        return key === '' ? `z.boolean()` : `z.boolean().optional()`
+        return key === '' || isNumber.test(key)
+          ? `z.boolean()`
+          : `z.boolean().optional()`
       case 'object':
-        return `z.object(${stringifyObject(value)}).strict()`
+        return key === '' || isNumber.test(key)
+          ? `z.object(${stringifyObject(value)}).strict()`
+          : `z.object(${stringifyObject(value)}).strict().optional()`
     }
 
     throw new Error(`Unknown key ${key} with value ${value}`)
@@ -81,6 +89,8 @@ function stringifyObject(obj: any): string {
 }`
 }
 
+const isNumber = /^\d+$/
+
 /** @alpha */
 export async function printQueries(
   queries: string[],
@@ -96,8 +106,8 @@ export async function printQueries(
   }
 
   const result = `// This file was automatically generated. Edits will be overwritten
-  import {z} from "zod";
   import {json} from "groqz";
+  import {z} from "zod";
   
   ${typedefs.join(`
   

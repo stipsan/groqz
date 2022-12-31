@@ -61,17 +61,31 @@ export async function groqToZod(query: string, options?: EvaluateOptions) {
 
       switch (typeof value) {
         case 'number':
-          return key === '' ? z.number() : z.number().optional()
+          return key === '' || isNumber.test(key)
+            ? z.number()
+            : z.number().optional()
         case 'string':
-          return guaranteedKeys.has(key) ? z.string() : z.string().optional()
+          return key === '' || isNumber.test(key) || guaranteedKeys.has(key)
+            ? z.string()
+            : z.string().optional()
         case 'boolean':
-          return key === '' ? z.boolean() : z.boolean().optional()
+          return key === '' || isNumber.test(key)
+            ? z.boolean()
+            : z.boolean().optional()
         case 'object':
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          return z.object(value as any).strict()
+          return key === '' || isNumber.test(key)
+            ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              z.object(value as any).strict()
+            : z
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                .object(value as any)
+                .strict()
+                .optional()
       }
 
       throw new Error(`Unknown key ${key} with value ${value}`)
     }
   )
 }
+
+const isNumber = /^\d+$/

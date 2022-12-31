@@ -18,6 +18,27 @@ importers:
       prettier-plugin-packagejson: 2.3.0_prettier@2.8.1
       turbo: 1.6.3
 
+  apps/codegen:
+    specifiers:
+      '@groqz/to-js': workspace:^0.0.1
+      '@groqz/tsconfig': workspace:*
+      eslint-config-groqz: workspace:*
+      groq: ^2.33.2
+      groqz: workspace:*
+      typescript: ^4.9.4
+      write-file-atomic: ^5.0.0
+      zod: ^3.20.2
+    dependencies:
+      groqz: link:../../packages/groqz
+      zod: 3.20.2
+    devDependencies:
+      '@groqz/to-js': link:../../packages/to-js
+      '@groqz/tsconfig': link:../../packages/tsconfig
+      eslint-config-groqz: link:../../packages/eslint-config-groqz
+      groq: 2.33.2
+      typescript: 4.9.4
+      write-file-atomic: 5.0.0
+
   apps/docs:
     specifiers:
       '@groqz/to-js': workspace:*
@@ -52,6 +73,42 @@ importers:
       '@types/react-dom': 18.0.10
       eslint-config-groqz: link:../../packages/eslint-config-groqz
       eslint-config-next: 13.1.1_lzzuuodtsqwxnvqeq4g4likcqa
+      typescript: 4.9.4
+      write-file-atomic: 5.0.0
+
+  apps/mvp:
+    specifiers:
+      '@groqz/tsconfig': workspace:*
+      eslint-config-groqz: workspace:*
+      groqz: workspace:*
+      typescript: ^4.9.4
+      zod: ^3.20.2
+    dependencies:
+      groqz: link:../../packages/groqz
+      zod: 3.20.2
+    devDependencies:
+      '@groqz/tsconfig': link:../../packages/tsconfig
+      eslint-config-groqz: link:../../packages/eslint-config-groqz
+      typescript: 4.9.4
+
+  apps/typegen:
+    specifiers:
+      '@groqz/to-ts': workspace:^0.0.1
+      '@groqz/tsconfig': workspace:*
+      eslint-config-groqz: workspace:*
+      groq: ^2.33.2
+      groqz: workspace:*
+      typescript: ^4.9.4
+      write-file-atomic: ^5.0.0
+      zod: ^3.20.2
+    dependencies:
+      groqz: link:../../packages/groqz
+      zod: 3.20.2
+    devDependencies:
+      '@groqz/to-ts': link:../../packages/to-ts
+      '@groqz/tsconfig': link:../../packages/tsconfig
+      eslint-config-groqz: link:../../packages/eslint-config-groqz
+      groq: 2.33.2
       typescript: 4.9.4
       write-file-atomic: 5.0.0
 
