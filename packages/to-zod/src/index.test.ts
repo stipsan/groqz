@@ -223,7 +223,20 @@ test('Filters', async () => {
   ).toThrowErrorMatchingSnapshot()
   expect(() =>
     schema.parse([{ _type: 'movie', title: 123 }])
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowErrorMatchingInlineSnapshot(`
+    "[
+      {
+        \\"code\\": \\"invalid_type\\",
+        \\"expected\\": \\"string\\",
+        \\"received\\": \\"number\\",
+        \\"path\\": [
+          0,
+          \\"title\\"
+        ],
+        \\"message\\": \\"Expected string, received number\\"
+      }
+    ]"
+  `)
 
   schema = await groqToZod(
     groq`*[_type in ["movie", "person"]]{_type}`,

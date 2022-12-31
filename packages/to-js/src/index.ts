@@ -50,6 +50,7 @@ export async function groqToJs(
       if (value.length === 1) {
         return `z.array(${value[0]})`
       }
+      console.log(value)
       return `z.array(z.union([${value.join(',')}]))`
     }
 
@@ -74,7 +75,7 @@ export async function groqToJs(
 
     throw new Error(`Unknown key ${key} with value ${value}`)
   })
-  return prettier.format(result, { semi: false, parser: 'babel' })
+  return result
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

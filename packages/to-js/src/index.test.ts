@@ -5,74 +5,53 @@ import { groqToJs, printQueries } from './index'
 
 test('groqToJs', async () => {
   expect(await groqToJs(groq`*[_type == "page"]{ _id, _type, title }`)).toBe(
-    `json
-`
+    `json`
   )
 
   expect(
     await groqToJs(groq`*[_type == "page"]{ _id, _type, title }`, {
       dataset: [],
     })
-  ).toBe(`z.array(json)
-`)
+  ).toBe(`z.array(json)`)
 
   expect(
     await groqToJs(groq`*[_type == "page"]{ _id, _type, title, description }`, {
       dataset: [{ _type: 'page', _id: '_id', title: 'title' }],
     })
-  ).toBe(`z.array(
-  z
-    .object({
-      _id: z.string(),
-      _type: z.literal("page"),
-      title: z.string().nullish(),
-      description: json.optional(),
-    })
-    .strict()
-)
-`)
+  ).toMatchInlineSnapshot(`
+    "z.array(z.object({
+        \\"_id\\": z.string(),
+    \\"_type\\": z.literal(\\"page\\"),
+    \\"title\\": z.string().nullish(),
+    \\"description\\": json.optional()
+    }).strict())"
+  `)
 
   expect(
     await groqToJs(groq`*[]{_type, title }`, {
       dataset: [{ _type: 'page', title: 'title' }, { _type: 'person' }],
     })
-  ).toBe(`z.array(
-  z.union([
-    z
-      .object({
-        _type: z.literal("page"),
-        title: z.string().nullish(),
-      })
-      .strict(),
-    z
-      .object({
-        _type: z.literal("person"),
-        title: json.optional(),
-      })
-      .strict(),
-  ])
-)
-`)
+  ).toMatchInlineSnapshot(`
+    "z.array(z.union([z.object({
+        \\"_type\\": z.literal(\\"page\\"),
+    \\"title\\": z.string().nullish()
+    }).strict(),z.object({
+        \\"_type\\": z.literal(\\"person\\"),
+    \\"title\\": json.optional()
+    }).strict()]))"
+  `)
 
   expect(
     await groqToJs(groq`*[]{_type }`, {
       dataset: [{ _type: 'page' }, { _type: 'person' }],
     })
-  ).toBe(`z.array(
-  z.union([
-    z
-      .object({
-        _type: z.literal("page"),
-      })
-      .strict(),
-    z
-      .object({
-        _type: z.literal("person"),
-      })
-      .strict(),
-  ])
-)
-`)
+  ).toMatchInlineSnapshot(`
+    "z.array(z.union([z.object({
+        \\"_type\\": z.literal(\\"page\\")
+    }).strict(),z.object({
+        \\"_type\\": z.literal(\\"person\\")
+    }).strict()]))"
+  `)
 })
 
 test('printQueries', async () => {

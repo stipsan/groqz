@@ -163,256 +163,26 @@ exports[`Empty dataset array 5`] = `
 exports[`Filters 1`] = `
 "[
   {
-    \\"code\\": \\"invalid_union\\",
-    \\"unionErrors\\": [
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_literal\\",
-            \\"expected\\": \\"movie\\",
-            \\"path\\": [
-              0,
-              \\"_type\\"
-            ],
-            \\"message\\": \\"Invalid literal value, expected \\\\\\"movie\\\\\\"\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_id\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_createdAt\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_rev\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_updatedAt\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"array\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"overview\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"array\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"crewMembers\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"array\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"castMembers\\"
-            ],
-            \\"message\\": \\"Required\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      },
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_literal\\",
-            \\"expected\\": \\"sanity.imageAsset\\",
-            \\"path\\": [
-              0,
-              \\"_type\\"
-            ],
-            \\"message\\": \\"Invalid literal value, expected \\\\\\"sanity.imageAsset\\\\\\"\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_id\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_createdAt\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_rev\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_updatedAt\\"
-            ],
-            \\"message\\": \\"Required\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      },
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_literal\\",
-            \\"expected\\": \\"person\\",
-            \\"path\\": [
-              0,
-              \\"_type\\"
-            ],
-            \\"message\\": \\"Invalid literal value, expected \\\\\\"person\\\\\\"\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_id\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_createdAt\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_rev\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_updatedAt\\"
-            ],
-            \\"message\\": \\"Required\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      }
+    \\"code\\": \\"invalid_union_discriminator\\",
+    \\"options\\": [
+      \\"movie\\",
+      \\"sanity.imageAsset\\",
+      \\"person\\"
     ],
     \\"path\\": [
-      0
+      0,
+      \\"_type\\"
     ],
-    \\"message\\": \\"Invalid input\\"
+    \\"message\\": \\"Invalid discriminator value. Expected 'movie' | 'sanity.imageAsset' | 'person'\\"
   },
   {
-    \\"code\\": \\"invalid_union\\",
-    \\"unionErrors\\": [
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"object\\",
-            \\"received\\": \\"number\\",
-            \\"path\\": [
-              1
-            ],
-            \\"message\\": \\"Expected object, received number\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      },
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"object\\",
-            \\"received\\": \\"number\\",
-            \\"path\\": [
-              1
-            ],
-            \\"message\\": \\"Expected object, received number\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      },
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"object\\",
-            \\"received\\": \\"number\\",
-            \\"path\\": [
-              1
-            ],
-            \\"message\\": \\"Expected object, received number\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      }
-    ],
+    \\"code\\": \\"invalid_type\\",
+    \\"expected\\": \\"object\\",
+    \\"received\\": \\"number\\",
     \\"path\\": [
       1
     ],
-    \\"message\\": \\"Invalid input\\"
+    \\"message\\": \\"Expected object, received number\\"
   }
 ]"
 `;
@@ -420,286 +190,26 @@ exports[`Filters 1`] = `
 exports[`Filters 2`] = `
 "[
   {
-    \\"code\\": \\"invalid_union\\",
-    \\"unionErrors\\": [
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_literal\\",
-            \\"expected\\": \\"movie\\",
-            \\"path\\": [
-              0,
-              \\"_type\\"
-            ],
-            \\"message\\": \\"Invalid literal value, expected \\\\\\"movie\\\\\\"\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_id\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_createdAt\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_rev\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_updatedAt\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"array\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"overview\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"array\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"crewMembers\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"array\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"castMembers\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"unrecognized_keys\\",
-            \\"keys\\": [
-              \\"foo\\"
-            ],
-            \\"path\\": [
-              0
-            ],
-            \\"message\\": \\"Unrecognized key(s) in object: 'foo'\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      },
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_literal\\",
-            \\"expected\\": \\"sanity.imageAsset\\",
-            \\"path\\": [
-              0,
-              \\"_type\\"
-            ],
-            \\"message\\": \\"Invalid literal value, expected \\\\\\"sanity.imageAsset\\\\\\"\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_id\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_createdAt\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_rev\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_updatedAt\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"unrecognized_keys\\",
-            \\"keys\\": [
-              \\"foo\\"
-            ],
-            \\"path\\": [
-              0
-            ],
-            \\"message\\": \\"Unrecognized key(s) in object: 'foo'\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      },
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_literal\\",
-            \\"expected\\": \\"person\\",
-            \\"path\\": [
-              0,
-              \\"_type\\"
-            ],
-            \\"message\\": \\"Invalid literal value, expected \\\\\\"person\\\\\\"\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_id\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_createdAt\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_rev\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"undefined\\",
-            \\"path\\": [
-              0,
-              \\"_updatedAt\\"
-            ],
-            \\"message\\": \\"Required\\"
-          },
-          {
-            \\"code\\": \\"unrecognized_keys\\",
-            \\"keys\\": [
-              \\"foo\\"
-            ],
-            \\"path\\": [
-              0
-            ],
-            \\"message\\": \\"Unrecognized key(s) in object: 'foo'\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      }
+    \\"code\\": \\"invalid_union_discriminator\\",
+    \\"options\\": [
+      \\"movie\\",
+      \\"sanity.imageAsset\\",
+      \\"person\\"
     ],
     \\"path\\": [
-      0
+      0,
+      \\"_type\\"
     ],
-    \\"message\\": \\"Invalid input\\"
+    \\"message\\": \\"Invalid discriminator value. Expected 'movie' | 'sanity.imageAsset' | 'person'\\"
   },
   {
-    \\"code\\": \\"invalid_union\\",
-    \\"unionErrors\\": [
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"object\\",
-            \\"received\\": \\"number\\",
-            \\"path\\": [
-              1
-            ],
-            \\"message\\": \\"Expected object, received number\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      },
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"object\\",
-            \\"received\\": \\"number\\",
-            \\"path\\": [
-              1
-            ],
-            \\"message\\": \\"Expected object, received number\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      },
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"object\\",
-            \\"received\\": \\"number\\",
-            \\"path\\": [
-              1
-            ],
-            \\"message\\": \\"Expected object, received number\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      }
-    ],
+    \\"code\\": \\"invalid_type\\",
+    \\"expected\\": \\"object\\",
+    \\"received\\": \\"number\\",
     \\"path\\": [
       1
     ],
-    \\"message\\": \\"Invalid input\\"
+    \\"message\\": \\"Expected object, received number\\"
   }
 ]"
 `;
@@ -707,55 +217,17 @@ exports[`Filters 2`] = `
 exports[`Filters 3`] = `
 "[
   {
-    \\"code\\": \\"invalid_union\\",
-    \\"unionErrors\\": [
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_literal\\",
-            \\"expected\\": \\"movie\\",
-            \\"path\\": [
-              0,
-              \\"_type\\"
-            ],
-            \\"message\\": \\"Invalid literal value, expected \\\\\\"movie\\\\\\"\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      },
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_literal\\",
-            \\"expected\\": \\"sanity.imageAsset\\",
-            \\"path\\": [
-              0,
-              \\"_type\\"
-            ],
-            \\"message\\": \\"Invalid literal value, expected \\\\\\"sanity.imageAsset\\\\\\"\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      },
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_literal\\",
-            \\"expected\\": \\"person\\",
-            \\"path\\": [
-              0,
-              \\"_type\\"
-            ],
-            \\"message\\": \\"Invalid literal value, expected \\\\\\"person\\\\\\"\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      }
+    \\"code\\": \\"invalid_union_discriminator\\",
+    \\"options\\": [
+      \\"movie\\",
+      \\"sanity.imageAsset\\",
+      \\"person\\"
     ],
     \\"path\\": [
-      0
+      0,
+      \\"_type\\"
     ],
-    \\"message\\": \\"Invalid input\\"
+    \\"message\\": \\"Invalid discriminator value. Expected 'movie' | 'sanity.imageAsset' | 'person'\\"
   }
 ]"
 `;
@@ -763,112 +235,17 @@ exports[`Filters 3`] = `
 exports[`Filters 4`] = `
 "[
   {
-    \\"code\\": \\"invalid_union\\",
-    \\"unionErrors\\": [
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_literal\\",
-            \\"expected\\": \\"movie\\",
-            \\"path\\": [
-              0,
-              \\"_type\\"
-            ],
-            \\"message\\": \\"Invalid literal value, expected \\\\\\"movie\\\\\\"\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      },
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_literal\\",
-            \\"expected\\": \\"sanity.imageAsset\\",
-            \\"path\\": [
-              0,
-              \\"_type\\"
-            ],
-            \\"message\\": \\"Invalid literal value, expected \\\\\\"sanity.imageAsset\\\\\\"\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      },
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_literal\\",
-            \\"expected\\": \\"person\\",
-            \\"path\\": [
-              0,
-              \\"_type\\"
-            ],
-            \\"message\\": \\"Invalid literal value, expected \\\\\\"person\\\\\\"\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      }
+    \\"code\\": \\"invalid_union_discriminator\\",
+    \\"options\\": [
+      \\"movie\\",
+      \\"sanity.imageAsset\\",
+      \\"person\\"
     ],
     \\"path\\": [
-      0
+      0,
+      \\"_type\\"
     ],
-    \\"message\\": \\"Invalid input\\"
-  }
-]"
-`;
-
-exports[`Filters 5`] = `
-"[
-  {
-    \\"code\\": \\"invalid_union\\",
-    \\"unionErrors\\": [
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_type\\",
-            \\"expected\\": \\"string\\",
-            \\"received\\": \\"number\\",
-            \\"path\\": [
-              0,
-              \\"title\\"
-            ],
-            \\"message\\": \\"Expected string, received number\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      },
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_literal\\",
-            \\"expected\\": \\"sanity.imageAsset\\",
-            \\"path\\": [
-              0,
-              \\"_type\\"
-            ],
-            \\"message\\": \\"Invalid literal value, expected \\\\\\"sanity.imageAsset\\\\\\"\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      },
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_literal\\",
-            \\"expected\\": \\"person\\",
-            \\"path\\": [
-              0,
-              \\"_type\\"
-            ],
-            \\"message\\": \\"Invalid literal value, expected \\\\\\"person\\\\\\"\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      }
-    ],
-    \\"path\\": [
-      0
-    ],
-    \\"message\\": \\"Invalid input\\"
+    \\"message\\": \\"Invalid discriminator value. Expected 'movie' | 'sanity.imageAsset' | 'person'\\"
   }
 ]"
 `;
@@ -876,41 +253,16 @@ exports[`Filters 5`] = `
 exports[`Filters 6`] = `
 "[
   {
-    \\"code\\": \\"invalid_union\\",
-    \\"unionErrors\\": [
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_literal\\",
-            \\"expected\\": \\"movie\\",
-            \\"path\\": [
-              0,
-              \\"_type\\"
-            ],
-            \\"message\\": \\"Invalid literal value, expected \\\\\\"movie\\\\\\"\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      },
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_literal\\",
-            \\"expected\\": \\"person\\",
-            \\"path\\": [
-              0,
-              \\"_type\\"
-            ],
-            \\"message\\": \\"Invalid literal value, expected \\\\\\"person\\\\\\"\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      }
+    \\"code\\": \\"invalid_union_discriminator\\",
+    \\"options\\": [
+      \\"movie\\",
+      \\"person\\"
     ],
     \\"path\\": [
-      0
+      0,
+      \\"_type\\"
     ],
-    \\"message\\": \\"Invalid input\\"
+    \\"message\\": \\"Invalid discriminator value. Expected 'movie' | 'person'\\"
   }
 ]"
 `;
@@ -918,41 +270,16 @@ exports[`Filters 6`] = `
 exports[`Filters 7`] = `
 "[
   {
-    \\"code\\": \\"invalid_union\\",
-    \\"unionErrors\\": [
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_literal\\",
-            \\"expected\\": \\"movie\\",
-            \\"path\\": [
-              0,
-              \\"_type\\"
-            ],
-            \\"message\\": \\"Invalid literal value, expected \\\\\\"movie\\\\\\"\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      },
-      {
-        \\"issues\\": [
-          {
-            \\"code\\": \\"invalid_literal\\",
-            \\"expected\\": \\"person\\",
-            \\"path\\": [
-              0,
-              \\"_type\\"
-            ],
-            \\"message\\": \\"Invalid literal value, expected \\\\\\"person\\\\\\"\\"
-          }
-        ],
-        \\"name\\": \\"ZodError\\"
-      }
+    \\"code\\": \\"invalid_union_discriminator\\",
+    \\"options\\": [
+      \\"movie\\",
+      \\"person\\"
     ],
     \\"path\\": [
-      0
+      0,
+      \\"_type\\"
     ],
-    \\"message\\": \\"Invalid input\\"
+    \\"message\\": \\"Invalid discriminator value. Expected 'movie' | 'person'\\"
   }
 ]"
 `;
