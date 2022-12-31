@@ -35,7 +35,7 @@ export async function groqToJs(
      * If it's null then we can't infer the type and we return the general JSON type
      */
     if (value === null) {
-      return key === ''
+      return key === '' || isNumber.test(key)
         ? jsonSchemaIdentifier
         : `${jsonSchemaIdentifier}.optional()`
     }
@@ -57,19 +57,19 @@ export async function groqToJs(
       case 'number':
         return key === '' || isNumber.test(key)
           ? `z.number()`
-          : `z.number().optional()`
+          : `z.number().nullish()`
       case 'string':
         return key === '' || isNumber.test(key) || guaranteedKeys.has(key)
           ? `z.string()`
-          : `z.string().optional()`
+          : `z.string().nullish()`
       case 'boolean':
         return key === '' || isNumber.test(key)
           ? `z.boolean()`
-          : `z.boolean().optional()`
+          : `z.boolean().nullish()`
       case 'object':
         return key === '' || isNumber.test(key)
           ? `z.object(${stringifyObject(value)}).strict()`
-          : `z.object(${stringifyObject(value)}).strict().optional()`
+          : `z.object(${stringifyObject(value)}).strict().nullish()`
     }
 
     throw new Error(`Unknown key ${key} with value ${value}`)

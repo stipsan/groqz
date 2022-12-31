@@ -8,18 +8,21 @@ export interface gen0 {
       | {
           _type: 'page'
           _id: string
-          title?: string | undefined
+          title?: (string | undefined) | null
           category?:
-            | {
-                _ref?: string | undefined
-                _type: 'reference'
-              }
-            | undefined
+            | (
+                | {
+                    _ref?: (string | undefined) | null
+                    _type: 'reference'
+                  }
+                | undefined
+              )
+            | null
         }
       | {
           _type: 'category'
           _id: string
-          title?: string | undefined
+          title?: (string | undefined) | null
         }
     )[]
   >
@@ -30,14 +33,17 @@ export interface gen1 {
   schema: z.ZodType<{
     _type: 'page'
     _id: string
-    title?: string | undefined
+    title?: (string | undefined) | null
     category?:
-      | {
-          _type: 'category'
-          _id: string
-          title?: string | undefined
-        }
-      | undefined
+      | (
+          | {
+              _type: 'category'
+              _id: string
+              title?: (string | undefined) | null
+            }
+          | undefined
+        )
+      | null
   }>
 }
 

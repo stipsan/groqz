@@ -7,7 +7,7 @@ export interface gen0 {
     {
       _id: string
       _type: 'page'
-      title?: string | undefined
+      title?: (string | undefined) | null
       description?: import('groqz').Json | undefined
     }[]
   >

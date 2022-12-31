@@ -9,7 +9,7 @@ export const gen0 = {
       .object({
         _id: z.string(),
         _type: z.literal('page'),
-        title: z.string().optional(),
+        title: z.string().nullish(),
         description: json.optional(),
       })
       .strict()

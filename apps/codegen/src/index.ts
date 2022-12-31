@@ -29,7 +29,7 @@ reportEverything(index.schema.parse([]))
 function reportCategory(category: {
   _type: 'category'
   _id: string
-  title?: string
+  title?: string | null
 }) {
   console.log(category)
 }
