@@ -50,8 +50,13 @@ export async function groqToJs(
       if (value.length === 1) {
         return `z.array(${value[0]})`
       }
-      console.log(value)
-      return `z.array(z.union([${value.join(',')}]))`
+
+      const canUseDiscriminatedUnion = value.every((v) => {
+        return (v as string).includes(`    "_type": z.literal`)
+      })
+      return canUseDiscriminatedUnion
+        ? `z.array(z.discriminatedUnion("_type", [${value.join(',')}]))`
+        : `z.array(z.union([${value.join(',')}]))`
     }
 
     switch (typeof value) {

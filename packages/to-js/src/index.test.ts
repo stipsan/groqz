@@ -32,7 +32,7 @@ test('groqToJs', async () => {
       dataset: [{ _type: 'page', title: 'title' }, { _type: 'person' }],
     })
   ).toMatchInlineSnapshot(`
-    "z.array(z.union([z.object({
+    "z.array(z.discriminatedUnion(\\"_type\\", [z.object({
         \\"_type\\": z.literal(\\"page\\"),
     \\"title\\": z.string().nullish()
     }).strict(),z.object({
@@ -46,7 +46,7 @@ test('groqToJs', async () => {
       dataset: [{ _type: 'page' }, { _type: 'person' }],
     })
   ).toMatchInlineSnapshot(`
-    "z.array(z.union([z.object({
+    "z.array(z.discriminatedUnion(\\"_type\\", [z.object({
         \\"_type\\": z.literal(\\"page\\")
     }).strict(),z.object({
         \\"_type\\": z.literal(\\"person\\")
@@ -76,7 +76,7 @@ test('printQueries', async () => {
     export const gen0 = {
       query: \\"*[]{_type, title }\\",
       schema: z.array(
-        z.union([
+        z.discriminatedUnion(\\"_type\\", [
           z
             .object({
               _type: z.literal(\\"page\\"),

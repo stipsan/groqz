@@ -218,25 +218,39 @@ test('Filters', async () => {
     { _type: 'sanity.imageAsset', title: null },
   ])
   expect(() => schema.parse([{}])).toThrowErrorMatchingSnapshot()
-  expect(() =>
-    schema.parse([{ _type: 'crewMember' }])
-  ).toThrowErrorMatchingSnapshot()
-  expect(() =>
-    schema.parse([{ _type: 'movie', title: 123 }])
-  ).toThrowErrorMatchingInlineSnapshot(`
-    "[
-      {
-        \\"code\\": \\"invalid_type\\",
-        \\"expected\\": \\"string\\",
-        \\"received\\": \\"number\\",
-        \\"path\\": [
-          0,
-          \\"title\\"
-        ],
-        \\"message\\": \\"Expected string, received number\\"
-      }
-    ]"
-  `)
+  expect(() => schema.parse([{ _type: 'crewMember' }]))
+    .toThrowErrorMatchingInlineSnapshot(`
+      "[
+        {
+          \\"code\\": \\"invalid_union_discriminator\\",
+          \\"options\\": [
+            \\"movie\\",
+            \\"sanity.imageAsset\\",
+            \\"person\\"
+          ],
+          \\"path\\": [
+            0,
+            \\"_type\\"
+          ],
+          \\"message\\": \\"Invalid discriminator value. Expected 'movie' | 'sanity.imageAsset' | 'person'\\"
+        }
+      ]"
+    `)
+  expect(() => schema.parse([{ _type: 'movie', title: 123 }]))
+    .toThrowErrorMatchingInlineSnapshot(`
+      "[
+        {
+          \\"code\\": \\"invalid_type\\",
+          \\"expected\\": \\"string\\",
+          \\"received\\": \\"number\\",
+          \\"path\\": [
+            0,
+            \\"title\\"
+          ],
+          \\"message\\": \\"Expected string, received number\\"
+        }
+      ]"
+    `)
 
   schema = await groqToZod(
     groq`*[_type in ["movie", "person"]]{_type}`,

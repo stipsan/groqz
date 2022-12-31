@@ -232,24 +232,6 @@ exports[`Filters 3`] = `
 ]"
 `;
 
-exports[`Filters 4`] = `
-"[
-  {
-    \\"code\\": \\"invalid_union_discriminator\\",
-    \\"options\\": [
-      \\"movie\\",
-      \\"sanity.imageAsset\\",
-      \\"person\\"
-    ],
-    \\"path\\": [
-      0,
-      \\"_type\\"
-    ],
-    \\"message\\": \\"Invalid discriminator value. Expected 'movie' | 'sanity.imageAsset' | 'person'\\"
-  }
-]"
-`;
-
 exports[`Filters 6`] = `
 "[
   {

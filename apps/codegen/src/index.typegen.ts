@@ -5,7 +5,7 @@ import { z } from 'zod'
 export const gen0 = {
   query: '*',
   schema: z.array(
-    z.union([
+    z.discriminatedUnion('_type', [
       z
         .object({
           _type: z.literal('page'),
