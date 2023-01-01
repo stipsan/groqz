@@ -38,31 +38,36 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "pkg watch",
     "lint": "TIMING=1 eslint --max-warnings 0 .",
-    "test": "vitest run",
-    "posttest": "pnpm test:cjs && pnpm test:mjs",
-    "test:cjs": "node ./test.cjs",
-    "test:mjs": "node ./test.mjs"
+    "test": "vitest run"
   },
   "browserslist": [
     "> 0.2% and supports es6-module and supports es6-module-dynamic-import and not dead and not IE 11",
     "maintained node versions"
   ],
   "dependencies": {
+    "@groqz/require-resolve": "workspace:*",
     "@sanity/cli": "^3.1.2",
     "@sanity/types": "^3.1.2",
+    "esbuild-register": "^3.3.2",
+    "jsdom-global": "^3.0.2",
     "lodash.isplainobject": "^4.0.6",
     "oneline": "^1.0.3",
-    "read-pkg-up": "^7.0.1"
+    "pirates": "^4.0.0",
+    "read-pkg-up": "^7.0.1",
+    "resolve-from": "^5.0.0"
   },
   "devDependencies": {
     "@groqz/tsconfig": "workspace:*",
     "@sanity/pkg-utils": "^2.0.3",
     "@sanity/vision": "^3.1.2",
+    "@types/jsdom-global": "^3.0.4",
     "@types/lodash.isplainobject": "^4.0.7",
     "@types/node": "^18.11.18",
     "eslint": "^8.30.0",
     "eslint-config-groqz": "workspace:*",
+    "rxjs": "^6.5.3",
     "sanity": "^3.1.2",
+    "styled-components": "^5.3.6",
     "typescript": "^4.9.4",
     "vitest": "^0.26.2"
   },

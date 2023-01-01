@@ -1,7 +1,6 @@
 import { defineConfig } from '@sanity/pkg-utils'
 
 export default defineConfig({
-  // /*
   exports: (prevExports) => ({
     ...prevExports,
 
@@ -12,5 +11,4 @@ export default defineConfig({
       default: './dist/getGraphQLAPIsWorker.cjs',
     },
   }),
-  // */
 })

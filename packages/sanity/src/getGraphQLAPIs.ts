@@ -6,7 +6,7 @@ import type { CliCommandContext, CliV3CommandContext } from '@sanity/cli'
 import path from 'path'
 import readPkgUp from 'read-pkg-up'
 import { createSchema } from 'sanity'
-import { isMainThread, Worker } from 'worker_threads'
+import { Worker } from 'worker_threads'
 
 import type {
   ResolvedGraphQLAPI,
@@ -23,10 +23,6 @@ export async function getGraphQLAPIs(
 ): Promise<ResolvedGraphQLAPI[]> {
   if (!isModernCliConfig(cliContext)) {
     throw new Error('Expected Sanity studio of version 3 or above')
-  }
-
-  if (!isMainThread) {
-    throw new Error('getGraphQLAPIs() must be called from the main thread')
   }
 
   const defaultSchema = createSchema({ name: 'default', types: [] })

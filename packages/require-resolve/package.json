@@ -1,0 +1,42 @@
+{
+  "name": "@groqz/require-resolve",
+  "version": "0.0.0",
+  "bugs": {
+    "url": "https://github.com/stipsan/groqz/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/stipsan/groqz.git",
+    "directory": "packages/sanity"
+  },
+  "license": "MIT",
+  "author": "Cody Olsen <stipsan@gmail.com>",
+  "sideEffects": false,
+  "type": "commonjs",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.mjs",
+      "default": "./index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./index.js",
+  "module": "./index.mjs",
+  "types": "./index.d.ts",
+  "files": [
+    "index.mjs",
+    "index.js",
+    "index.d.ts",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "clean": "rm -rf .turbo"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
