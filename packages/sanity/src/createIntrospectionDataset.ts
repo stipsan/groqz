@@ -2,10 +2,10 @@
  * @alpha
  */
 
-import { getGraphQLAPIs } from './getGraphQLAPIs'
+import { getSchema } from './getSchema'
 
 export async function createIntrospectionDataset(workspace?: string) {
-  const config = await getGraphQLAPIs({
+  const config = await getSchema({
     workspace,
     workDir: process.cwd(),
   })

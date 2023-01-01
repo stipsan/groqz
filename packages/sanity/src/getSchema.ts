@@ -6,13 +6,13 @@ import type { Json } from '@groqz/json'
 import type { CliV3CommandContext } from '@sanity/cli'
 import path from 'path'
 import readPkgUp from 'read-pkg-up'
-import { Worker } from 'worker_threads'
 import * as url from 'url'
+import { Worker } from 'worker_threads'
 
 export * from '@groqz/json'
 
 /** @alpha */
-export async function getGraphQLAPIs({
+export async function getSchema({
   workspace,
   workDir,
 }: {

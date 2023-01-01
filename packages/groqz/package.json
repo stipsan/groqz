@@ -13,6 +13,9 @@
   "author": "Cody Olsen <stipsan@gmail.com>",
   "sideEffects": false,
   "type": "module",
+  "bin": {
+    "groqz": "./bin/groqz.cjs"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -21,6 +24,12 @@
       "require": "./dist/index.cjs",
       "default": "./dist/index.js"
     },
+    "./cli": {
+      "types": "./dist/cli.d.ts",
+      "source": "./src/cli/index.ts",
+      "require": "./dist/cli.cjs",
+      "default": "./dist/cli.cjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
@@ -28,6 +37,7 @@
   "source": "./src/index.ts",
   "types": "./dist/index.d.ts",
   "files": [
+    "bin",
     "dist",
     "CHANGELOG.md"
   ],
@@ -44,14 +54,24 @@
     "maintained node versions"
   ],
   "dependencies": {
-    "@groqz/json": "workspace:*"
+    "@babel/parser": "^7.20.7",
+    "@babel/traverse": "^7.20.10",
+    "@babel/types": "^7.20.7",
+    "@groqz/json": "workspace:*",
+    "chokidar": "^3.5.3",
+    "commander": "^9.4.1",
+    "recast": "^0.22.0",
+    "xstate": "^4.35.1"
   },
   "devDependencies": {
     "@groqz/tsconfig": "workspace:*",
     "@sanity/pkg-utils": "2.0.4-beta.1",
+    "@types/babel__traverse": "^7.18.3",
+    "@types/node": "^18.11.18",
     "eslint": "^8.30.0",
     "eslint-config-groqz": "workspace:*",
     "typescript": "^4.9.4",
+    "vitest": "^0.26.2",
     "zod": "^3.20.2"
   },
   "peerDependencies": {
