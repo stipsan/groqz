@@ -138,6 +138,7 @@ importers:
 
   packages/groqz:
     specifiers:
+      '@babel/generator': ^7.20.7
       '@babel/parser': ^7.19.4
       '@babel/traverse': ^7.19.4
       '@babel/types': ^7.19.4
@@ -162,6 +163,7 @@ importers:
       xstate: ^4.35.1
       zod: ^3.20.2
     dependencies:
+      '@babel/generator': 7.20.7
       '@babel/parser': 7.20.7
       '@babel/traverse': 7.20.10
       '@babel/types': 7.20.7
@@ -3578,7 +3580,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.19.6_@babel+core@7.20.7
       magic-string: 0.26.7
       react-refresh: 0.14.0
-      vite: 3.2.5
+      vite: 3.2.5_@types+node@18.11.18
     transitivePeerDependencies:
       - supports-color
     dev: true

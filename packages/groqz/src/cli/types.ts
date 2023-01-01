@@ -33,7 +33,7 @@ export interface Comment {
 }
 
 export interface FileExtractResult {
-  queries: t.TaggedTemplateExpression[]
+  nodes: (t.TaggedTemplateExpression | t.TSAsExpression)[]
   file: t.File
 }
 

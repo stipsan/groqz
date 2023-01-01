@@ -12,8 +12,6 @@ export const getQueryNodesFromFile = (fileContent: string) => {
       'jsx',
       ['decorators', { decoratorsBeforeExport: false }],
     ],
-    // required by recast
-    tokens: true,
   })
 
   let taggedTemplateLiteral: string | false = false
@@ -37,23 +35,38 @@ export const getQueryNodesFromFile = (fileContent: string) => {
   if (!taggedTemplateLiteral) {
     return {
       file,
-      queries: [],
+      nodes: [],
     }
   }
 
-  const queries: Array<t.TaggedTemplateExpression> = []
+  const nodes: Array<t.TaggedTemplateExpression | t.TSAsExpression> = []
 
   traverse(file, {
+    /*
+    TSAsExpression(path) {
+      const node = path.node
+      if (
+        t.isTaggedTemplateExpression(node.expression) &&
+        t.isIdentifier(node.expression.tag) &&
+        node.expression.tag.name === taggedTemplateLiteral
+      ) {
+        nodes.push(node)
+      }
+    },
+    // */
     TaggedTemplateExpression(path) {
       const node = path.node
       if (t.isIdentifier(node.tag) && node.tag.name === taggedTemplateLiteral) {
-        queries.push(node)
+        if (path.parentPath.isTSAsExpression()) {
+          console.log(path.parentPath)
+        }
+        nodes.push(node)
       }
     },
   })
 
   return {
     file,
-    queries,
+    nodes,
   }
 }
