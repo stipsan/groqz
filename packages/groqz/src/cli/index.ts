@@ -16,16 +16,6 @@ import { getTypegenOutput } from './getTypegenOutput'
 import { processFileEdits } from './processFileEdits'
 import { writeToTypegenFile } from './writeToTypegenFile'
 
-export * from './constants'
-export * from './extractQueriesFromFile'
-export * from './getMachineExtractResult'
-export * from './getMachineNodesFromFile'
-export * from './groupByUniqueName'
-export * from './MachineExtractResult'
-export * from './stateNode'
-export * from './types'
-export * from './utils'
-
 const program = new Command()
 
 program.version(version)
@@ -128,47 +118,56 @@ program
   .description('Generate Zod types from GROQ queries')
   .argument('<files>', 'The files to target, expressed as a glob pattern')
   .option('-w, --watch', 'Run the typegen in watch mode')
-  .action(async (filesPattern: string, opts: { watch?: boolean }) => {
-    if (opts.watch) {
-      // TODO: implement per path queuing to avoid tasks related to the same file from overlapping their execution
-      const processFile = (path: string) => {
-        if (path.endsWith('.typegen.ts')) {
-          return
-        }
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        writeToFiles([path]).catch((err) => {
-          console.error(err)
-          throw err
-        })
-      }
-      // TODO: handle removals
-      watch(filesPattern, { awaitWriteFinish: true })
-        .on('add', processFile)
-        .on('change', processFile)
-    } else {
-      const tasks: Array<Promise<void>> = []
-      // TODO: could this cleanup outdated typegen files?
-      watch(filesPattern, { persistent: false })
-        .on('add', (path) => {
+  .option(
+    '--workspace <type>',
+    'If you have multiple sanity studio workspaces setup, give the name of the workspace you want to use'
+  )
+  .action(
+    async (
+      filesPattern: string,
+      opts: { watch?: boolean; workspace?: string }
+    ) => {
+      if (opts.watch) {
+        // TODO: implement per path queuing to avoid tasks related to the same file from overlapping their execution
+        const processFile = (path: string) => {
           if (path.endsWith('.typegen.ts')) {
             return
           }
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
+          writeToFiles([path], opts.workspace).catch((err) => {
+            console.error(err)
+            throw err
+          })
+        }
+        // TODO: handle removals
+        watch(filesPattern, { awaitWriteFinish: true })
+          .on('add', processFile)
+          .on('change', processFile)
+      } else {
+        const tasks: Array<Promise<void>> = []
+        // TODO: could this cleanup outdated typegen files?
+        watch(filesPattern, { persistent: false })
+          .on('add', (path) => {
+            if (path.endsWith('.typegen.ts')) {
+              return
+            }
 
-          tasks.push(
-            writeToFiles([path]).catch((err) => {
-              console.error(err)
-              throw err
-            })
-          )
-        })
-        .on('ready', async () => {
-          const settled = await Promise.allSettled(tasks)
-          if (settled.some((result) => result.status === 'rejected')) {
-            process.exit(1)
-          }
-          process.exit(0)
-        })
+            tasks.push(
+              writeToFiles([path], opts.workspace).catch((err) => {
+                console.error(err)
+                throw err
+              })
+            )
+          })
+          .on('ready', async () => {
+            const settled = await Promise.allSettled(tasks)
+            if (settled.some((result) => result.status === 'rejected')) {
+              process.exit(1)
+            }
+            process.exit(0)
+          })
+      }
     }
-  })
+  )
 
 program.parse(process.argv)

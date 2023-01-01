@@ -1,5 +1,5 @@
-import { getQueryNodesFromFile } from './getMachineNodesFromFile'
-import { ALLOWED_IMPORT_SPECIFIER_SOURCE } from './machineCallExpression'
+import { ALLOWED_IMPORT_SPECIFIER_SOURCE } from './constants'
+import { getQueryNodesFromFile } from './getQueryNodesFromFile'
 import { FileExtractResult } from './types'
 
 export const extractQueriesFromFile = (

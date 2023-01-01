@@ -1,5 +1,3 @@
-import { FileTextEdit } from './TextEdit'
-
 export const processFileEdits = (
   oldText: string,
   textEdits: { newText: string; range: [number, number] }[]

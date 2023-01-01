@@ -13,8 +13,9 @@ for (const document of schema.parse([])) {
   }
 }
 
-const { schema: schema1 } =
-  groq`*[_type in ["category", "page", "sanity.imageAsset"]]` as import('./everything.typegen').Typegen1
+const { schema: schema1 } = groq`*[
+    _type in ["category", "page", "sanity.imageAsset"]
+  ]` as import('./everything.typegen').Typegen1
 
 for (const document of schema1.parse([])) {
   switch (document._type) {

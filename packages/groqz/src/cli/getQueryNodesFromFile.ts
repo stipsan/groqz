@@ -2,7 +2,7 @@ import { parse } from '@babel/parser'
 import traverse from '@babel/traverse'
 import * as t from '@babel/types'
 
-import { ALLOWED_IMPORT_SPECIFIER_SOURCE } from './machineCallExpression'
+import { ALLOWED_IMPORT_SPECIFIER_SOURCE } from './constants'
 
 export const getQueryNodesFromFile = (fileContent: string) => {
   const file = parse(fileContent, {
@@ -39,18 +39,6 @@ export const getQueryNodesFromFile = (fileContent: string) => {
   const nodes: Array<t.TaggedTemplateExpression | t.TSAsExpression> = []
 
   traverse(file, {
-    /*
-    TSAsExpression(path) {
-      const node = path.node
-      if (
-        t.isTaggedTemplateExpression(node.expression) &&
-        t.isIdentifier(node.expression.tag) &&
-        node.expression.tag.name === taggedTemplateLiteral
-      ) {
-        nodes.push(node)
-      }
-    },
-    // */
     TaggedTemplateExpression(path) {
       const node = path.node
       if (t.isIdentifier(node.tag) && node.tag.name === taggedTemplateLiteral) {
