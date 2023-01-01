@@ -8,13 +8,10 @@ import { watch } from 'chokidar'
 import { Command } from 'commander'
 import * as fs from 'fs/promises'
 import * as path from 'path'
-import { string } from 'zod'
 import * as prettier from 'prettier'
 
 import { version } from '../../package.json'
 import { extractQueriesFromFile } from './extractQueriesFromFile'
-import { getTsTypesEdits } from './getTsTypesEdits'
-import { getTypegenData } from './getTypegenData'
 import { getTypegenOutput } from './getTypegenOutput'
 import { processFileEdits } from './processFileEdits'
 import { writeToTypegenFile } from './writeToTypegenFile'
@@ -48,7 +45,6 @@ program.version(version)
 const writeToFiles = async (uriArray: string[], workspace?: string) => {
   const dataset = await createIntrospectionDataset(workspace)
   const options: EvaluateOptions = { dataset }
-  console.log({ dataset })
   /**
    * TODO - implement pretty readout
    */
@@ -61,8 +57,6 @@ const writeToFiles = async (uriArray: string[], workspace?: string) => {
         }
 
         const extracted = extractQueriesFromFile(fileContents)
-
-        console.log({ extracted })
 
         if (!extracted) {
           return
@@ -80,7 +74,6 @@ const writeToFiles = async (uriArray: string[], workspace?: string) => {
             identifier: `Typegen${index}`,
           }))
           .filter(({ query }) => query !== '')
-        console.log(types)
 
         const typegenData = prettier.format(
           await getTypegenOutput(types, options),
@@ -89,19 +82,42 @@ const writeToFiles = async (uriArray: string[], workspace?: string) => {
             parser: 'typescript',
           }
         )
-        console.log(typegenData)
+
         if (await fileHasChanged()) {
-          console.log('Aborting as the file has changed')
+          console.log(`${uri} - aborting, file changed`)
           return
         }
 
         await writeToTypegenFile(uri, types.length > 0 ? typegenData : '')
 
-        // const edits = getTsTypesEdits(types)
-        // if (edits.length > 0) {
-        // const newFile = processFileEdits(fileContents, edits)
-        // await fs.writeFile(uri, newFile)
-        // }
+        const edits = types.map(({ node, identifier }) => {
+          const importType = `import('./${path.basename(
+            uri.slice(0, -path.extname(uri).length) + '.typegen'
+          )}').${identifier}`
+          return t.isTSAsExpression(node)
+            ? {
+                newText: importType,
+                range: [
+                  node.typeAnnotation.start!,
+                  node.typeAnnotation.end!,
+                ] as [number, number],
+              }
+            : {
+                newText: ` as ${importType}`,
+                range: [node.end!, node.end!] as [number, number],
+              }
+        })
+
+        if (edits.length > 0) {
+          const newFile = processFileEdits(fileContents, edits)
+
+          if (await fileHasChanged()) {
+            console.log(`${uri} - aborting, file changed`)
+            return
+          }
+
+          await fs.writeFile(uri, newFile)
+        }
         console.log(`${uri} - success`)
       } catch (e: any) {
         if (e?.code === 'BABEL_PARSER_SYNTAX_ERROR') {
@@ -117,7 +133,7 @@ const writeToFiles = async (uriArray: string[], workspace?: string) => {
 
 program
   .command('typegen')
-  .description('Generate TypeScript types from XState machines')
+  .description('Generate Zod types from GROQ queries')
   .argument('<files>', 'The files to target, expressed as a glob pattern')
   .option('-w, --watch', 'Run the typegen in watch mode')
   .action(async (filesPattern: string, opts: { watch?: boolean }) => {
@@ -142,7 +158,6 @@ program
       // TODO: could this cleanup outdated typegen files?
       watch(filesPattern, { persistent: false })
         .on('add', (path) => {
-          console.log('add', path)
           if (path.endsWith('.typegen.ts')) {
             return
           }

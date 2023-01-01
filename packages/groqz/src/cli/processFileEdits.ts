@@ -2,19 +2,17 @@ import { FileTextEdit } from './TextEdit'
 
 export const processFileEdits = (
   oldText: string,
-  textEdits: Pick<FileTextEdit, 'range' | 'newText'>[]
+  textEdits: { newText: string; range: [number, number] }[]
 ): string => {
-  const sortedEdits = [...textEdits].sort(
-    (a, b) => b.range[0].index - a.range[0].index
-  )
+  const sortedEdits = [...textEdits].sort((a, b) => b.range[0] - a.range[0])
 
   let newText = oldText
 
   for (const edit of sortedEdits) {
     newText =
-      newText.slice(0, edit.range[0].index) +
+      newText.slice(0, edit.range[0]) +
       edit.newText +
-      newText.slice(edit.range[1].index)
+      newText.slice(edit.range[1])
   }
 
   return newText
