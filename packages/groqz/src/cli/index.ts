@@ -25,25 +25,17 @@ export * from './MachineExtractResult'
 export * from './stateNode'
 export * from './types'
 export * from './utils'
-export * from 'xstate/lib/types'
-
-// TODO: just use the native one when support for node 12 gets dropped
-const allSettled: typeof Promise.allSettled = (promises: Promise<any>[]) =>
-  Promise.all(
-    promises.map((promise) =>
-      promise.then(
-        (value) => ({ status: 'fulfilled' as const, value }),
-        (reason) => ({ status: 'rejected' as const, reason })
-      )
-    )
-  )
 
 const program = new Command()
 
 program.version(version)
 
+let dataset: EvaluateOptions['dataset']
+
 const writeToFiles = async (uriArray: string[], workspace?: string) => {
-  const dataset = await createIntrospectionDataset(workspace)
+  if (!dataset) {
+    dataset = await createIntrospectionDataset(workspace)
+  }
   const options: EvaluateOptions = { dataset }
   /**
    * TODO - implement pretty readout
@@ -170,7 +162,7 @@ program
           )
         })
         .on('ready', async () => {
-          const settled = await allSettled(tasks)
+          const settled = await Promise.allSettled(tasks)
           if (settled.some((result) => result.status === 'rejected')) {
             process.exit(1)
           }
