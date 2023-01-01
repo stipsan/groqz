@@ -33,10 +33,7 @@ export const getQueryNodesFromFile = (fileContent: string) => {
   })
 
   if (!taggedTemplateLiteral) {
-    return {
-      file,
-      nodes: [],
-    }
+    return null
   }
 
   const nodes: Array<t.TaggedTemplateExpression | t.TSAsExpression> = []
@@ -57,10 +54,9 @@ export const getQueryNodesFromFile = (fileContent: string) => {
     TaggedTemplateExpression(path) {
       const node = path.node
       if (t.isIdentifier(node.tag) && node.tag.name === taggedTemplateLiteral) {
-        if (path.parentPath.isTSAsExpression()) {
-          console.log(path.parentPath)
-        }
-        nodes.push(node)
+        nodes.push(
+          path.parentPath.isTSAsExpression() ? path.parentPath.node : node
+        )
       }
     },
   })

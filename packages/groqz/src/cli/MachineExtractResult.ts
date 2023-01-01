@@ -1538,6 +1538,7 @@ export class MachineExtractResult {
     // find the matching machine node in the new text of the whole file
     // it's wasteful to parse the whole new file here
     // it's the best way we have right now to keep the formatting intact as much as possible though
+    // @ts-ignore
     const machineNode = getQueryNodesFromFile(reprinted).nodes.find(
       (machineNode) =>
         machineNode.loc!.start.line === existingMachineNodeLoc.start.line &&

@@ -1,12 +1,12 @@
 import { type EvaluateOptions, groqToTs } from '@groqz/to-ts'
 
 export const getTypegenOutput = async (
-  queries: string[],
+  types: { query: string; identifier: string }[],
   options: EvaluateOptions
 ): Promise<string> => {
   const interfaces: string[] = []
-  for (const [index, query] of queries.entries()) {
-    interfaces.push(`export interface Typegen${index} {
+  for (const { query, identifier } of types) {
+    interfaces.push(`export interface ${identifier} {
       query: ${JSON.stringify(query)};
       schema: z.ZodType<${await groqToTs(query, options)}>;
     }`)

@@ -1,17 +1,21 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // Based on https://github.com/statelyai/xstate-tools/tree/main/apps/cli
 
+import * as t from '@babel/types'
 import { createIntrospectionDataset } from '@groqz/sanity'
 import { type EvaluateOptions } from '@groqz/to-ts'
 import { watch } from 'chokidar'
 import { Command } from 'commander'
 import * as fs from 'fs/promises'
 import * as path from 'path'
+import { string } from 'zod'
+import * as prettier from 'prettier'
 
 import { version } from '../../package.json'
 import { extractQueriesFromFile } from './extractQueriesFromFile'
 import { getTsTypesEdits } from './getTsTypesEdits'
 import { getTypegenData } from './getTypegenData'
+import { getTypegenOutput } from './getTypegenOutput'
 import { processFileEdits } from './processFileEdits'
 import { writeToTypegenFile } from './writeToTypegenFile'
 
@@ -52,37 +56,49 @@ const writeToFiles = async (uriArray: string[], workspace?: string) => {
     uriArray.map(async (uri) => {
       try {
         const fileContents = await fs.readFile(uri, 'utf8')
+        const fileHasChanged = async () => {
+          return fileContents !== await fs.readFile(uri, 'utf8')
+        }
 
         const extracted = extractQueriesFromFile(fileContents)
 
-        console.log({ extracted })
-        throw new Error('Stop here')
+        console.-log({ extracted })
 
         if (!extracted) {
           return
         }
 
-        // @ts-expect-error
-        const types = extracted.machines
-          .filter(
-            (
-              // @ts-expect-error
-              machineResult
-            ): machineResult is NonNullable<typeof machineResult> =>
-              !!machineResult?.machineCallResult.definition?.tsTypes?.node
-          )
-          // @ts-expect-error
-          .map((machineResult, index) =>
-            getTypegenData(path.basename(uri), index, machineResult)
-          )
+        const types = extracted.nodes.map((node, index) => ({
+          node,
+          query:
+            (t.isTSAsExpression(node) &&
+            t.isTaggedTemplateExpression(node.expression)
+              ? node.expression.quasi.quasis[0].value.cooked
+              : t.isTaggedTemplateExpression(node)
+              ? node.quasi.quasis[0].value.cooked
+              : '') as string,
+          identifier: `Typegen${index}`,
+        })).filter(({ query }) => query !== '')
+        console.log(types)
 
-        await writeToTypegenFile(uri, types, options)
-
-        const edits = getTsTypesEdits(types)
-        if (edits.length > 0) {
-          const newFile = processFileEdits(fileContents, edits)
-          await fs.writeFile(uri, newFile)
+       
+        const typegenData = prettier.format(await getTypegenOutput(types, options), {
+          ...(await prettier.resolveConfig(uri)),
+          parser: 'typescript',
+        })
+        console.log(typegenData)
+        if(await fileHasChanged()) {
+          console.log('Aborting as the file has changed')
+          return
         }
+
+        await writeToTypegenFile(uri, types.length > 0 ? typegenData : '')
+
+        // const edits = getTsTypesEdits(types)
+        // if (edits.length > 0) {
+        // const newFile = processFileEdits(fileContents, edits)
+        // await fs.writeFile(uri, newFile)
+        // }
         console.log(`${uri} - success`)
       } catch (e: any) {
         if (e?.code === 'BABEL_PARSER_SYNTAX_ERROR') {

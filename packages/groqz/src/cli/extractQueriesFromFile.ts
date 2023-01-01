@@ -9,9 +9,5 @@ export const extractQueriesFromFile = (
     return null
   }
 
-  const { file, nodes } = getQueryNodesFromFile(fileContent)
-  return {
-    nodes,
-    file,
-  }
+  return getQueryNodesFromFile(fileContent)
 }
