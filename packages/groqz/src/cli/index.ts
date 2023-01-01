@@ -1,5 +1,6 @@
 // Based on https://github.com/statelyai/xstate-tools/tree/main/apps/cli
 
+import { createIntrospectionDataset } from '@groqz/sanity'
 import { watch } from 'chokidar'
 import { Command } from 'commander'
 import * as fs from 'fs/promises'
@@ -38,7 +39,9 @@ const program = new Command()
 
 program.version(version)
 
-const writeToFiles = async (uriArray: string[]) => {
+const writeToFiles = async (uriArray: string[], workspace?: string) => {
+  const dataset = await createIntrospectionDataset(workspace)
+  console.log({ dataset })
   /**
    * TODO - implement pretty readout
    */

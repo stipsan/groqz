@@ -47,13 +47,14 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "pkg watch",
     "lint": "TIMING=1 eslint --max-warnings 0 .",
-    "test": "pkg check --strict"
+    "test": "vitest run"
   },
   "browserslist": [
     "> 0.2% and supports es6-module and supports es6-module-dynamic-import and not dead and not IE 11",
     "maintained node versions"
   ],
   "dependencies": {
+    "@groqz/sanity": "workspace:*",
     "@babel/parser": "^7.19.4",
     "@babel/traverse": "^7.19.4",
     "@babel/types": "^7.19.4",
@@ -68,14 +69,18 @@
     "@groqz/tsconfig": "workspace:*",
     "@sanity/pkg-utils": "2.0.4-beta.1",
     "@types/babel__traverse": "^7.18.3",
+    "@types/minimatch": "^5.1.2",
     "@types/node": "^18.11.18",
     "eslint": "^8.30.0",
     "eslint-config-groqz": "workspace:*",
+    "minimatch": "^5.1.2",
+    "sanity": "^3.1.2",
     "typescript": "^4.9.4",
     "vitest": "^0.26.2",
     "zod": "^3.20.2"
   },
   "peerDependencies": {
+    "sanity": "^3",
     "typescript": "^4.9",
     "zod": "^3"
   },
