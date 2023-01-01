@@ -46,7 +46,6 @@
   ],
   "dependencies": {
     "@groqz/json": "workspace:*",
-    "@groqz/require-resolve": "workspace:*",
     "@sanity/cli": "^3.1.2",
     "@sanity/types": "^3.1.2",
     "esbuild-register": "^3.3.2",

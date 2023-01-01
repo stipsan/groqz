@@ -194,13 +194,9 @@ importers:
       typescript: 4.9.4
       vitest: 0.26.2
 
-  packages/require-resolve:
-    specifiers: {}
-
   packages/sanity:
     specifiers:
       '@groqz/json': workspace:*
-      '@groqz/require-resolve': workspace:*
       '@groqz/tsconfig': workspace:*
       '@sanity/cli': ^3.1.2
       '@sanity/pkg-utils': ^2.0.3
@@ -224,7 +220,6 @@ importers:
       vitest: ^0.26.2
     dependencies:
       '@groqz/json': link:../json
-      '@groqz/require-resolve': link:../require-resolve
       '@sanity/cli': 3.1.2
       '@sanity/types': 3.1.2
       esbuild-register: 3.4.2_esbuild@0.16.12
