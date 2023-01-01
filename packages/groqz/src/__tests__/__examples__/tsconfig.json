@@ -10,8 +10,8 @@
     "strict": true,
     "noEmit": true,
     "paths": {
-      "groqz":["../../index"]
-    },
+      "groqz": ["../../index"]
+    }
   },
   "include": ["*.ts"]
 }

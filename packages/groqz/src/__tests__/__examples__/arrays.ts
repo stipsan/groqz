@@ -2,7 +2,8 @@ import { groq } from 'groqz'
 
 const query1 =
   groq`*[_type in ["category", "page"]]{..., category->{title}}` as import('./arrays.typegen').Typegen0
-const query2 = groq`*[_type == "category"]{title, _type, "image": image.asset->{url, size}}[0]` as import('./arrays.typegen').Typegen1
+const query2 =
+  groq`*[_type == "category"]{title, _type, "image": image.asset->{url, size}}[0]` as import('./arrays.typegen').Typegen1
 const query3 = groq`*[_type == "movie"]` as import('./arrays.typegen').Typegen2
 
 console.log(
