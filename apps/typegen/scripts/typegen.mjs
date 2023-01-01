@@ -1,21 +1,14 @@
+import { createIntrospectionDataset } from '@groqz/sanity'
 import { printQueries } from '@groqz/to-ts'
 import groq from 'groq'
 import writeFileAtomic from 'write-file-atomic'
 
 const options = {
-  dataset: [
-    {
-      _type: 'page',
-      _id: 'page',
-      title: 'title',
-      category: { _ref: 'category', _type: 'reference' },
-    },
-    { _type: 'category', _id: 'category', title: 'title' },
-  ],
+  dataset: await createIntrospectionDataset(),
 }
 const queries = [
-  groq`*`,
-  groq`*[_type == "page"]{ ..., category-> }[0]`,
+  groq`*[_type in ["category", "page"]]{..., category->{title}}`,
+  groq`*[_type == "category"]{title, _type, "image": image.asset->{url, size}}[0]`,
   groq`*[_type == "movie"]`,
 ]
 

@@ -4,6 +4,7 @@ import type { Json } from '@groqz/json'
 import {
   ArrayDefinition,
   DocumentDefinition,
+  File,
   FileDefinition,
   ImageDefinition,
   ObjectDefinition,
@@ -12,16 +13,13 @@ import {
   Schema as CompiledSchema,
   SchemaTypeDefinition,
 } from '@sanity/types'
-import {
-  _isCustomDocumentTypeDefinition,
-  _isSanityDocumentTypeDefinition,
-} from 'sanity'
 
 import type { ImageSource } from './types'
 
 // Mocked IDs that have special treatment for whatever reason
 const mockedIds = {
   imageAsset: 'image-7a450942c7845e53e1daddaffc2999f719352e16-3024x4032-jpg',
+  fileAsset: 'file-0174669801cd7fc18dd98943e892ace59b3ce693-zip',
 }
 
 /** @alpha */
@@ -56,7 +54,7 @@ function extractDocumentDefinition(
   // @TODO auto gen _rev
   const result: Record<string, Json> = {
     _type: def.name,
-    _id: def.name,
+    _id: def.name === 'sanity.imageAsset' ? mockedIds.imageAsset : def.name,
     _rev: 'cmQvgZcsUwgFEQbM1tdhoF',
     _createdAt: '2021-03-01T07:10:16Z',
     _updatedAt: '2021-03-01T07:10:16Z',
@@ -99,6 +97,12 @@ function extractFieldsFromType(
         case 'image':
           result[field.name] = extractImageDefinition(
             field as ImageDefinition,
+            sanitySchema
+          )
+          break
+        case 'file':
+          result[field.name] = extractFileDefinition(
+            field as FileDefinition,
             sanitySchema
           )
           break
@@ -158,6 +162,8 @@ function extractArrayDefinition(
         return def.name
       case 'image':
         return extractImageDefinition(def as ImageDefinition, sanitySchema)
+      case 'file':
+        return extractFileDefinition(def as FileDefinition, sanitySchema)
       case 'array':
         return extractArrayDefinition(def as ArrayDefinition, sanitySchema)
     }
@@ -210,6 +216,21 @@ function extractImageDefinition(
       height: 0.5496285470710024,
       width: 0.6557057605650974,
     }
+  }
+  if (def.fields) {
+    return { ...extractFieldsFromType(def, sanitySchema), ...result }
+  }
+
+  return result
+}
+
+function extractFileDefinition(
+  def: FileDefinition,
+  sanitySchema: CompiledSchema
+) {
+  const result: File = {
+    _type: 'file',
+    asset: { _ref: mockedIds.fileAsset, _type: 'reference' },
   }
   if (def.fields) {
     return { ...extractFieldsFromType(def, sanitySchema), ...result }

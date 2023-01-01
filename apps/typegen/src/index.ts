@@ -1,6 +1,7 @@
 import { type InferType, groq } from 'groqz'
 
-const index = groq`*` as import('./index.typegen').gen0
+const index =
+  groq`*[_type in ["cateogry", "page"]]{..., category->}` as import('./index.typegen').gen0
 
 console.log(index.query.toLowerCase())
 
@@ -33,12 +34,13 @@ function reportCategory(category: {
 }
 
 const page =
-  groq`*[_type == "page"]{ ..., category-> }[0]` as import('./index.typegen').gen1
+  groq`*[_type == "category"]{title, _type, "image": image.asset->{url, size}}` as import('./index.typegen').gen1
 
-console.log(page.schema.parse({}).category?.title?.toUpperCase())
+console.log(page.schema.parse({}).title?.toUpperCase())
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
-console.log(page.schema.parse({}).category.title.toUpperCase())
+console.log(page.schema.parse({}).image?.size?.toUpperCase())
+console.log((page.schema.parse({}).image?.size || 0) / 1024)
 
 const anything = groq`*[_type == "movie"]` as import('./index.typegen').gen2
 

@@ -2,44 +2,65 @@
 import { z } from 'zod'
 
 export interface gen0 {
-  query: /* groq */ `*`
+  query: /* groq */ `*[_type in ["category", "page"]]{..., category->{title}}`
   schema: z.ZodType<
     (
       | {
-          _type: 'page'
-          _id: string
           title?: (string | undefined) | null
           category?:
             | (
                 | {
-                    _ref?: (string | undefined) | null
-                    _type: 'reference'
+                    title?: (string | undefined) | null
                   }
                 | undefined
               )
             | null
+          _type: 'page'
+          _id: string
+          _rev: string
+          _createdAt: string
+          _updatedAt: string
         }
       | {
+          title?: (string | undefined) | null
+          image?:
+            | (
+                | {
+                    _type: 'image'
+                    asset?:
+                      | (
+                          | {
+                              _ref?: (string | undefined) | null
+                              _type: 'reference'
+                            }
+                          | undefined
+                        )
+                      | null
+                  }
+                | undefined
+              )
+            | null
           _type: 'category'
           _id: string
-          title?: (string | undefined) | null
+          _rev: string
+          _createdAt: string
+          _updatedAt: string
+          category?: import('groqz').Json | undefined
         }
     )[]
   >
 }
 
 export interface gen1 {
-  query: /* groq */ `*[_type == "page"]{ ..., category-> }[0]`
+  query: /* groq */ `*[_type == "category"]{title, _type, "image": image.asset->{url, size}}[0]`
   schema: z.ZodType<{
-    _type: 'page'
-    _id: string
     title?: (string | undefined) | null
-    category?:
+    _type: 'category'
+    image?:
       | (
           | {
-              _type: 'category'
-              _id: string
-              title?: (string | undefined) | null
+              url?: (string | undefined) | null
+              size?: (number | undefined) | null
             }
           | undefined
         )
