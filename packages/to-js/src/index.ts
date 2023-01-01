@@ -11,15 +11,6 @@ export interface IntrospectOptions extends EvaluateOptions {
   jsonSchemaIdentifier?: string
 }
 
-// @TODO move this to @groqz/parser
-const guaranteedKeys = new Set([
-  '_createdAt',
-  '_id',
-  '_rev',
-  '_type',
-  '_updatedAt',
-])
-
 /** @alpha */
 export async function groqToJs(
   query: string,
@@ -65,7 +56,7 @@ export async function groqToJs(
           ? `z.number()`
           : `z.number().nullish()`
       case 'string':
-        return key === '' || isNumber.test(key) || guaranteedKeys.has(key)
+        return key === '' || isNumber.test(key) || key === '_id'
           ? `z.string()`
           : `z.string().nullish()`
       case 'boolean':

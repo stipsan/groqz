@@ -2,8 +2,404 @@ import { expect, test } from 'vitest'
 
 import { createIntrospectionDataset } from './createIntrospectionDataset'
 
-test('createIntrospectionDataset', async () => {
+test('blog', async () => {
   expect(await createIntrospectionDataset('default')).toMatchInlineSnapshot(
-    'undefined'
+    `
+    [
+      {
+        "_createdAt": "2021-03-01T07:10:16Z",
+        "_id": "author",
+        "_rev": "cmQvgZcsUwgFEQbM1tdhoF",
+        "_type": "author",
+        "_updatedAt": "2021-03-01T07:10:16Z",
+        "name": "name",
+        "picture": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-7a450942c7845e53e1daddaffc2999f719352e16-3024x4032-jpg",
+            "_type": "reference",
+          },
+          "crop": {
+            "_type": "sanity.imageCrop",
+            "bottom": 0,
+            "left": 0,
+            "right": 0.0032679738562091387,
+            "top": 0,
+          },
+          "hotspot": {
+            "_type": "sanity.imageHotspot",
+            "height": 0.5496285470710024,
+            "width": 0.6557057605650974,
+            "x": 0.5144927536231892,
+            "y": 0.5854493971501638,
+          },
+        },
+      },
+      {
+        "_createdAt": "2021-03-01T07:10:16Z",
+        "_id": "post",
+        "_rev": "cmQvgZcsUwgFEQbM1tdhoF",
+        "_type": "post",
+        "_updatedAt": "2021-03-01T07:10:16Z",
+        "author": {
+          "_key": "2f83ba0f133c",
+          "_ref": "author",
+          "_strengthenOnPublish": {
+            "template": {
+              "id": "author",
+            },
+            "type": "author",
+            "weak": false,
+          },
+          "_type": "reference",
+        },
+        "content": [
+          null,
+        ],
+        "coverImage": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-7a450942c7845e53e1daddaffc2999f719352e16-3024x4032-jpg",
+            "_type": "reference",
+          },
+          "caption": "caption",
+          "crop": {
+            "_type": "sanity.imageCrop",
+            "bottom": 0,
+            "left": 0,
+            "right": 0.0032679738562091387,
+            "top": 0,
+          },
+          "hotspot": {
+            "_type": "sanity.imageHotspot",
+            "height": 0.5496285470710024,
+            "width": 0.6557057605650974,
+            "x": 0.5144927536231892,
+            "y": 0.5854493971501638,
+          },
+        },
+        "date": "2023-01-01T07:10:16Z",
+        "excerpt": "excerpt",
+        "slug": {
+          "_type": "slug",
+          "current": "current",
+          "source": "source",
+        },
+        "title": "title",
+      },
+      {
+        "_createdAt": "2021-03-01T07:10:16Z",
+        "_id": "settings",
+        "_rev": "cmQvgZcsUwgFEQbM1tdhoF",
+        "_type": "settings",
+        "_updatedAt": "2021-03-01T07:10:16Z",
+        "description": [
+          null,
+        ],
+        "ogImage": {
+          "title": "title",
+        },
+        "title": "title",
+      },
+      {
+        "_createdAt": "2021-03-01T07:10:16Z",
+        "_id": "sanity.imageAsset",
+        "_rev": "cmQvgZcsUwgFEQbM1tdhoF",
+        "_type": "sanity.imageAsset",
+        "_updatedAt": "2021-03-01T07:10:16Z",
+        "altText": "altText",
+        "assetId": "assetId",
+        "description": "description",
+        "extension": "extension",
+        "label": "label",
+        "metadata": {
+          "_type": "sanity.imageMetadata",
+          "blurHash": "blurHash",
+          "dimensions": {
+            "_type": "sanity.imageDimensions",
+            "aspectRatio": 0,
+            "height": 0,
+            "width": 0,
+          },
+          "hasAlpha": true,
+          "isOpaque": true,
+          "location": {
+            "_type": "geopoint",
+            "alt": 0,
+            "lat": 0,
+            "lng": 0,
+          },
+          "lqip": "lqip",
+          "palette": {
+            "_type": "sanity.imagePalette",
+            "darkMuted": {
+              "_type": "sanity.imagePaletteSwatch",
+              "background": "background",
+              "foreground": "foreground",
+              "population": 0,
+              "title": "title",
+            },
+            "darkVibrant": {
+              "_type": "sanity.imagePaletteSwatch",
+              "background": "background",
+              "foreground": "foreground",
+              "population": 0,
+              "title": "title",
+            },
+            "dominant": {
+              "_type": "sanity.imagePaletteSwatch",
+              "background": "background",
+              "foreground": "foreground",
+              "population": 0,
+              "title": "title",
+            },
+            "lightMuted": {
+              "_type": "sanity.imagePaletteSwatch",
+              "background": "background",
+              "foreground": "foreground",
+              "population": 0,
+              "title": "title",
+            },
+            "lightVibrant": {
+              "_type": "sanity.imagePaletteSwatch",
+              "background": "background",
+              "foreground": "foreground",
+              "population": 0,
+              "title": "title",
+            },
+            "muted": {
+              "_type": "sanity.imagePaletteSwatch",
+              "background": "background",
+              "foreground": "foreground",
+              "population": 0,
+              "title": "title",
+            },
+            "vibrant": {
+              "_type": "sanity.imagePaletteSwatch",
+              "background": "background",
+              "foreground": "foreground",
+              "population": 0,
+              "title": "title",
+            },
+          },
+        },
+        "mimeType": "mimeType",
+        "originalFilename": "originalFilename",
+        "path": "path",
+        "sha1hash": "sha1hash",
+        "size": 0,
+        "source": {
+          "_type": "sanity.assetSourceData",
+          "id": "id",
+          "name": "name",
+          "url": "url",
+        },
+        "title": "title",
+        "uploadId": "uploadId",
+        "url": "url",
+      },
+      {
+        "_createdAt": "2021-03-01T07:10:16Z",
+        "_id": "sanity.fileAsset",
+        "_rev": "cmQvgZcsUwgFEQbM1tdhoF",
+        "_type": "sanity.fileAsset",
+        "_updatedAt": "2021-03-01T07:10:16Z",
+        "altText": "altText",
+        "assetId": "assetId",
+        "description": "description",
+        "extension": "extension",
+        "label": "label",
+        "mimeType": "mimeType",
+        "originalFilename": "originalFilename",
+        "path": "path",
+        "sha1hash": "sha1hash",
+        "size": 0,
+        "source": {
+          "_type": "sanity.assetSourceData",
+          "id": "id",
+          "name": "name",
+          "url": "url",
+        },
+        "title": "title",
+        "url": "url",
+      },
+    ]
+  `
   )
+})
+
+test('everything', async () => {
+  const dataset = await createIntrospectionDataset('everything')
+
+  expect(dataset).toMatchInlineSnapshot(`
+    [
+      {
+        "_createdAt": "2021-03-01T07:10:16Z",
+        "_id": "example",
+        "_rev": "cmQvgZcsUwgFEQbM1tdhoF",
+        "_type": "example",
+        "_updatedAt": "2021-03-01T07:10:16Z",
+        "exampleReference1": {
+          "_key": "2f83ba0f133c",
+          "_ref": "example",
+          "_strengthenOnPublish": {
+            "template": {
+              "id": "example",
+            },
+            "type": "example",
+            "weak": false,
+          },
+          "_type": "reference",
+        },
+        "exampleReference2": {
+          "_key": "2f83ba0f133c",
+          "_ref": "example",
+          "_strengthenOnPublish": {
+            "template": {
+              "id": "example",
+            },
+            "type": "example",
+            "weak": false,
+          },
+          "_type": "reference",
+        },
+        "exampleReference3": {
+          "_key": "2f83ba0f133c",
+          "_ref": "example",
+          "_strengthenOnPublish": {
+            "template": {
+              "id": "example",
+            },
+            "type": "example",
+            "weak": true,
+          },
+          "_type": "reference",
+          "_weak": true,
+        },
+        "title": "title",
+      },
+      {
+        "_createdAt": "2021-03-01T07:10:16Z",
+        "_id": "sanity.imageAsset",
+        "_rev": "cmQvgZcsUwgFEQbM1tdhoF",
+        "_type": "sanity.imageAsset",
+        "_updatedAt": "2021-03-01T07:10:16Z",
+        "altText": "altText",
+        "assetId": "assetId",
+        "description": "description",
+        "extension": "extension",
+        "label": "label",
+        "metadata": {
+          "_type": "sanity.imageMetadata",
+          "blurHash": "blurHash",
+          "dimensions": {
+            "_type": "sanity.imageDimensions",
+            "aspectRatio": 0,
+            "height": 0,
+            "width": 0,
+          },
+          "hasAlpha": true,
+          "isOpaque": true,
+          "location": {
+            "_type": "geopoint",
+            "alt": 0,
+            "lat": 0,
+            "lng": 0,
+          },
+          "lqip": "lqip",
+          "palette": {
+            "_type": "sanity.imagePalette",
+            "darkMuted": {
+              "_type": "sanity.imagePaletteSwatch",
+              "background": "background",
+              "foreground": "foreground",
+              "population": 0,
+              "title": "title",
+            },
+            "darkVibrant": {
+              "_type": "sanity.imagePaletteSwatch",
+              "background": "background",
+              "foreground": "foreground",
+              "population": 0,
+              "title": "title",
+            },
+            "dominant": {
+              "_type": "sanity.imagePaletteSwatch",
+              "background": "background",
+              "foreground": "foreground",
+              "population": 0,
+              "title": "title",
+            },
+            "lightMuted": {
+              "_type": "sanity.imagePaletteSwatch",
+              "background": "background",
+              "foreground": "foreground",
+              "population": 0,
+              "title": "title",
+            },
+            "lightVibrant": {
+              "_type": "sanity.imagePaletteSwatch",
+              "background": "background",
+              "foreground": "foreground",
+              "population": 0,
+              "title": "title",
+            },
+            "muted": {
+              "_type": "sanity.imagePaletteSwatch",
+              "background": "background",
+              "foreground": "foreground",
+              "population": 0,
+              "title": "title",
+            },
+            "vibrant": {
+              "_type": "sanity.imagePaletteSwatch",
+              "background": "background",
+              "foreground": "foreground",
+              "population": 0,
+              "title": "title",
+            },
+          },
+        },
+        "mimeType": "mimeType",
+        "originalFilename": "originalFilename",
+        "path": "path",
+        "sha1hash": "sha1hash",
+        "size": 0,
+        "source": {
+          "_type": "sanity.assetSourceData",
+          "id": "id",
+          "name": "name",
+          "url": "url",
+        },
+        "title": "title",
+        "uploadId": "uploadId",
+        "url": "url",
+      },
+      {
+        "_createdAt": "2021-03-01T07:10:16Z",
+        "_id": "sanity.fileAsset",
+        "_rev": "cmQvgZcsUwgFEQbM1tdhoF",
+        "_type": "sanity.fileAsset",
+        "_updatedAt": "2021-03-01T07:10:16Z",
+        "altText": "altText",
+        "assetId": "assetId",
+        "description": "description",
+        "extension": "extension",
+        "label": "label",
+        "mimeType": "mimeType",
+        "originalFilename": "originalFilename",
+        "path": "path",
+        "sha1hash": "sha1hash",
+        "size": 0,
+        "source": {
+          "_type": "sanity.assetSourceData",
+          "id": "id",
+          "name": "name",
+          "url": "url",
+        },
+        "title": "title",
+        "url": "url",
+      },
+    ]
+  `)
 })

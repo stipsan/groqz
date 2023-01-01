@@ -17,14 +17,6 @@ const json: typeof _json = withGetType(_json, (ts) =>
   )
 )
 
-const guaranteedKeys = new Set([
-  '_createdAt',
-  '_id',
-  '_rev',
-  '_type',
-  '_updatedAt',
-])
-
 export type { EvaluateOptions }
 
 /** @alpha */
@@ -72,7 +64,7 @@ export async function groqToZod(query: string, options?: EvaluateOptions) {
           ? z.number()
           : z.number().nullish()
       case 'string':
-        return key === '' || isNumber.test(key) || guaranteedKeys.has(key)
+        return key === '' || isNumber.test(key) || key === '_id'
           ? z.string()
           : z.string().nullish()
       case 'boolean':

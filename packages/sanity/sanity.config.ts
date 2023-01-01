@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { visionTool } from '@sanity/vision'
 import {
   defineArrayMember,
@@ -69,6 +70,14 @@ const post = defineType({
       options: {
         hotspot: true,
       },
+      fields: [
+        {
+          name: 'caption',
+          title: 'Caption',
+          type: 'string',
+          options: { isHighlighted: true },
+        },
+      ],
     }),
     defineField({
       name: 'date',
@@ -83,14 +92,6 @@ const post = defineType({
       to: [{ type: author.name }],
     }),
   ],
-  preview: {
-    select: {
-      title: 'title',
-      author: 'author.name',
-      date: 'date',
-      media: 'coverImage',
-    },
-  },
 })
 
 const settings = defineType({
@@ -160,9 +161,6 @@ const schemaTypes = [author, post, settings]
 
 const sharedSettings = definePlugin({
   name: 'sharedSettings',
-  schema: {
-    types: schemaTypes,
-  },
   plugins: [
     deskTool(),
     visionTool({
@@ -171,22 +169,59 @@ const sharedSettings = definePlugin({
   ],
 })
 
+const example = defineType({
+  name: 'example',
+  title: 'Example',
+  type: 'document',
+  fields: [
+    defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'exampleReference1',
+      type: 'reference',
+      to: defineType({ name: 'example', type: 'example' }) as any,
+    }),
+    defineField({
+      name: 'exampleReference2',
+      type: 'reference',
+      to: [defineType({ name: 'example', type: 'example' }) as any],
+    }),
+    defineField({
+      name: 'exampleReference3',
+      type: 'reference',
+      weak: true as any,
+      to: [defineType({ name: 'example', type: 'example' }) as any],
+    }),
+  ],
+})
+
+const everything = [example]
+
 export default defineConfig([
   {
     name: 'default',
     title: 'Test Studio',
-    projectId: 'ppsg7ml5',
-    dataset: 'test',
+    projectId: 't42bb3h1',
+    dataset: 'production',
     plugins: [sharedSettings()],
     basePath: '/test',
+    schema: {
+      types: schemaTypes,
+    },
   },
   {
-    name: 'playground',
+    name: 'everything',
     title: 'Test Studio',
-    subtitle: 'Playground dataset',
-    projectId: 'ppsg7ml5',
-    dataset: 'playground',
+    subtitle: 'Everything dataset',
+    projectId: 't42bb3h1',
+    dataset: 'production',
     plugins: [sharedSettings()],
-    basePath: '/playground',
+    basePath: '/everything',
+    schema: {
+      types: everything,
+    },
   },
 ])
