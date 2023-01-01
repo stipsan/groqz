@@ -17,7 +17,7 @@ export interface ToMachineConfigOptions {
    * Whether or not to hash inline implementations, which
    * allow for parsing inline implementations as code.
    *
-   * @default false
+   * @defaultValue false
    */
   hashInlineImplementations?: boolean
 
@@ -25,7 +25,7 @@ export interface ToMachineConfigOptions {
    * Whether to use a static string in place of inline implementations.
    * This makes it easier to compare two different configs with `deepEqual`
    *
-   * @default false
+   * @defaultValue false
    */
   anonymizeInlineImplementations?: boolean
   /**
@@ -222,14 +222,12 @@ export const getActionConfig = (
         return
       case opts?.stringifyInlineImplementations:
         actions.push(
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           opts!.fileContent.slice(action.node.start!, action.node.end!)
         )
         return
       case !!action.chooseConditions:
         actions.push({
           type: 'xstate.choose',
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           conds: action.chooseConditions!.map((condition) => {
             const cond = getCondition(condition.conditionNode, opts)
             return {

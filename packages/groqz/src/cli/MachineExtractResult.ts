@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable prefer-const */
 import * as t from '@babel/types'
 import * as recast from 'recast'
 import { Action, Condition, MachineOptions } from 'xstate'
@@ -25,7 +25,7 @@ function last<T>(arr: T[]): T {
 
 const DEFAULT_ROOT_ID = '(machine)'
 
-const b = recast.types.builders
+const b: any = recast.types.builders
 const n: typeof recast.types.namedTypes = recast.types.namedTypes
 
 type RecastFile = ReturnType<typeof b.file>
@@ -738,14 +738,21 @@ export class MachineExtractResult {
       switch (edit.type) {
         case 'add_state': {
           const stateObj = getStateObjectByPath(recastDefinitionNode, edit.path)
-          const statesProp = findObjectProperty(stateObj, 'states')
+          const statesProp = findObjectProperty(
+            stateObj as recast.types.namedTypes.ObjectExpression,
+            'states'
+          )
           if (statesProp) {
             const unwrapped = unwrapSimplePropValue(statesProp)
             n.ObjectExpression.assert(unwrapped)
-            setProperty(unwrapped, edit.name, toObjectExpression({}))
+            setProperty(
+              unwrapped as recast.types.namedTypes.ObjectExpression,
+              edit.name,
+              toObjectExpression({})
+            )
           } else {
             setProperty(
-              stateObj,
+              stateObj as recast.types.namedTypes.ObjectExpression,
               'states',
               toObjectExpression({
                 [edit.name]: {},
@@ -773,7 +780,10 @@ export class MachineExtractResult {
                   fromPath
                 )
 
-                removeTransitionAtPath(parentObj, transitionPath)
+                removeTransitionAtPath(
+                  parentObj as recast.types.namedTypes.ObjectExpression,
+                  transitionPath
+                )
               })
             }
           )
@@ -783,7 +793,7 @@ export class MachineExtractResult {
           deleted.push({
             type: 'state',
             statePath: edit.path,
-            state: removed,
+            state: removed as recast.types.namedTypes.ObjectExpression,
           })
           break
         }
@@ -807,7 +817,10 @@ export class MachineExtractResult {
           if (initialProp) {
             const unwrapped = unwrapSimplePropValue(initialProp)
             if (unwrapped && getSimpleStringValue(unwrapped) === oldName) {
-              setPropertyValue(initialProp, b.stringLiteral(edit.name))
+              setPropertyValue(
+                initialProp as recast.types.namedTypes.ObjectProperty,
+                b.stringLiteral(edit.name)
+              )
             }
           }
 
@@ -1077,13 +1090,22 @@ export class MachineExtractResult {
             }
           }
 
-          const state = removeState(recastDefinitionNode, edit.path)
+          const state = removeState(
+            recastDefinitionNode,
+            edit.path
+          ) as recast.types.namedTypes.ObjectExpression
           const newParent = getStateObjectByPath(
             recastDefinitionNode,
             edit.newParentPath
           )
 
-          setProperty(getStatesObjectInState(newParent), last(edit.path), state)
+          setProperty(
+            getStatesObjectInState(
+              newParent as recast.types.namedTypes.ObjectExpression
+            ) as recast.types.namedTypes.ObjectExpression,
+            last(edit.path),
+            state
+          )
 
           targetRecomputeCandidates.forEach((candidate) => {
             updateTargetAtObjectPath(
@@ -1099,9 +1121,12 @@ export class MachineExtractResult {
           const oldParent = getStateObjectByPath(
             recastDefinitionNode,
             edit.path.slice(0, -1)
-          )
+          ) as recast.types.namedTypes.ObjectExpression
 
-          const initialPropIndex = findObjectPropertyIndex(oldParent, 'initial')
+          const initialPropIndex = findObjectPropertyIndex(
+            oldParent as recast.types.namedTypes.ObjectExpression,
+            'initial'
+          )
 
           if (initialPropIndex === -1) {
             break
@@ -1115,7 +1140,10 @@ export class MachineExtractResult {
           break
         }
         case 'set_initial_state': {
-          const stateObj = getStateObjectByPath(recastDefinitionNode, edit.path)
+          const stateObj = getStateObjectByPath(
+            recastDefinitionNode,
+            edit.path
+          ) as recast.types.namedTypes.ObjectExpression
 
           if (typeof edit.initialState === 'string') {
             setProperty(stateObj, 'initial', b.stringLiteral(edit.initialState))
@@ -1126,7 +1154,10 @@ export class MachineExtractResult {
           break
         }
         case 'set_state_id': {
-          const stateObj = getStateObjectByPath(recastDefinitionNode, edit.path)
+          const stateObj = getStateObjectByPath(
+            recastDefinitionNode,
+            edit.path
+          ) as recast.types.namedTypes.ObjectExpression
           if (typeof edit.id === 'string') {
             setProperty(stateObj, 'id', b.stringLiteral(edit.id))
           } else {
@@ -1135,7 +1166,10 @@ export class MachineExtractResult {
           break
         }
         case 'set_state_type': {
-          const stateObj = getStateObjectByPath(recastDefinitionNode, edit.path)
+          const stateObj = getStateObjectByPath(
+            recastDefinitionNode,
+            edit.path
+          ) as recast.types.namedTypes.ObjectExpression
 
           if (edit.stateType === 'normal') {
             removeProperty(stateObj, 'type')
@@ -1158,7 +1192,7 @@ export class MachineExtractResult {
           const stateObj = getStateObjectByPath(
             recastDefinitionNode,
             edit.sourcePath
-          )
+          ) as recast.types.namedTypes.ObjectExpression
 
           const target = getBestTargetDescriptor(recastDefinitionNode, edit)
 
@@ -1182,7 +1216,10 @@ export class MachineExtractResult {
         }
         case 'remove_transition': {
           const removed = removeTransitionAtPath(
-            getStateObjectByPath(recastDefinitionNode, edit.sourcePath),
+            getStateObjectByPath(
+              recastDefinitionNode,
+              edit.sourcePath
+            ) as recast.types.namedTypes.ObjectExpression,
             edit.transitionPath
           )
           if (!removed) {
@@ -1200,7 +1237,7 @@ export class MachineExtractResult {
           let sourceObj = getStateObjectByPath(
             recastDefinitionNode,
             edit.sourcePath
-          )
+          ) as recast.types.namedTypes.ObjectExpression
 
           const oldTransition = this.getTransitionTargets().find(
             (t) =>
@@ -1231,7 +1268,7 @@ export class MachineExtractResult {
             sourceObj = getStateObjectByPath(
               recastDefinitionNode,
               edit.newSourcePath
-            )
+            ) as recast.types.namedTypes.ObjectExpression
 
             newTransitionPath =
               edit.newTransitionPath ||
@@ -1854,7 +1891,7 @@ function insertAtTransitionPath(
       n.ObjectExpression.assert(current)
 
       if (!pathCopy.length) {
-        current.properties.push(
+        ;(current as any).properties.push(
           b.objectProperty(safePropertyKey(segment), value as any)
         )
         return
@@ -1866,7 +1903,7 @@ function insertAtTransitionPath(
         // so we can assume that we need to create an object here
         b.objectExpression([])
       )
-      current.properties.push(createdProp)
+      ;(current as any).properties.push(createdProp)
       current = createdProp.value
       continue
     }
@@ -1956,7 +1993,7 @@ function insertAtActionPath(
   const transition = getTransitionObject(
     obj,
     path.slice(0, -1) as TransitionPath
-  )
+  ) as recast.types.namedTypes.ObjectExpression
 
   insertAtArrayifiableProperty({
     obj: transition,
@@ -1990,7 +2027,7 @@ function editAtActionPath(
   const transition = getTransitionObject(
     obj,
     path.slice(0, -1) as TransitionPath
-  )
+  ) as recast.types.namedTypes.ObjectExpression
 
   editAtArrayifiableProperty({
     obj: transition,
@@ -2018,7 +2055,7 @@ function removeAtActionPath(obj: RecastObjectExpression, path: ActionPath) {
   const transition = getTransitionObject(
     obj,
     path.slice(0, -1) as TransitionPath
-  )
+  ) as recast.types.namedTypes.ObjectExpression
   const transitionIndex = last(path)
 
   removeAtArrayifiableProperty({
@@ -2040,7 +2077,7 @@ function insertGuardAtTransitionPath(
   value: RecastNode
 ) {
   const transition = getTransitionObject(obj, path)
-  transition.properties.push(
+  ;(transition as any).properties.push(
     b.objectProperty(b.identifier('cond'), value as any)
   )
 }
@@ -2056,7 +2093,7 @@ function editGuardAtTransitionPath(
     throw new Error(`"cond" should exist before attempting to remove it`)
   }
 
-  const condProp = transition.properties[condIndex]
+  const condProp = (transition as any).properties[condIndex]
   n.ObjectProperty.assert(condProp)
   condProp.value = updateItemType(
     unwrapSimplePropValue(condProp)!,
@@ -2126,7 +2163,7 @@ function insertAtArrayifiableProperty({
   }
   const arr = unwrapSimplePropValue(obj.properties[propIndex])
   n.ArrayExpression.assert(arr)
-  arr.elements.splice(index, 0, value as any)
+  ;(arr as any).elements.splice(index, 0, value as any)
 }
 
 function removeAtArrayifiableProperty({
@@ -2422,7 +2459,7 @@ function removeTransitionAtPath(
   if (typeof propPath[1] === 'string') {
     n.ObjectExpression.assert(unwrapped)
     const removed = removeTransitionAtPath(unwrapped, propPath.slice(1))
-    if (unwrapped.properties.length === 0) {
+    if ((unwrapped as any).properties.length === 0) {
       removeProperty(obj, propPath[0])
     }
     return removed
@@ -2487,7 +2524,7 @@ function isExternalTransition(transition: RecastObjectExpression): boolean {
   if (internalProp) {
     const internalValue = unwrapSimplePropValue(internalProp)
     n.BooleanLiteral.assert(internalValue)
-    return !internalValue.value
+    return !(internalValue as any).value
   }
   const targetProp = findObjectProperty(transition, 'target')
 
@@ -2593,7 +2630,11 @@ function getIndexForTransitionPathAppendant(
 
     if (!pathCopy.length) {
       n.ObjectProperty.assert(prop)
-      if (!n.ArrayExpression.check(prop.value)) {
+      if (
+        !n.ArrayExpression.check(
+          (prop as recast.types.namedTypes.ObjectProperty).value
+        )
+      ) {
         return 1
       }
       return prop.value.elements.length
@@ -2648,17 +2689,28 @@ function getTransitionExternalValue(
 }
 
 function removeState(root: RecastObjectExpression, path: string[]) {
-  const parentState = getStateObjectByPath(root, path.slice(0, -1))
+  const parentState = getStateObjectByPath(
+    root,
+    path.slice(0, -1)
+  ) as recast.types.namedTypes.ObjectExpression
   const statesProp = findObjectProperty(parentState, 'states')!
-  const unwrapped = unwrapSimplePropValue(statesProp)
+  const unwrapped = unwrapSimplePropValue(
+    statesProp
+  ) as recast.types.namedTypes.ObjectExpression
   n.ObjectExpression.assert(unwrapped)
 
-  const stateIndex = findObjectPropertyIndex(unwrapped, path[path.length - 1])
+  const stateIndex = findObjectPropertyIndex(
+    unwrapped as recast.types.namedTypes.ObjectExpression,
+    path[path.length - 1]
+  )
 
   const removed = unwrapped.properties.splice(stateIndex, 1)
 
   if (unwrapped.properties.length === 0) {
-    const statesIndex = findObjectPropertyIndex(parentState, 'states')
+    const statesIndex = findObjectPropertyIndex(
+      parentState as recast.types.namedTypes.ObjectExpression,
+      'states'
+    )
     parentState.properties.splice(statesIndex, 1)
   }
   const removedState = unwrapSimplePropValue(removed[0])

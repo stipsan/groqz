@@ -1,11 +1,5 @@
 // Based on https://github.com/statelyai/xstate-tools/tree/main/apps/cli
 
-import {
-  getTsTypesEdits,
-  getTypegenData,
-  processFileEdits,
-  writeToTypegenFile,
-} from '@xstate/tools-shared'
 import { watch } from 'chokidar'
 import { Command } from 'commander'
 import * as fs from 'fs/promises'
@@ -13,6 +7,10 @@ import * as path from 'path'
 
 import { version } from '../../package.json'
 import { extractMachinesFromFile } from './extractMachinesFromFile'
+import { getTsTypesEdits } from './getTsTypesEdits'
+import { getTypegenData } from './getTypegenData'
+import { processFileEdits } from './processFileEdits'
+import { writeToTypegenFile } from './writeToTypegenFile'
 
 export * from './constants'
 export * from './extractMachinesFromFile'
@@ -98,6 +96,7 @@ program
         if (path.endsWith('.typegen.ts')) {
           return
         }
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         writeToFiles([path]).catch(() => {})
       }
       // TODO: handle removals

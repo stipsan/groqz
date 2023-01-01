@@ -1,4 +1,5 @@
 import * as t from '@babel/types'
+
 import { MachineExtractResult } from './MachineExtractResult'
 
 export type Location = t.SourceLocation | null

@@ -11,7 +11,7 @@ const TransitionTarget = maybeArrayOf(
   unionType([StringLiteral, TemplateLiteral])
 )
 
-const TransitionObject = objectTypeWithKnownKeys({
+export const TransitionObject = objectTypeWithKnownKeys({
   target: TransitionTarget,
   actions: MaybeArrayOfActions,
   cond: Cond,

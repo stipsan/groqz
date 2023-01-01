@@ -54,13 +54,14 @@
     "maintained node versions"
   ],
   "dependencies": {
-    "@babel/parser": "^7.20.7",
-    "@babel/traverse": "^7.20.10",
-    "@babel/types": "^7.20.7",
+    "@babel/parser": "^7.19.4",
+    "@babel/traverse": "^7.19.4",
+    "@babel/types": "^7.19.4",
     "@groqz/json": "workspace:*",
     "chokidar": "^3.5.3",
-    "commander": "^9.4.1",
-    "recast": "^0.22.0",
+    "commander": "^8.0.0",
+    "prettier": "^2.8.1",
+    "recast": "^0.21.2",
     "xstate": "^4.35.1"
   },
   "devDependencies": {
