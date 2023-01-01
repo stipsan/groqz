@@ -1,0 +1,74 @@
+{
+  "name": "@groqz/sanity",
+  "version": "0.0.0",
+  "description": "Resolves groqz introspection datasets from sanity schemas, using the same semantics as the `sanity graphql deploy` cli command",
+  "bugs": {
+    "url": "https://github.com/stipsan/groqz/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/stipsan/groqz.git",
+    "directory": "packages/sanity"
+  },
+  "license": "MIT",
+  "author": "Cody Olsen <stipsan@gmail.com>",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "source": "./src/index.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "source": "./src/index.ts",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "pkg build --strict",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "dev": "pkg watch",
+    "lint": "TIMING=1 eslint --max-warnings 0 .",
+    "test": "vitest run",
+    "posttest": "pnpm test:cjs && pnpm test:mjs",
+    "test:cjs": "node ./test.cjs",
+    "test:mjs": "node ./test.mjs"
+  },
+  "browserslist": [
+    "> 0.2% and supports es6-module and supports es6-module-dynamic-import and not dead and not IE 11",
+    "maintained node versions"
+  ],
+  "dependencies": {
+    "@sanity/cli": "^3.1.2",
+    "@sanity/types": "^3.1.2",
+    "oneline": "^1.0.3"
+  },
+  "devDependencies": {
+    "@groqz/tsconfig": "workspace:*",
+    "@sanity/pkg-utils": "^2.0.3",
+    "@types/node": "^18.11.18",
+    "eslint": "^8.30.0",
+    "eslint-config-groqz": "workspace:*",
+    "sanity": "^3.1.2",
+    "typescript": "^4.9.4",
+    "vitest": "^0.26.2"
+  },
+  "peerDependencies": {
+    "sanity": "^3",
+    "typescript": "^4.9"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
