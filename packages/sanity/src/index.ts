@@ -1,2 +1,3 @@
 export * from './extractFromSanitySchema'
-export * from './resolveStudioConfig'
+export * from './getGraphQLAPIs'
+export * from './types'

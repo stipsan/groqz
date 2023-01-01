@@ -1,3 +1,3 @@
-import { resolveStudioConfig } from '@groqz/sanity'
+import { getGraphQLAPIs } from '@groqz/sanity'
 
-console.log(resolveStudioConfig())
+console.log(await getGraphQLAPIs())

@@ -1,3 +1,3 @@
-const { resolveStudioConfig } = require('@groqz/sanity')
+const { getGraphQLAPIs } = require('@groqz/sanity')
 
-console.log(resolveStudioConfig())
+console.log(getGraphQLAPIs({ sanityMajorVersion: 3 }))
