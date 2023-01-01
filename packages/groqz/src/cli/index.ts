@@ -100,7 +100,10 @@ program
           return
         }
         // eslint-disable-next-line @typescript-eslint/no-empty-function
-        writeToFiles([path]).catch(() => {})
+        writeToFiles([path]).catch((err) => {
+          console.error(err)
+          throw err
+        })
       }
       // TODO: handle removals
       watch(filesPattern, { awaitWriteFinish: true })
@@ -111,10 +114,17 @@ program
       // TODO: could this cleanup outdated typegen files?
       watch(filesPattern, { persistent: false })
         .on('add', (path) => {
+          console.log('add', path)
           if (path.endsWith('.typegen.ts')) {
             return
           }
-          tasks.push(writeToFiles([path]))
+
+          tasks.push(
+            writeToFiles([path]).catch((err) => {
+              console.error(err)
+              throw err
+            })
+          )
         })
         .on('ready', async () => {
           const settled = await allSettled(tasks)

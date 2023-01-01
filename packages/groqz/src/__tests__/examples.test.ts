@@ -7,17 +7,18 @@ import { describe, it } from 'vitest'
 describe('typegen', () => {
   const examplesPath = path.resolve(__dirname, '__examples__')
   const examplesFiles = fs.readdirSync(examplesPath)
+  const cwd = path.resolve(__dirname, '../../')
 
   minimatch
     .match(examplesFiles, '*.typegen.ts')
     .map((file) => fs.unlinkSync(path.join(examplesPath, file)))
 
   execSync('pnpm build', {
-    cwd: __dirname,
+    cwd,
     stdio: 'ignore',
   })
-  execSync('node ../../bin/groqz.cjs typegen "./__examples__/*.ts"', {
-    cwd: __dirname,
+  execSync('node ./bin/groqz.cjs typegen "src/__tests__/__examples__/*.ts"', {
+    cwd,
   })
   it('Should pass tsc', async () => {
     try {
