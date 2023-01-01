@@ -57,37 +57,40 @@ const writeToFiles = async (uriArray: string[], workspace?: string) => {
       try {
         const fileContents = await fs.readFile(uri, 'utf8')
         const fileHasChanged = async () => {
-          return fileContents !== await fs.readFile(uri, 'utf8')
+          return fileContents !== (await fs.readFile(uri, 'utf8'))
         }
 
         const extracted = extractQueriesFromFile(fileContents)
 
-        console.-log({ extracted })
+        console.log({ extracted })
 
         if (!extracted) {
           return
         }
 
-        const types = extracted.nodes.map((node, index) => ({
-          node,
-          query:
-            (t.isTSAsExpression(node) &&
+        const types = extracted.nodes
+          .map((node, index) => ({
+            node,
+            query: (t.isTSAsExpression(node) &&
             t.isTaggedTemplateExpression(node.expression)
               ? node.expression.quasi.quasis[0].value.cooked
               : t.isTaggedTemplateExpression(node)
               ? node.quasi.quasis[0].value.cooked
               : '') as string,
-          identifier: `Typegen${index}`,
-        })).filter(({ query }) => query !== '')
+            identifier: `Typegen${index}`,
+          }))
+          .filter(({ query }) => query !== '')
         console.log(types)
 
-       
-        const typegenData = prettier.format(await getTypegenOutput(types, options), {
-          ...(await prettier.resolveConfig(uri)),
-          parser: 'typescript',
-        })
+        const typegenData = prettier.format(
+          await getTypegenOutput(types, options),
+          {
+            ...(await prettier.resolveConfig(uri)),
+            parser: 'typescript',
+          }
+        )
         console.log(typegenData)
-        if(await fileHasChanged()) {
+        if (await fileHasChanged()) {
           console.log('Aborting as the file has changed')
           return
         }
