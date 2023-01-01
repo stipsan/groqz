@@ -13,7 +13,7 @@ function reportEverything(data: InferType<typeof index>) {
         reportCategory(item)
         break
       case 'page':
-        console.log(item, item.category?._ref?.toUpperCase())
+        console.log(item, item.category?.title?.toUpperCase())
         break
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
@@ -36,10 +36,11 @@ function reportCategory(category: {
 
 const page = gen1
 
-console.log(page.schema.parse({}).category?.title?.toUpperCase())
+console.log(page.schema.parse({}).title?.toUpperCase())
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
-console.log(page.schema.parse({}).category.title.toUpperCase())
+console.log(page.schema.parse({}).image?.size?.toUpperCase())
+console.log((page.schema.parse({}).image?.size || 0) / 1024)
 
 const anything = gen2
 

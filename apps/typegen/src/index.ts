@@ -12,7 +12,7 @@ function reportEverything(data: InferType<typeof index>) {
         reportCategory(item)
         break
       case 'page':
-        console.log(item, item.category?._ref?.toUpperCase())
+        console.log(item, item.category?.title?.toUpperCase())
         break
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error

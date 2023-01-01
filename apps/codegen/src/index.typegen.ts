@@ -3,28 +3,47 @@ import { json } from 'groqz'
 import { z } from 'zod'
 
 export const gen0 = {
-  query: '*',
+  query: '*[_type in ["category", "page"]]{..., category->{title}}',
   schema: z.array(
     z.discriminatedUnion('_type', [
       z
         .object({
-          _type: z.literal('page'),
-          _id: z.string(),
           title: z.string().nullish(),
           category: z
             .object({
-              _ref: z.string().nullish(),
-              _type: z.literal('reference'),
+              title: z.string().nullish(),
             })
             .strict()
             .nullish(),
+          _type: z.literal('page'),
+          _id: z.string(),
+          _rev: z.string().nullish(),
+          _createdAt: z.string().nullish(),
+          _updatedAt: z.string().nullish(),
         })
         .strict(),
       z
         .object({
+          title: z.string().nullish(),
+          image: z
+            .object({
+              _type: z.literal('image'),
+              asset: z
+                .object({
+                  _ref: z.string().nullish(),
+                  _type: z.literal('reference'),
+                })
+                .strict()
+                .nullish(),
+            })
+            .strict()
+            .nullish(),
           _type: z.literal('category'),
           _id: z.string(),
-          title: z.string().nullish(),
+          _rev: z.string().nullish(),
+          _createdAt: z.string().nullish(),
+          _updatedAt: z.string().nullish(),
+          category: json.optional(),
         })
         .strict(),
     ])
@@ -32,17 +51,16 @@ export const gen0 = {
 }
 
 export const gen1 = {
-  query: '*[_type == "page"]{ ..., category-> }[0]',
+  query:
+    '*[_type == "category"]{title, _type, "image": image.asset->{url, size}}[0]',
   schema: z
     .object({
-      _type: z.literal('page'),
-      _id: z.string(),
       title: z.string().nullish(),
-      category: z
+      _type: z.literal('category'),
+      image: z
         .object({
-          _type: z.literal('category'),
-          _id: z.string(),
-          title: z.string().nullish(),
+          url: z.string().nullish(),
+          size: z.number().nullish(),
         })
         .strict()
         .nullish(),

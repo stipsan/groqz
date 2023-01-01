@@ -43,7 +43,7 @@ export async function groqToJs(
       }
 
       const canUseDiscriminatedUnion = value.every((v) => {
-        return (v as string).includes(`    "_type": z.literal`)
+        return (v as string).includes(`"_type": z.literal`)
       })
       return canUseDiscriminatedUnion
         ? `z.array(z.discriminatedUnion("_type", [${value.join(',')}]))`
