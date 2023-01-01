@@ -2,9 +2,9 @@ import { parse } from '@babel/parser'
 import traverse from '@babel/traverse'
 import * as t from '@babel/types'
 
-import { ALLOWED_CALL_EXPRESSION_NAMES } from './machineCallExpression'
+import { ALLOWED_IMPORT_SPECIFIER_SOURCE } from './machineCallExpression'
 
-export const getMachineNodesFromFile = (fileContent: string) => {
+export const getQueryNodesFromFile = (fileContent: string) => {
   const file = parse(fileContent, {
     sourceType: 'module',
     plugins: [
@@ -16,30 +16,44 @@ export const getMachineNodesFromFile = (fileContent: string) => {
     tokens: true,
   })
 
-  const machineNodes: Array<t.CallExpression> = []
+  let taggedTemplateLiteral: string | false = false
 
   traverse(file, {
-    CallExpression(path) {
-      const node = path.node
-      if (
-        t.isMemberExpression(node.callee) &&
-        t.isIdentifier(node.callee.property) &&
-        ALLOWED_CALL_EXPRESSION_NAMES.includes(node.callee.property.name)
-      ) {
-        machineNodes.push(node)
+    ImportDeclaration({ node }) {
+      if (node.source.value === ALLOWED_IMPORT_SPECIFIER_SOURCE) {
+        const groqNode = node.specifiers.find(
+          (specifier) =>
+            specifier.type === 'ImportSpecifier' &&
+            specifier.imported.type === 'Identifier' &&
+            specifier.imported.name === 'groq'
+        )
+        if (groqNode) {
+          taggedTemplateLiteral = groqNode.local.name
+        }
       }
+    },
+  })
 
-      if (
-        t.isIdentifier(node.callee) &&
-        ALLOWED_CALL_EXPRESSION_NAMES.includes(node.callee.name)
-      ) {
-        machineNodes.push(node)
+  if (!taggedTemplateLiteral) {
+    return {
+      file,
+      queries: [],
+    }
+  }
+
+  const queries: Array<t.TaggedTemplateExpression> = []
+
+  traverse(file, {
+    TaggedTemplateExpression(path) {
+      const node = path.node
+      if (t.isIdentifier(node.tag) && node.tag.name === taggedTemplateLiteral) {
+        queries.push(node)
       }
     },
   })
 
   return {
     file,
-    machineNodes,
+    queries,
   }
 }

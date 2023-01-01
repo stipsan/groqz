@@ -11,7 +11,7 @@ export function getMachineExtractResult({
 }: {
   file: t.File
   fileContent: string
-  node: t.CallExpression
+  node: t.TaggedTemplateExpression
 }) {
   const machineCallResult = MachineCallExpression.parse(node, {
     file,

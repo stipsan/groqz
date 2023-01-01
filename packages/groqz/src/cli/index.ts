@@ -1,20 +1,22 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // Based on https://github.com/statelyai/xstate-tools/tree/main/apps/cli
 
 import { createIntrospectionDataset } from '@groqz/sanity'
+import { type EvaluateOptions } from '@groqz/to-ts'
 import { watch } from 'chokidar'
 import { Command } from 'commander'
 import * as fs from 'fs/promises'
 import * as path from 'path'
 
 import { version } from '../../package.json'
-import { extractMachinesFromFile } from './extractMachinesFromFile'
+import { extractQueriesFromFile } from './extractQueriesFromFile'
 import { getTsTypesEdits } from './getTsTypesEdits'
 import { getTypegenData } from './getTypegenData'
 import { processFileEdits } from './processFileEdits'
 import { writeToTypegenFile } from './writeToTypegenFile'
 
 export * from './constants'
-export * from './extractMachinesFromFile'
+export * from './extractQueriesFromFile'
 export * from './getMachineExtractResult'
 export * from './getMachineNodesFromFile'
 export * from './groupByUniqueName'
@@ -41,6 +43,7 @@ program.version(version)
 
 const writeToFiles = async (uriArray: string[], workspace?: string) => {
   const dataset = await createIntrospectionDataset(workspace)
+  const options: EvaluateOptions = { dataset }
   console.log({ dataset })
   /**
    * TODO - implement pretty readout
@@ -50,24 +53,30 @@ const writeToFiles = async (uriArray: string[], workspace?: string) => {
       try {
         const fileContents = await fs.readFile(uri, 'utf8')
 
-        const extracted = extractMachinesFromFile(fileContents)
+        const extracted = extractQueriesFromFile(fileContents)
+
+        console.log({ extracted })
+        throw new Error('Stop here')
 
         if (!extracted) {
           return
         }
 
+        // @ts-expect-error
         const types = extracted.machines
           .filter(
             (
+              // @ts-expect-error
               machineResult
             ): machineResult is NonNullable<typeof machineResult> =>
               !!machineResult?.machineCallResult.definition?.tsTypes?.node
           )
+          // @ts-expect-error
           .map((machineResult, index) =>
             getTypegenData(path.basename(uri), index, machineResult)
           )
 
-        await writeToTypegenFile(uri, types)
+        await writeToTypegenFile(uri, types, options)
 
         const edits = getTsTypesEdits(types)
         if (edits.length > 0) {

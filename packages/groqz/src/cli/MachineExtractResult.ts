@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable prefer-const */
 import * as t from '@babel/types'
 import * as recast from 'recast'
@@ -6,7 +7,7 @@ import { choose } from 'xstate/lib/actions'
 
 import { DeclarationType } from '.'
 import { ActionNode, ParsedChooseCondition } from './actions'
-import { getMachineNodesFromFile } from './getMachineNodesFromFile'
+import { getQueryNodesFromFile } from './getMachineNodesFromFile'
 import { TMachineCallExpression } from './machineCallExpression'
 import { RecordOfArrays } from './RecordOfArrays'
 import { StateNodeReturn } from './stateNode'
@@ -1537,7 +1538,7 @@ export class MachineExtractResult {
     // find the matching machine node in the new text of the whole file
     // it's wasteful to parse the whole new file here
     // it's the best way we have right now to keep the formatting intact as much as possible though
-    const machineNode = getMachineNodesFromFile(reprinted).machineNodes.find(
+    const machineNode = getQueryNodesFromFile(reprinted).queries.find(
       (machineNode) =>
         machineNode.loc!.start.line === existingMachineNodeLoc.start.line &&
         machineNode.loc!.start.column === existingMachineNodeLoc.start.column
@@ -1547,7 +1548,9 @@ export class MachineExtractResult {
       type: 'replace',
       range: oldRange,
       newText: reprinted.slice(
+        // @ts-ignore
         machineNode.arguments[0].start!,
+        // @ts-ignore
         machineNode.arguments[0].end!
       ),
     }
@@ -1630,7 +1633,9 @@ export class MachineExtractResult {
     // find the matching machine node in the new text of the whole file
     // it's wasteful to parse the whole new file here
     // it's the best way we have right now to keep the formatting intact as much as possible though
-    const machineNode = getMachineNodesFromFile(reprinted).machineNodes.find(
+    // @ts-ignore
+    const machineNode = getQueryNodesFromFile(reprinted).machineNodes.find(
+      // @ts-ignore
       (machineNode) =>
         machineNode.loc!.start.line ===
           this.machineCallResult.node.loc!.start.line &&

@@ -58,6 +58,7 @@
     "@babel/traverse": "^7.19.4",
     "@babel/types": "^7.19.4",
     "@groqz/json": "workspace:*",
+    "@groqz/to-ts": "workspace:*",
     "@groqz/sanity": "workspace:*",
     "chokidar": "^3.5.3",
     "commander": "^8.0.0",
