@@ -20,15 +20,15 @@ if (isMainThread || !parentPort) {
   throw new Error('This module must be run as a worker thread')
 }
 
-getGraphQLAPIsForked(parentPort)
+getSchemaForked(parentPort)
 
-async function getGraphQLAPIsForked(parent: MessagePort): Promise<void> {
+async function getSchemaForked(parent: MessagePort): Promise<void> {
   const { workDir, workspace } = workerData
-  const resolved = await resolveGraphQLApis({ workDir, workspace })
+  const resolved = await resolveStudioSchema({ workDir, workspace })
   parent.postMessage(resolved)
 }
 
-async function resolveGraphQLApis({
+async function resolveStudioSchema({
   workDir,
   workspace,
 }: Pick<CliV3CommandContext, 'workDir'> & {
@@ -73,10 +73,10 @@ async function resolveGraphQLApis({
   }
 
   // Explicity defined config
-  return resolveGraphQLAPIsFromConfig(workspaces, workspace)
+  return resolveSchemaFromConfig(workspaces, workspace)
 }
 
-async function resolveGraphQLAPIsFromConfig(
+async function resolveSchemaFromConfig(
   workspaces: Workspace[],
   workspaceName: string
 ): Promise<{

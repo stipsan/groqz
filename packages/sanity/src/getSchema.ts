@@ -41,7 +41,7 @@ export async function getGraphQLAPIs({
     }
 
     const rootDir = path.dirname(rootPkgPath)
-    const workerPath = path.join(rootDir, 'dist', 'getGraphQLAPIsWorker.cjs')
+    const workerPath = path.join(rootDir, 'dist', 'getSchemaWorker.cjs')
     const worker = new Worker(workerPath, {
       workerData: { workspace, workDir },
     })
