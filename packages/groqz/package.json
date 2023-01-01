@@ -13,9 +13,6 @@
   "author": "Cody Olsen <stipsan@gmail.com>",
   "sideEffects": false,
   "type": "module",
-  "bin": {
-    "groqz": "./bin/groqz.cjs"
-  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -36,6 +33,9 @@
   "module": "./dist/index.js",
   "source": "./src/index.ts",
   "types": "./dist/index.d.ts",
+  "bin": {
+    "groqz": "./bin/groqz.cjs"
+  },
   "files": [
     "bin",
     "dist",
@@ -54,11 +54,11 @@
     "maintained node versions"
   ],
   "dependencies": {
-    "@groqz/sanity": "workspace:*",
     "@babel/parser": "^7.19.4",
     "@babel/traverse": "^7.19.4",
     "@babel/types": "^7.19.4",
     "@groqz/json": "workspace:*",
+    "@groqz/sanity": "workspace:*",
     "chokidar": "^3.5.3",
     "commander": "^8.0.0",
     "prettier": "^2.8.1",

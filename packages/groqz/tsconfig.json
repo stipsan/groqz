@@ -1,6 +1,16 @@
 {
   "extends": "@groqz/tsconfig/base.json",
   "include": ["src"],
-  "compilerOptions": { "rootDir": ".", "outDir": "dist","exactOptionalPropertyTypes": true,},
-  "exclude": ["dist", "build", "node_modules","src/__tests__/__examples__", "sanity.config.ts"]
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "dist",
+    "exactOptionalPropertyTypes": true
+  },
+  "exclude": [
+    "dist",
+    "build",
+    "node_modules",
+    "src/__tests__/__examples__",
+    "sanity.config.ts"
+  ]
 }
