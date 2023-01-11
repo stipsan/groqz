@@ -52,23 +52,21 @@ const { query, schema } = groq`*[_type == "page"]{_type, title, likes}`
 You forward the `query` string to [@sanity/client], or any other library that takes [GROQ] as input and a JSON response. And then call `schema.parse` on that response:
 
 ```ts
-import {groq} from 'groqz'
-
-const {query, schema} = groq`*[_type == "page"]{_type, title, likes}`
-
 // Sanity Client on Content Lake
 import {createClient} from `@sanity/client`
 
 const client = createClient()
 const data = schema.parse(await client.fetch(query))
-
+```
+```ts
 // Querying Content Lake with another client
 import PicoSanity from 'picosanity'
 
 const client = new PicoSanity()
 
 const data = schema.parse(await client.fetch(query))
-
+```
+```ts
 // Type safety for live preview modes
 import { definePreview } from '@sanity/preview-kit'
 import {useDeferredValue, useMemo} from 'react'
@@ -90,7 +88,7 @@ import { z } from 'zod'
 
 const { query, schema } = groq`*[_type == "page"]{_type, title, likes}`
 
-function App(data: z.infer<schema>) {
+function App(data: z.infer<typeof schema>) {
   //
 }
 
@@ -106,7 +104,7 @@ import { groq, type InferType } from 'groqz'
 
 const allPages = groq`*[_type == "page"]{_type, title, likes}`
 
-function uniqueTitles(pages: InferType<allPages>): Set<string> {
+function uniqueTitles(pages: InferType<typeof allPages>): Set<string> {
   return new Set()
 }
 
