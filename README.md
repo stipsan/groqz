@@ -3,15 +3,16 @@
 Transforms [GROQ] strings to [zod] schemas in your TypeScript codebase.
 This lets you check your app is using query responses to the [Sanity Content Lake](https://www.sanity.io/docs/datastore) in a way that is runtime safe.
 Basically eliminate bugs like:
-
 ```console
 TypeError: Cannot read properties of undefined
 ```
 
+## Status
+GROQZ can't yet be tested end-to-end until the first codegen plugin `@groqz/babel-plugin` is ready.
+
 ## Concept
 
 In a project with a `sanity.config.ts` file (introduced in [Sanity Studio v3]) that defines a schema like this:
-
 ```ts
 import { defineConfig } from 'sanity'
 
@@ -27,9 +28,9 @@ export default defineConfig({
             type: 'string',
           },
           {
-            name: 'likes',
-            type: 'number',
-          },
+          name: 'likes',
+          type: 'number'
+          }
         ],
       },
     ],
@@ -38,15 +39,13 @@ export default defineConfig({
 ```
 
 It takes [GROQ] strings as input, and provides `{query: string, schema: z.ZodType}` as output:
-
 ```ts
-import { groq } from 'groqz'
+import {groq} from 'groqz'
 
-const { query, schema } = groq`*[_type == "page"]{_type, title, likes}`
+const {query, schema} = groq`*[_type == "page"]{_type, title, likes}`
 ```
 
 You forward the `query` string to [@sanity/client], or any other library that takes [GROQ] as input and a JSON response. And then call `schema.parse` on that response:
-
 ```ts
 import {groq} from 'groqz'
 
@@ -67,7 +66,7 @@ const data = schema.parse(await client.fetch(query))
 
 // Type safety for live preview modes
 import { definePreview } from '@sanity/preview-kit'
-import {useDeferredValue, useMemo} from 'react
+import {useDeferredValue, useMemo} from 'react'
 
 const usePreview = definePreview()
 function ReactComponent() {
@@ -78,8 +77,39 @@ function ReactComponent() {
 }
 ```
 
-This is similar to how other libraries like [`groqd`] works, and libraries like [`@sanity/client`] may be updated to take `{query, schema}` as input in the future:
 
+You can use `z.infer` to add typing to your custom code:
+
+```ts
+import {groq} from 'groqz'
+import {z} from 'zod'
+
+const {query, schema} = groq`*[_type == "page"]{_type, title, likes}`
+
+function App(data: z.infer<schema>) {
+  // 
+}
+
+async function renderApp() {
+  return App(schema.parse(await client.fetch(query)))
+}
+```
+
+You can also use `InferType` if your custom code operates on the parsed query object itself:
+
+```ts
+import {groq, type InferType} from 'groqz'
+
+const allPages = groq`*[_type == "page"]{_type, title, likes}`
+
+function uniqueTitles(pages: InferType<allPages>): Set<string> {
+  return new Set()
+}
+
+client.fetch(query).then(schema.parse).then(uniqueTitles)
+```
+
+This is similar to how other libraries like [`groqd`] works, and libraries like [`@sanity/client`] may be updated to take `{query, schema}` as input in the future:
 ```
 // This is just an example scenario, `@sanity/client` doesn't support this
 import {createClient} from `@sanity/client`
@@ -97,18 +127,21 @@ It's necessary to provide both typegen and codegen for this to work end-to-end. 
 Unfortunately there's no tool we can use that can deal let us setup typegen and codegen at the same time. We have to provide tooling that integrates with peoples TypeScript setup, and their bundler/codegen, as two separate strategies.
 
 ### Typegen
-
 In order to do runtime checks in TypeScript it's necessary to generate typings. [This is because TS only have an API that lets us extend the "editing experience"](https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin), it doesn't have a plugin API that would let us generate typigns from arbitrary GROQ strings as part of running the TS cli `tsc`. It leaves us with two options: IDE plugins that integrate with the editing experience and generate typings in that process, and a cli.
-
 - [groqz] and its cli command `groqz typegen src/**/*.ts`
 - (planned) `groqz-vscode`
 - (maybe) `groqz-intellij` (can be done like [`import-cost`](https://github.com/denofevil/import-cost) so it works in WebStorm, Intellij IDEA and all the rest)
 
 ### Codegen
-
 We'll have to support a wide range of build plugins to integrate with the diversity of tooling that folks use.
 
-- (planned) `@groqz/babel-plugin` that can be used with general babel setups, as well as [babel macros](https://github.com/kentcdodds/babel-plugin-macros) (used in frameworks like [CRA] that supports it instead of letting you use a custom `babel.config|.babelrc` file).
+- (in progress) `@groqz/babel-plugin` that can be used with general babel setups, as well as [babel macros](https://github.com/kentcdodds/babel-plugin-macros) (used in frameworks like [CRA] that supports it instead of letting you use a custom `babel.config|.babelrc` file).
+- (planned) `@groqz/webpack-plugin`
+- (planned) `@groqz/rollup-plugin`
+- (planned) `@groqz/esbuild-plugin`
+- (planned) `@groqz/swc-plugin`
+- (planned) `@groqz/rollup-plugin`
+- (planned) `@groqz/parcel-plugin`
 - if all else fails, `@groqz/to-js` can be used to generate the runtime code for projects that use tooling that we don't have a plugin for.
 
 ## When developing GROQZ
@@ -131,8 +164,8 @@ For more information about this automation, refer to the official [changesets do
 
 [groq-js]: https://github.com/sanity-io/groq-js
 [zod]: https://zod.dev/
-[groq]: https://www.sanity.io/docs/groq
-[sanity content lake]: https://www.sanity.io/docs/datastore
-[sanity studio v3]: https://www.sanity.io/blog/sanity-studio-v3-simplified-yet-powerful-customization
+[GROQ]: https://www.sanity.io/docs/groq
+[Sanity Content Lake]: https://www.sanity.io/docs/datastore
+[Sanity Studio v3]: https://www.sanity.io/blog/sanity-studio-v3-simplified-yet-powerful-customization
 [`groqd`]: https://github.com/FormidableLabs/groqd
-[cra]: https://create-react-app.dev/
+[CRA]: https://create-react-app.dev/
