@@ -58,6 +58,7 @@ import {createClient} from `@sanity/client`
 const client = createClient()
 const data = schema.parse(await client.fetch(query))
 ```
+
 ```ts
 // Querying Content Lake with another client
 import PicoSanity from 'picosanity'
@@ -66,10 +67,11 @@ const client = new PicoSanity()
 
 const data = schema.parse(await client.fetch(query))
 ```
+
 ```ts
 // Type safety for live preview modes
 import { definePreview } from '@sanity/preview-kit'
-import {useDeferredValue, useMemo} from 'react'
+import { useDeferredValue, useMemo } from 'react'
 
 const usePreview = definePreview()
 function ReactComponent() {
