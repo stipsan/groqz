@@ -104,13 +104,13 @@ You can also use `InferType` if your custom code operates on the parsed query ob
 ```ts
 import { groq, type InferType } from 'groqz'
 
-const allPages = groq`*[_type == "page"]{_type, title, likes}`
+const allDocuments = groq`*`
 
-function uniqueTitles(pages: InferType<typeof allPages>): Set<string> {
-  return new Set()
+function usedDocumentTypes(documents: InferType<typeof allDocuments>): Set<string> {
+  return new Set(pages.map(page => page._type))
 }
 
-client.fetch(query).then(schema.parse).then(uniqueTitles)
+client.fetch(query).then(schema.parse).then(usedDocumentTypes).then(console.log)
 ```
 
 This is similar to how other libraries like [`groqd`] works, and libraries like [`@sanity/client`] may be updated to take `{query, schema}` as input in the future:
