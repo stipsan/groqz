@@ -106,8 +106,10 @@ import { groq, type InferType } from 'groqz'
 
 const allDocuments = groq`*`
 
-function usedDocumentTypes(documents: InferType<typeof allDocuments>): Set<string> {
-  return new Set(pages.map(page => page._type))
+function usedDocumentTypes(
+  documents: InferType<typeof allDocuments>
+): Set<string> {
+  return new Set(pages.map((page) => page._type))
 }
 
 client.fetch(query).then(schema.parse).then(usedDocumentTypes).then(console.log)
