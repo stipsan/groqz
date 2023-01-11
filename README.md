@@ -117,7 +117,7 @@ client.fetch(query).then(schema.parse).then(usedDocumentTypes).then(console.log)
 
 This is similar to how other libraries like [`groqd`] works, and libraries like [`@sanity/client`] may be updated to take `{query, schema}` as input in the future:
 
-```
+```ts
 // This is just an example scenario, `@sanity/client` doesn't support this
 import {createClient} from `@sanity/client`
 import {groq} from 'groqz'
