@@ -290,7 +290,7 @@ importers:
       pirates: ^4.0.0
       read-pkg-up: ^7.0.1
       resolve-from: ^5.0.0
-      rxjs: ^6.5.3
+      rxjs: ^7.8.0
       sanity: ^3.1.2
       styled-components: ^5.3.6
       typescript: ^4.9.4
@@ -314,7 +314,7 @@ importers:
       '@types/node': 18.11.18
       eslint: 8.30.0
       eslint-config-groqz: link:../eslint-config-groqz
-      rxjs: 6.6.7
+      rxjs: 7.8.0
       sanity: 3.1.2_f52uli455v7opnqrbl6hfp5zde
       styled-components: 5.3.6_7i5myeigehqah43i5u7wbekgba
       typescript: 4.9.4
