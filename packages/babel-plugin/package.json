@@ -1,6 +1,9 @@
 {
   "name": "@groqz/babel-plugin",
   "version": "0.0.0",
+  "keywords": [
+    "babel-plugin"
+  ],
   "bugs": {
     "url": "https://github.com/stipsan/groqz/issues"
   },
@@ -31,13 +34,6 @@
     "dist",
     "CHANGELOG.md"
   ],
-  "jest": {
-    "modulePathIgnorePatterns": [
-      "/test/fixtures/"
-    ],
-    "testEnvironment": "node",
-    "testRegex": "./test/.+\\.js$"
-  },
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "pkg build --strict",
@@ -50,14 +46,18 @@
     "> 0.2% and supports es6-module and supports es6-module-dynamic-import and not dead and not IE 11",
     "maintained node versions"
   ],
+  "jest": {
+    "modulePathIgnorePatterns": [
+      "/test/fixtures/"
+    ],
+    "testEnvironment": "node",
+    "testRegex": "./test/.+\\.js$"
+  },
   "dependencies": {
     "@babel/helper-plugin-utils": "^7.20.2",
     "@babel/types": "^7.19.4",
     "@groqz/sanity": "workspace:*"
   },
-  "keywords": [
-    "babel-plugin"
-  ],
   "devDependencies": {
     "@babel/core": "^7.20.7",
     "@babel/generator": "^7.20.7",
