@@ -1,5 +1,11 @@
 # eslint-config-groqz
 
+## 0.0.4
+
+### Patch Changes
+
+- dd8fa55: New test version
+
 ## 0.0.3
 
 ### Patch Changes

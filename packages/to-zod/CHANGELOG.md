@@ -1,5 +1,14 @@
 # @groqz/to-zod
 
+## 0.0.2
+
+### Patch Changes
+
+- dd8fa55: New test version
+- Updated dependencies [dd8fa55]
+  - @groqz/json@0.0.1
+  - @groqz/parser@0.0.2
+
 ## 0.0.1
 
 ### Patch Changes
