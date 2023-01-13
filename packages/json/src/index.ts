@@ -10,7 +10,7 @@ export const literal = z.union([z.string(), z.number(), z.boolean(), z.null()])
 /** @public */
 export type Literal = z.infer<typeof literal>
 /** @public */
-export type Json = Literal | { [key: string]: Json } | Json[]
+export type Json = Literal | { [key: string]: Json | undefined } | Json[]
 /** @public */
 export const json: z.ZodType<Json> = z.lazy(() =>
   z.union([literal, z.array(json), z.record(json)])
