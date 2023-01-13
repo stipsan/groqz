@@ -29,3 +29,9 @@ for (const document of schema1.parse([])) {
       throw new Error(`Unexpected document type: ${document._type}`)
   }
 }
+
+const { schema: schema2 } =
+  groq`{"foo": [2] + ["3"], "category": *[_type == "category"].image.asset->, "count": count(*)}` as import('./everything.typegen').Typegen2
+
+const document = schema2.parse('string')
+console.log(document)
