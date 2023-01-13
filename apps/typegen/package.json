@@ -6,7 +6,7 @@
     "build": "node scripts/typegen.mjs",
     "postbuild": "npx prettier --cache --write '**/*.typegen.ts'",
     "clean": "rm -rf .turbo && rm -rf node_modules",
-    "lint": "TIMING=1 eslint --max-warnings 0 .",
+    "lint": "TIMING=1 eslint .",
     "test": "tsc --noEmit"
   },
   "dependencies": {

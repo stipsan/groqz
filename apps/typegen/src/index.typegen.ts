@@ -17,9 +17,9 @@ export interface gen0 {
             | null
           _type: 'page'
           _id: string
-          _rev: string
-          _createdAt: string
-          _updatedAt: string
+          _rev?: (string | undefined) | null
+          _createdAt?: (string | undefined) | null
+          _updatedAt?: (string | undefined) | null
         }
       | {
           title?: (string | undefined) | null
@@ -42,9 +42,9 @@ export interface gen0 {
             | null
           _type: 'category'
           _id: string
-          _rev: string
-          _createdAt: string
-          _updatedAt: string
+          _rev?: (string | undefined) | null
+          _createdAt?: (string | undefined) | null
+          _updatedAt?: (string | undefined) | null
           category?: import('groqz').Json | undefined
         }
     )[]

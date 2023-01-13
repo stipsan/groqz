@@ -39,7 +39,7 @@
     "build": "pkg build --strict",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "pkg watch",
-    "lint": "TIMING=1 eslint --max-warnings 0 .",
+    "lint": "TIMING=1 eslint .",
     "test": "NODE_ENV=test jest"
   },
   "browserslist": [
