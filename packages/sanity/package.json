@@ -1,6 +1,6 @@
 {
   "name": "@groqz/sanity",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Resolves groqz introspection datasets from sanity schemas, using the same semantics as the `sanity graphql deploy` cli command",
   "bugs": {
     "url": "https://github.com/stipsan/groqz/issues"

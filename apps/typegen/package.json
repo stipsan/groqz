@@ -1,6 +1,6 @@
 {
   "name": "@groqz/typegen",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "build": "node scripts/typegen.mjs",
@@ -15,7 +15,7 @@
     "zod": "^3.20.2"
   },
   "devDependencies": {
-    "@groqz/to-ts": "workspace:^0.0.1",
+    "@groqz/to-ts": "workspace:^0.0.2",
     "@groqz/tsconfig": "workspace:*",
     "eslint-config-groqz": "workspace:*",
     "groq": "^2.33.2",
