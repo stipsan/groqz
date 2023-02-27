@@ -199,7 +199,7 @@ importers:
       '@types/minimatch': ^5.1.2
       '@types/node': ^18.11.18
       chokidar: ^3.5.3
-      commander: ^8.0.0
+      commander: ^10.0.0
       eslint: ^8.30.0
       eslint-config-groqz: workspace:*
       minimatch: ^5.1.2
@@ -216,7 +216,7 @@ importers:
       '@groqz/sanity': link:../sanity
       '@groqz/to-ts': link:../to-ts
       chokidar: 3.5.3
-      commander: 8.0.0
+      commander: 10.0.0
       prettier: 2.8.1
     devDependencies:
       '@groqz/tsconfig': link:../tsconfig
@@ -4706,14 +4706,14 @@ packages:
     resolution: {integrity: sha512-GHuDRO12Sypu2cV70d1dkA2EUmXHgntrzbpvOB+Qy+49ypNfGgFQIC2fhhXbnyrJRynDCAARsT7Ou0M6hirpfw==}
     dev: true
 
+  /commander/10.0.0:
+    resolution: {integrity: sha512-zS5PnTI22FIRM6ylNW8G4Ap0IEOyk62fhLSD0+uHRT9McRCLGpkVNvao4bjimpK/GShynyQkFFxHhwMcETmduA==}
+    engines: {node: '>=14'}
+    dev: false
+
   /commander/2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
     dev: true
-
-  /commander/8.0.0:
-    resolution: {integrity: sha512-Xvf85aAtu6v22+E5hfVoLHqyul/jyxh91zvqk/ioJTQuJR7Z78n7H558vMPKanPSRgIEeZemT92I2g9Y8LPbSQ==}
-    engines: {node: '>= 12'}
-    dev: false
 
   /commander/9.4.1:
     resolution: {integrity: sha512-5EEkTNyHNGFPD2H+c/dXXfQZYa/scCKasxWcXJaWnNJ99pnQN9Vnmqow+p+PlFPE63Q6mThaZws1T+HxfpgtPw==}
