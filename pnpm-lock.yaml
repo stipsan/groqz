@@ -134,7 +134,7 @@ importers:
       '@types/babel__generator': ^7.6.4
       '@types/babel__helper-plugin-utils': ^7.10.0
       '@types/prettier': ^2.7.2
-      babel-plugin-tester: ^10.1.0
+      babel-plugin-tester: ^11.0.4
       eslint: ^8.30.0
       eslint-config-groqz: workspace:*
       groq: ^2.33.2
@@ -159,7 +159,7 @@ importers:
       '@types/babel__generator': 7.6.4
       '@types/babel__helper-plugin-utils': 7.10.0
       '@types/prettier': 2.7.2
-      babel-plugin-tester: 10.1.0_@babel+core@7.20.7
+      babel-plugin-tester: 11.0.4_@babel+core@7.20.7
       eslint: 8.30.0
       eslint-config-groqz: link:../eslint-config-groqz
       groq: 2.33.2
@@ -1665,7 +1665,7 @@ packages:
       fs-extra: 7.0.1
       lodash.startcase: 4.4.0
       outdent: 0.5.0
-      prettier: 2.8.1
+      prettier: 2.8.4
       resolve-from: 5.0.0
       semver: 5.7.1
     dev: true
@@ -1833,7 +1833,7 @@ packages:
       '@changesets/types': 5.2.1
       fs-extra: 7.0.1
       human-id: 1.0.2
-      prettier: 2.8.1
+      prettier: 2.8.4
     dev: true
 
   /@codemirror/autocomplete/6.4.0_qblpgvyxtaztpvbhxrbi4hu7qy:
@@ -3612,13 +3612,6 @@ packages:
     resolution: {integrity: sha512-ebDJ9b0e702Yr7pWgB0jzm+CX4Srzz8RcXtLJDJB+BSccqMa36uyH/zUsSYao5+BD1ytv3k3rPYCq4mAE1hsXA==}
     dev: true
 
-  /@types/babel-plugin-tester/9.0.5:
-    resolution: {integrity: sha512-NRBPlhi5VkrTXMqDB1hSUnHs7vqLGRopeukC9u1zilOIFe9O1siwqeKZRiuJiVYakgpeDso/HE2Q5DU1aDqBog==}
-    dependencies:
-      '@types/babel__core': 7.1.20
-      '@types/prettier': 2.7.2
-    dev: true
-
   /@types/babel__core/7.1.20:
     resolution: {integrity: sha512-PVb6Bg2QuscZ30FvOU7z4guG6c926D9YRvOxEaelzndpMsvP+YM74Q/dAFASpg2l6+XLalxSGxcq/lrgYWZtyQ==}
     dependencies:
@@ -4355,17 +4348,20 @@ packages:
     resolution: {integrity: sha512-qrPaCSo9c8RHNRHIotaufGbuOBN8rtdC4QrrFFc43vyWCCz7Kl7GL1PGaXtMGQZUXrkCjNEgxDfmAuAabr/rlw==}
     dev: true
 
-  /babel-plugin-tester/10.1.0_@babel+core@7.20.7:
-    resolution: {integrity: sha512-4P2tNaM/Mtg6ytA9YAqmgONnMYqWvdbGDuwRTpIIC9yFZGQrEHoyvDPCx+X1QALAufVb5DKieOPGj5dffiEiNg==}
-    engines: {node: '>=10.13', npm: '>=6'}
+  /babel-plugin-tester/11.0.4_@babel+core@7.20.7:
+    resolution: {integrity: sha512-cqswtpSPo0e++rZB0l/54EG17LL25l9gLgh59yXfnmNxX+2lZTIOpx2zt4YI9QIClVXc8xf63J6yWwKkzy0jNg==}
+    engines: {node: ^14.20.0 || ^16.16.0 || >=18.5.0}
     peerDependencies:
-      '@babel/core': ^7.11.6
+      '@babel/core': '>=7.11.6'
     dependencies:
       '@babel/core': 7.20.7
-      '@types/babel-plugin-tester': 9.0.5
+      core-js: 3.29.0
+      debug: 4.3.4
       lodash.mergewith: 4.6.2
-      prettier: 2.8.1
+      prettier: 2.8.4
       strip-indent: 3.0.0
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /babel-preset-current-node-syntax/1.0.1_@babel+core@7.20.7:
@@ -4802,6 +4798,11 @@ packages:
 
   /core-js-pure/3.27.1:
     resolution: {integrity: sha512-BS2NHgwwUppfeoqOXqi08mUqS5FiZpuRuJJpKsaME7kJz0xxuk0xkhDdfMIlP/zLa80krBqss1LtD7f889heAw==}
+    requiresBuild: true
+    dev: true
+
+  /core-js/3.29.0:
+    resolution: {integrity: sha512-VG23vuEisJNkGl6XQmFJd3rEG/so/CNatqeE+7uZAwTSwFeB/qaO0be8xZYUNWprJ/GIwL8aMt9cj1kvbpTZhg==}
     requiresBuild: true
     dev: true
 
@@ -8626,6 +8627,12 @@ packages:
     resolution: {integrity: sha512-lqGoSJBQNJidqCHE80vqZJHWHRFoNYsSpP9AjFhlhi9ODCJA541svILes/+/1GM3VaL/abZi7cpFzOpdR9UPKg==}
     engines: {node: '>=10.13.0'}
     hasBin: true
+
+  /prettier/2.8.4:
+    resolution: {integrity: sha512-vIS4Rlc2FNh0BySk3Wkd6xmwxB0FpOndW5fisM5H8hsZSxU2VWVB5CWIkIjWvrHjIhxk2g3bfMKM87zNTrZddw==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: true
 
   /pretty-bytes/5.6.0:
     resolution: {integrity: sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==}
