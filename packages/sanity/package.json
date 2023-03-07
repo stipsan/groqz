@@ -48,10 +48,10 @@
     "@groqz/json": "workspace:*",
     "@sanity/cli": "^3.1.2",
     "@sanity/types": "^3.1.2",
-    "esbuild-register": "^3.3.2",
+    "esbuild-register": "^3.4.2",
     "jsdom-global": "^3.0.2",
     "oneline": "^1.0.3",
-    "pirates": "^4.0.0",
+    "pirates": "^4.0.5",
     "read-pkg-up": "^7.0.1",
     "resolve-from": "^5.0.0"
   },
