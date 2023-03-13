@@ -22,7 +22,7 @@ jobs:
           cache: pnpm
           node-version: lts/*
       - run: pnpm install --ignore-scripts --dev
-      - uses: actions/cache@4723a57e26efda3a62cbde1812113b730952852d # v3
+      - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
         with:
           path: node_modules/.cache/prettier/.prettier-cache
           key: prettier-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('.gitignore') }}
