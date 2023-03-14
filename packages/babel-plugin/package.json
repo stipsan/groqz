@@ -55,13 +55,13 @@
   },
   "dependencies": {
     "@babel/helper-plugin-utils": "^7.20.2",
-    "@babel/types": "^7.19.4",
+    "@babel/types": "^7.21.3",
     "@groqz/sanity": "workspace:*"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.7",
-    "@babel/generator": "^7.20.7",
-    "@babel/parser": "^7.19.4",
+    "@babel/core": "^7.21.3",
+    "@babel/generator": "^7.21.3",
+    "@babel/parser": "^7.21.3",
     "@groqz/tsconfig": "workspace:*",
     "@sanity/pkg-utils": "2.0.4-beta.1",
     "@types/babel__core": "^7.1.20",
