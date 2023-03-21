@@ -13,7 +13,7 @@
     "posttypegen": "npx prettier --cache --write '**/*.typegen.*'"
   },
   "dependencies": {
-    "groq": "^2.33.2",
+    "groq": "^3.0.0",
     "groqz": "workspace:*",
     "next": "^13.1.1",
     "react": "^18.2.0",

@@ -18,7 +18,7 @@
     "@groqz/to-ts": "workspace:^0.0.2",
     "@groqz/tsconfig": "workspace:*",
     "eslint-config-groqz": "workspace:*",
-    "groq": "^2.33.2",
+    "groq": "^3.0.0",
     "sanity": "^3.1.2",
     "typescript": "^4.9.4",
     "write-file-atomic": "^5.0.0"
