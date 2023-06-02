@@ -67,12 +67,12 @@
     "rxjs": "^6.5.3",
     "sanity": "^3.1.2",
     "styled-components": "^5.3.6",
-    "typescript": "^4.9.4",
+    "typescript": "^5.0.0",
     "vitest": "^0.26.2"
   },
   "peerDependencies": {
     "sanity": "^3",
-    "typescript": "^4.9"
+    "typescript": "^4.9 || ^5.0.0"
   },
   "engines": {
     "node": ">=14"
