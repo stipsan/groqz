@@ -14,7 +14,7 @@
   "devDependencies": {
     "@groqz/tsconfig": "workspace:*",
     "eslint-config-groqz": "workspace:*",
-    "typescript": "^4.9.4"
+    "typescript": "^5.1.6"
   },
   "engines": {
     "node": ">=16"
