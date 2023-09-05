@@ -45,6 +45,7 @@
   ],
   "devDependencies": {
     "@groqz/tsconfig": "workspace:*",
+    "@sanity/client": "6.4.10-dev.0",
     "@sanity/pkg-utils": "2.0.4-beta.1",
     "eslint": "^8.30.0",
     "eslint-config-groqz": "workspace:*",
@@ -53,6 +54,7 @@
     "zod": "^3.20.2"
   },
   "peerDependencies": {
+    "@sanity/client": "6.4.10-dev.0",
     "typescript": "^4.9",
     "zod": "^3"
   },
