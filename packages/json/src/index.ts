@@ -1,6 +1,8 @@
 import type { StrictUnknownQueryResponseResult } from '@sanity/client'
 import { z } from 'zod'
 
+export type { StrictUnknownQueryResponseResult }
+
 /**
  * Recursive JSON value types.
  * Used on values that can't be inferred by groqz, or known ahead of time/compile-time
