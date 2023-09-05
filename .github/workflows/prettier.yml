@@ -10,14 +10,20 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   run:
     name: 🤔
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # for gr2m/create-or-update-pull-request-action to push local changes
+      pull-requests: write # for gr2m/create-or-update-pull-request-action to create a PR
     steps:
-      - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # v3
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # v2.4.0
+      - uses: actions/setup-node@v3
         with:
           cache: pnpm
           node-version: lts/*
@@ -26,13 +32,14 @@ jobs:
         with:
           path: node_modules/.cache/prettier/.prettier-cache
           key: prettier-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('.gitignore') }}
-      - name: check if workflows needs prettier
-        run: npx prettier --cache --check ".github/workflows/**/*.yml" || (echo "An action can't make changes to actions, you'll have to run prettier manually" && exit 1)
-      # - run: npx prettier --ignore-path .gitignore --cache --write .
-      # https://github.com/prettier/prettier/issues/8048
-      - run: npx prettier --ignore-path <(cat .gitignore .prettierignore) --cache --write .
-      - uses: EndBug/add-and-commit@61a88be553afe4206585b31aa72387c64295d08b # tag=v9
+      - run: pnpm format
+      - run: git restore .github/workflows
+      - uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38 # v5
         with:
-          default_author: github_actions
-          commit: --no-verify
-          message: 'chore(prettier): 🤖 ✨'
+          author: github-actions <41898282+github-actions[bot]@users.noreply.github.com>
+          body: I ran `pnpm format` 🧑‍💻
+          branch: actions/prettier
+          commit-message: 'chore(prettier): 🤖 ✨'
+          labels: 🤖 bot
+          title: 'chore(prettier): 🤖 ✨'
+          token: ${{ secrets.GH_TOKEN }}
