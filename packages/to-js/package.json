@@ -45,7 +45,7 @@
   ],
   "dependencies": {
     "@groqz/parser": "workspace:*",
-    "prettier": "^2.8.1"
+    "prettier": "^3.0.0"
   },
   "devDependencies": {
     "@groqz/tsconfig": "workspace:*",
