@@ -82,7 +82,7 @@
     "@babel/core": "^7",
     "groqz": "workspace:*",
     "typescript": "^4.9",
-    "zod": "^3"
+    "zod": "^3.22.3"
   },
   "engines": {
     "node": ">=14"
