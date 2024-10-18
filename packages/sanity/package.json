@@ -62,7 +62,7 @@
     "@types/jsdom-global": "^3.0.4",
     "@types/lodash.isplainobject": "^4.0.7",
     "@types/node": "^18.11.18",
-    "eslint": "^8.30.0",
+    "eslint": "^9.13.0",
     "eslint-config-groqz": "workspace:*",
     "rxjs": "^6.5.3",
     "sanity": "^3.1.2",
