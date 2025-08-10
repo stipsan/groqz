@@ -68,7 +68,7 @@
     "@types/babel__generator": "^7.6.4",
     "@types/babel__helper-plugin-utils": "^7.10.0",
     "@types/prettier": "^2.7.2",
-    "babel-plugin-tester": "^10.1.0",
+    "babel-plugin-tester": "^11.0.4",
     "eslint": "^8.30.0",
     "eslint-config-groqz": "workspace:*",
     "groq": "^2.33.2",
