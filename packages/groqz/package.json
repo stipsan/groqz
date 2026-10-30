@@ -76,12 +76,12 @@
     "sanity": "^3.1.2",
     "typescript": "^4.9.4",
     "vitest": "^0.26.2",
-    "zod": "^3.20.2"
+    "zod": "^4.0.0"
   },
   "peerDependencies": {
     "sanity": "^3",
     "typescript": "^4.9",
-    "zod": "^3"
+    "zod": "^3 || ^4.0.0"
   },
   "engines": {
     "node": ">=14"

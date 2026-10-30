@@ -76,13 +76,13 @@
     "prettier": "^2.8.1",
     "typescript": "^4.9.4",
     "vitest": "^0.26.2",
-    "zod": "^3.20.2"
+    "zod": "^4.0.0"
   },
   "peerDependencies": {
     "@babel/core": "^7",
     "groqz": "workspace:*",
     "typescript": "^4.9",
-    "zod": "^3"
+    "zod": "^3 || ^4.0.0"
   },
   "engines": {
     "node": ">=14"
